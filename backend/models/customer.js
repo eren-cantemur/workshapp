@@ -1,18 +1,15 @@
 const User = require('./user')
 module.exports = (sequelize, Sequelize) => {
     UserModel = User(sequelize,Sequelize)
-    const WorkshopManager = sequelize.define("workshopManager", {
+    const Customer = sequelize.define("customer", {
         name : {
             type : Sequelize.STRING,
             allowNull : false
         },
-        logo : {
+        photo : {
             type : Sequelize.STRING
-        },
-        phone : {
-            type : Sequelize.INTEGER
         }
     })
-    WorkshopManager.belongsTo(UserModel)
-    return WorkshopManager;
+    Customer.belongsTo(UserModel)
+    return Customer;
 }

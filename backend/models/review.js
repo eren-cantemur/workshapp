@@ -13,7 +13,6 @@ module.exports = (sequelize, Sequelize) => {
             type : Sequelize.FLOAT
         }
     })
-
     Review.belongsTo(UserModel)
     return Review;
 }

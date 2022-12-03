@@ -6,9 +6,6 @@ module.exports = (sequelize, Sequelize) => {
         password : {
             type : Sequelize.STRING, 
         },
-        name : {
-            type : Sequelize.STRING
-        },
         isVerified : {
             type : Sequelize.INTEGER,
             defaultValue : 0
@@ -16,9 +13,6 @@ module.exports = (sequelize, Sequelize) => {
         isApproved  : {
             type : Sequelize.INTEGER,
             defaultValue : 0
-        },
-        photo : {
-            type : Sequelize.STRING
         }
     })
     return User;

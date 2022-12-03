@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const db = require("./models");
+const api = require("./api")
 
 db.sequelize.sync()
   .then(() => {
@@ -17,6 +18,8 @@ db.sequelize.sync()
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
   });
+
+app.use(api)
 
 const PORT =  process.env.PORT | 8080;
 app.listen(PORT, () => {
