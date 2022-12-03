@@ -1,4 +1,4 @@
-const WorkshopManager = require('./workshopManager')
+const WorkshopManager = require('./workShopManager')
 
 module.exports = (sequelize, Sequelize) => {
     WorkshopManagerModel = WorkshopManager(sequelize,Sequelize)
