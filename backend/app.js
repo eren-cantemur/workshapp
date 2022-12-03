@@ -19,7 +19,7 @@ db.sequelize.sync()
     console.log("Failed to sync db: " + err.message);
   });
 
-
+app.use(api)
 
 const PORT =  process.env.PORT | 8080;
 app.listen(PORT, () => {

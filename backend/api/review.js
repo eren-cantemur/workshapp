@@ -15,4 +15,4 @@ router.put(async(req,res)=>{
 router.delete(async(req,res)=>{
     reviewService.delete(req,res)
 })
-module.export = router
+module.exports = router

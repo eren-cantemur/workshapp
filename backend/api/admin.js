@@ -1,18 +1,18 @@
 const express = require('express');
 const router = express.Router();
 
-const userService = "../services/user"
+const adminService = "../services/admin"
 
 router.post(async(req,res)=>{
-    userService.create(req,res)
+    adminService.create(req,res)
 })
 router.get(async(req,res)=> {
-    userService.get(req,res)
+    adminService.get(req,res)
 })
 router.put(async(req,res)=>{
-    userService.update(req,res)
+    adminService.update(req,res)
 })
 router.delete(async(req,res)=>{
-    userService.delete(req,res)
+    adminService.delete(req,res)
 })
 module.exports = router
