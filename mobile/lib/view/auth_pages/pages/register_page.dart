@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import '../components/auth_input_field.dart';
 import '../components/action_button.dart';
+import '../components/auth_input_field.dart';
 import 'package:mobile/model/paths.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
-  static String id = 'login';
-
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
+  static String id = "register";
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const AuthButton(
-                  title: "Login",
+                  title: "Register",
                 ),
                 const Expanded(
                   flex: 2,
@@ -87,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                           print('Text Clicked');
                         },
                         child: Text(
-                          'Register',
+                          'Login',
                           style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 18),
                         ),
                       ),
