@@ -3,11 +3,15 @@ const router = express.Router();
 
 const adminService = "../services/admin"
 
-router.post(async(req,res)=>{
-    adminService.create(req,res)
+
+router.get("/:id",async(req,res)=> {
+    adminService.getById(req,res)
 })
-router.get(async(req,res)=> {
-    adminService.get(req,res)
+router.get("/:name",async(req,res)=> {
+    adminService.getByName(req,res)
+})
+router.get("/",async(req,res)=> {
+    adminService.getAll(req,res)
 })
 router.put(async(req,res)=>{
     adminService.update(req,res)
