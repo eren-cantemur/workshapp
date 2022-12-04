@@ -15,4 +15,4 @@ router.use("/workShopManager", workShopManagerRouter)
 router.use("/workshop", workShopRouter)
 router.use("/review", reviewRouter)
 
-module.exports = router
+exports.router

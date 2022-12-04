@@ -1,4 +1,4 @@
-const {Admin} = require('../../models')
+const {Customer} = require('../../models')
 
 exports.delete = async (req,res) => {
 
@@ -12,7 +12,7 @@ exports.delete = async (req,res) => {
         }
     }
 
-    await Admin.delete(
+    await Customer.delete(
         findOptions
     )
     .then(() => {

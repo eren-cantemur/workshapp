@@ -15,4 +15,4 @@ router.put(async(req,res)=>{
 router.delete(async(req,res)=>{
     userService.delete(req,res)
 })
-module.exports = router
+exports.router

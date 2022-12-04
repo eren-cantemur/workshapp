@@ -1,4 +1,4 @@
-const {WorkShop} = require('../models')
+const {WorkShopImage} = require('../../models')
 
 
 exports.create = async (req,res) => {

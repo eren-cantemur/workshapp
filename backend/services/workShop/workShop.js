@@ -1,4 +1,4 @@
-const {User} = require('../models')
+const {WorkShop} = require('../../models')
 
 
 exports.create = async (req,res) => {
