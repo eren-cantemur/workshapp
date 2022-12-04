@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'components/action_button.dart';
+import '../components/action_button.dart';
+import 'package:mobile/model/paths.dart';
+import 'package:mobile/model/app_text_data.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
   static String id = "welcome";
-
   @override
   State<WelcomePage> createState() => _WelcomePageState();
 }
@@ -12,10 +13,8 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
-    const logoPath = 'assets/logo.png';
-    const appName = "WorkshApp";
     return Scaffold(
-      backgroundColor: const Color.fromARGB(253, 244, 245, 249),
+      backgroundColor: const Color.fromARGB(253, 248, 250, 249),
       body: Column(
         children: [
           const Expanded(
@@ -26,7 +25,7 @@ class _WelcomePageState extends State<WelcomePage> {
           ),
           Expanded(
             flex: 38,
-            child: Center(child: Image.asset(logoPath)),
+            child: Center(child: Image.asset(Paths.logoPath)),
           ),
           const Expanded(
             flex: 10,
@@ -37,21 +36,21 @@ class _WelcomePageState extends State<WelcomePage> {
           Expanded(
             flex: 12,
             child: Column(
-              children: const [
+              children: [
                 Center(
                   child: Text(
-                    appName,
-                    style: TextStyle(
+                    TextData.appName,
+                    style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
                       color: Color.fromRGBO(0, 33, 64, 1),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Center(
+                const Center(
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(70, 0, 70, 0),
                     child: Text(
@@ -70,7 +69,7 @@ class _WelcomePageState extends State<WelcomePage> {
               height: 10,
             ),
           ),
-          AuthButton(),
+          const AuthButton(title: "Register"),
           const Expanded(
             flex: 2,
             child: SizedBox(

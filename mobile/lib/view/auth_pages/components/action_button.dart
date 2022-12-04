@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AuthButton extends StatelessWidget {
-  const AuthButton({
-    Key? key,
-  }) : super(key: key);
+  const AuthButton({Key? key, required this.title}) : super(key: key);
 
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -28,9 +27,9 @@ class AuthButton extends StatelessWidget {
                 ),
               ),
               onPressed: () {},
-              child: const Text(
-                "Register",
-                style: TextStyle(fontSize: 20),
+              child: Text(
+                title,
+                style: const TextStyle(fontSize: 20),
               ),
             ),
           ),

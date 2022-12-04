@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'view/auth_pages/welcome_page.dart';
+import 'package:mobile/view/auth_pages/pages/login_page.dart';
+import 'view/auth_pages/pages/welcome_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,9 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: WelcomePage.id,
+      initialRoute: LoginPage.id,
       routes: {
         WelcomePage.id: (context) => const WelcomePage(),
+        LoginPage.id: (context) => const LoginPage(),
       },
     );
   }
