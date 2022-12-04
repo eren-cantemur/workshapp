@@ -21,7 +21,9 @@ class AuthButton extends StatelessWidget {
             flex: 62,
             child: ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(253, 13, 152, 106)),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Theme.of(context).primaryColor,
+                ),
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
                 ),

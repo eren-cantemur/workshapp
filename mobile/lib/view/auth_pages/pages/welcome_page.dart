@@ -14,7 +14,6 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(253, 248, 250, 249),
       body: Column(
         children: [
           const Expanded(

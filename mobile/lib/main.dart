@@ -13,6 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.light().copyWith(
+        primaryColor: const Color.fromARGB(253, 13, 152, 106),
+        scaffoldBackgroundColor: const Color.fromARGB(253, 246, 246, 246),
+      ),
       initialRoute: LoginPage.id,
       routes: {
         WelcomePage.id: (context) => const WelcomePage(),

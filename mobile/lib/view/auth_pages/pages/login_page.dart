@@ -15,88 +15,95 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(253, 246, 246, 246),
-      body: Column(
-        children: [
-          const Expanded(
-            flex: 15,
-            child: SizedBox(
-              height: 200,
-            ),
-          ),
-          Expanded(
-            flex: 37,
-            child: Center(child: Image.asset(Paths.logoPath)),
-          ),
-          const Expanded(
-            flex: 7,
-            child: SizedBox(
-              height: 10,
-            ),
-          ),
-          const Expanded(
-            flex: 12,
-            child: AuthInputField(
-              name: 'Email Adress',
-              hint: 'name@example.com',
-            ),
-          ),
-          const Expanded(
-            flex: 3,
-            child: SizedBox(
-              height: 10,
-            ),
-          ),
-          const Expanded(
-            flex: 12,
-            child: AuthInputField(
-              name: "Password",
-              hint: "********",
-            ),
-          ),
-          const Expanded(
-            flex: 7,
-            child: SizedBox(
-              height: 20,
-            ),
-          ),
-          const AuthButton(
-            title: "Login",
-          ),
-          const Expanded(
-            flex: 2,
-            child: SizedBox(
-              height: 20,
-            ),
-          ),
-          Expanded(
-            flex: 7,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
               children: [
-                const Text(
-                  "Do not have an account? ",
-                  style: TextStyle(color: Color.fromARGB(253, 99, 109, 119), fontSize: 18),
-                ),
-                InkWell(
-                  onTap: () {
-                    print('Text Clicked');
-                  },
-                  child: const Text(
-                    'Register',
-                    style: TextStyle(color: Color.fromARGB(253, 13, 152, 106), fontSize: 18),
+                const Expanded(
+                  flex: 15,
+                  child: SizedBox(
+                    width: 1,
                   ),
                 ),
+                Expanded(
+                  flex: 37,
+                  child: Center(child: Image.asset(Paths.logoPath)),
+                ),
+                const Expanded(
+                  flex: 7,
+                  child: SizedBox(
+                    width: 1,
+                  ),
+                ),
+                const Expanded(
+                  flex: 12,
+                  child: AuthInputField(
+                    name: 'Email Adress',
+                    hint: 'name@example.com',
+                  ),
+                ),
+                const Expanded(
+                  flex: 3,
+                  child: SizedBox(
+                    height: 10,
+                  ),
+                ),
+                const Expanded(
+                  flex: 12,
+                  child: AuthInputField(
+                    name: "Password",
+                    hint: "********",
+                  ),
+                ),
+                const Expanded(
+                  flex: 7,
+                  child: SizedBox(
+                    height: 20,
+                  ),
+                ),
+                const AuthButton(
+                  title: "Login",
+                ),
+                const Expanded(
+                  flex: 2,
+                  child: SizedBox(
+                    height: 20,
+                  ),
+                ),
+                Expanded(
+                  flex: 7,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Do not have an account? ",
+                        style: TextStyle(color: Color.fromARGB(253, 99, 109, 119), fontSize: 18),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          print('Text Clicked');
+                        },
+                        child: Text(
+                          'Register',
+                          style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 18),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Expanded(
+                  flex: 9,
+                  child: SizedBox(
+                    height: 10,
+                  ),
+                )
               ],
             ),
           ),
-          const Expanded(
-            flex: 9,
-            child: SizedBox(
-              height: 10,
-            ),
-          )
-        ],
+        ),
       ),
     );
   }

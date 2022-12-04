@@ -64,14 +64,11 @@ class AuthInputField extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Color.fromARGB(252, 13, 152, 106), width: 1.0),
+                      borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 1.0),
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     // labelText: hint,
-                    focusColor: Color.fromARGB(253, 13, 152, 106),
-                    prefixStyle: const TextStyle(
-                      color: Color.fromARGB(253, 13, 152, 106),
-                    ),
+                    focusColor: Theme.of(context).primaryColor,
                   ),
                 ),
               ),
