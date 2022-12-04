@@ -1,5 +1,5 @@
 exports.getAll = require('./getAll')
 exports.getById = require('./getById')
-exports.getByWorkShopManagerId = require('./getByName')
+exports.getByWorkshopManagerId = require('./getByWorkshopManagerId')
 exports.update = require('./update')
 exports.delete = require('./delete')

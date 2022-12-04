@@ -1,24 +1,26 @@
-const { WorkShop } = require('../../models')
+const { Workshop } = require('../../models')
 
-exports.delete = async (req, res) => {
-
-    if (!req.body.id) {
-        res.status(400).send({ message: "id must be given!" })
-    }
+exports.delete = async (id) => {
 
     const findOptions = {
         where: {
-            id: req.body.id
+            id: id
         }
     }
 
-    await WorkShop.delete(
-        findOptions
-    )
-        .then(() => {
-            res.status(200).send({ message: "Delete succesfull!" })
-        })
-        .catch(err => {
-            res.status(404).send({ message: "WorkShop not found!" })
-        })
+    const result = await Workshop.destroy(findOptions)
+
+    if (result == 0) {
+        return {
+            type: "Error",
+            message: `Error while deleting workshop.`,
+        };
+    }
+    else {
+        return {
+            type: "Success",
+            message: `Workshop with id ${id} is deleted.`,
+        };
+    }
 }
+

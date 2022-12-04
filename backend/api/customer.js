@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const customerService = "../services/customer"
+const customerService = require("../services/customer")
 
 
 router.get("/:id", async (req, res) => {

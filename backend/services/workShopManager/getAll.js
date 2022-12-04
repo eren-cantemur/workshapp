@@ -1,11 +1,20 @@
-const {WorkShopManager} = require('../../models')
+const {WorkshopManager} = require('../../models')
 
-exports.getAll = async (req,res) => {
-    await WorkShopManager.findAll()
-    .then((data) => {
-        res.status(200).send({data: data})
-    })
-    .catch(err => {
-        res.status(404).send({message : "User not found!"})
-    })
+exports.getAll = async () => {
+    const managers = await WorkshopManager.findAll()
+
+    if (!managers) {
+        return {
+            type: "Error",
+            message: "Can not find any manager.",
+        };
+    }
+    else {
+        return {
+            type: "Success",
+            message: "Manager array is added to result.",
+            result: managers
+        };
+    }
+    
 }

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const reviewService = "../services/review"
+const reviewService = require("../services/review")
 
 router.post(async(req,res)=>{
     reviewService.create(req,res)

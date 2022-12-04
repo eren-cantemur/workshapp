@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
             type : Sequelize.STRING
         },
         phone : {
-            type : Sequelize.INTEGER
+            type : Sequelize.STRING
         }
     })
     WorkshopManager.belongsTo(UserModel)

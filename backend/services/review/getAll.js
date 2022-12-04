@@ -1,11 +1,20 @@
 const { Review } = require('../../models')
 
-exports.getAll = async (req, res) => {
-    await Review.findAll()
-        .then((data) => {
-            res.status(200).send({ data: data })
-        })
-        .catch(err => {
-            res.status(404).send({ message: "User not found!" })
-        })
+exports.getAll = async () => {
+    const reviews = await Review.findAll()
+
+    if (!reviews) {
+        return {
+            type: "Error",
+            message: "Can not find any review.",
+        };
+    }
+    else {
+        return {
+            type: "Success",
+            message: "Review array is added to result.",
+            result: reviews
+        };
+    }
+    
 }

@@ -1,24 +1,25 @@
 const { Review } = require('../../models')
 
-exports.delete = async (req, res) => {
-
-    if (!req.body.id) {
-        res.status(400).send({ message: "id must be given!" })
-    }
+exports.delete = async (id) => {
 
     const findOptions = {
         where: {
-            id: req.body.id
+            id: id
         }
     }
 
-    await Review.delete(
-        findOptions
-    )
-        .then(() => {
-            res.status(200).send({ message: "Delete succesfull!" })
-        })
-        .catch(err => {
-            res.status(404).send({ message: "Review not found!" })
-        })
+    const result = await Review.destroy(findOptions)
+
+    if (result == 0) {
+        return {
+            type: "Error",
+            message: `Error while deleting review.`,
+        };
+    }
+    else {
+        return {
+            type: "Success",
+            message: `Review with id ${id} is deleted.`,
+        };
+    }
 }

@@ -1,18 +1,19 @@
 const {WorkshopManager} = require('../../models')
 
-exports.getByName = async(name) => {
+exports.getById = async (id) => {
+   
     const findOptions = {
         where : {
-            name : name
+            id : id
         }
     }
 
     const manager = await WorkshopManager.findOne(findOptions)
-
+    
     if (!manager) {
         return {
             type: "Error",
-            message: `Can not find manager with name ${name}.`,
+            message: `Can not find manager with id ${id}.`,
         };
     }
     else{
@@ -22,5 +23,4 @@ exports.getByName = async(name) => {
             result: manager
         };
     }
-    
 }

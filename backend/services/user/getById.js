@@ -1,11 +1,10 @@
 const { User } = require('../../models')
 
-exports.getByName = async (name) => {
+exports.getById = async (id) => {
     
-
     const findOptions = {
-        where: {
-            name: name
+        where : {
+            id : id
         }
     }
 
@@ -14,7 +13,7 @@ exports.getByName = async (name) => {
     if (!user) {
         return {
             type: "Error",
-            message: `Can not find user with id ${id}.`,
+            message: `Can not find User with id ${id}.`,
         };
     }
     else{

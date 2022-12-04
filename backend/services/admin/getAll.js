@@ -1,11 +1,20 @@
-const {Admin} = require('../../models')
+const { Admin } = require('../../models')
 
-exports.getAll = async (req,res) => {
-    await Admin.findAll()
-    .then((data) => {
-        res.status(200).send({data: data})
-    })
-    .catch(err => {
-        res.status(404).send({message : "User not found!"})
-    })
+exports.getAll = async () => {
+    const admins = await Admin.findAll()
+
+    if (!admins) {
+        return {
+            type: "Error",
+            message: "Can not find any admin.",
+        };
+    }
+    else {
+        return {
+            type: "Success",
+            message: "Admin array is added to result.",
+            result: admins
+        };
+    }
+
 }

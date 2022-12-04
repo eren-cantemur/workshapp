@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const workShopImageService = "../services/workShopImage"
+const workShopImageService = require("../services/workShopImage")
 
 router.post(async(req,res)=>{
     workShopImageService.create(req,res)

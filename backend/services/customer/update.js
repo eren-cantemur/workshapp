@@ -1,30 +1,33 @@
 const {Customer} = require('../../models')
 
-exports.update = async (req,res) => {
-
-    if (!req.body.name || !req.body.id || !req.body.photo){
-        res.status(400).send({message : "Request body is missing data!"})
-    }
+exports.update = async (id,name,photo) => {
 
     const updateBody = {
-        name : req.body.name,
-        photo : req.body.photo
+        name : name,
+        photo : photo
     }
 
     const findOptions = {
         where : {
-            id : req.body.id
+            id : id
         }
     }
 
-    await Customer.update(
+    const result = await Customer.update(
         updateBody,
         findOptions
     )
-    .then(() => {
-        res.status(200).send({message : "Update succesfull!"})
-    })
-    .catch(err => {
-        res.status(404).send({message : "User not found!"})
-    })
+
+    if (result == 0) {
+        return {
+            type: "Error",
+            message: `Error while updating customer.`,
+        };
+    }
+    else {
+        return {
+            type: "Success",
+            message: `Customer with id ${id} is updated.`,
+        };
+    }
 }

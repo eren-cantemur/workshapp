@@ -1,29 +1,32 @@
 const { Admin } = require('../../models')
 
-exports.update = async (req, res) => {
-
-    if (!req.body.name || !req.body.id) {
-        res.status(400).send({ message: "Request body is missing data!" })
-    }
+exports.update = async (name, id) => {
 
     const updateBody = {
-        name: req.body.name
+        name: name
     }
-
     const findOptions = {
         where: {
-            id: req.body.id
+            id: id
         }
     }
 
-    await Admin.update(
+    const result = await Admin.update(
         updateBody,
         findOptions
     )
-        .then(() => {
-            res.status(200).send({ message: "Update succesfull!" })
-        })
-        .catch(err => {
-            res.status(404).send({ message: "User not found!" })
-        })
+
+    if (result == 0) {
+        return {
+            type: "Error",
+            message: `Error while updating admin.`,
+        };
+    }
+    else {
+        return {
+            type: "Success",
+            message: `Admin with id ${id} is updated.`,
+        };
+    }
+        
 }

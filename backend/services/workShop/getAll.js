@@ -1,11 +1,20 @@
-const { WorkShop } = require('../../models')
+const { Workshop } = require('../../models')
 
-exports.getAll = async (req, res) => {
-    await WorkShop.findAll()
-        .then((data) => {
-            res.status(200).send({ data: data })
-        })
-        .catch(err => {
-            res.status(404).send({ message: "WorkShop not found!" })
-        })
+exports.getAll = async () => {
+    const workshops = await Workshop.findAll()
+
+    if (!workshops) {
+        return {
+            type: "Error",
+            message: "Can not find any workshop.",
+        };
+    }
+    else {
+        return {
+            type: "Success",
+            message: "Workshop array is added to result.",
+            result: workshops
+        };
+    }
+    
 }

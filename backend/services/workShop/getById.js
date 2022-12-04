@@ -1,10 +1,10 @@
 const {WorkShop} = require('../../models')
 
-exports.getById = async (managerId) => {
-    
+exports.getById = async (id) => {
+   
     const findOptions = {
         where : {
-            workshopManagerId : managerId
+            id : id
         }
     }
 

@@ -1,30 +1,34 @@
-const {WorkShop} = require('../../models')
+const {Workshop} = require('../../models')
 
-exports.update = async (req,res) => {
-
-    if (!req.body.comment || !req.body.id || !req.body.rate){
-        res.status(400).send({message : "Request body is missing data!"})
-    }
+exports.update = async (name, capacity) => {
 
     const updateBody = {
-        name : req.body.name,
-        photo : req.body.photo
+        name : name,
+        capacity : capacity
     }
 
     const findOptions = {
         where : {
-            id : req.body.id
+            id : id
         }
     }
 
-    await WorkShop.update(
+    const result = await Workshop.update(
         updateBody,
         findOptions
     )
-    .then(() => {
-        res.status(200).send({message : "Update succesfull!"})
-    })
-    .catch(err => {
-        res.status(404).send({message : "User not found!"})
-    })
+
+    if (result == 0) {
+        return {
+            type: "Error",
+            message: `Error while updating workshop.`,
+        };
+    }
+    else {
+        return {
+            type: "Success",
+            message: `Workshop with id ${id} is updated.`,
+        };
+    }
 }
+

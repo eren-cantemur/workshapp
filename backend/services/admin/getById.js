@@ -1,9 +1,10 @@
 const {Admin} = require('../../models')
 
-exports.getByName = async(name) => {
+exports.getById = async (id) => {
+
     const findOptions = {
         where : {
-            name : name
+            id : id
         }
     }
 
@@ -12,7 +13,7 @@ exports.getByName = async(name) => {
     if (!admin) {
         return {
             type: "Error",
-            message: `Can not find admin with name ${name}.`,
+            message: `Can not find admin with id ${id}.`,
         };
     }
     else{
@@ -22,5 +23,7 @@ exports.getByName = async(name) => {
             result: admin
         };
     }
+
+    
     
 }

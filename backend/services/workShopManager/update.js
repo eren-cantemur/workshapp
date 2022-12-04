@@ -1,31 +1,35 @@
 const {WorkShopManager} = require('../../models')
 
-exports.update = async (req,res) => {
-
-    if (!req.body.name || !req.body.id || !req.body.logo || !req.body.phone){
-        res.status(400).send({message : " Request body missing data!"})
-    }
+exports.update = async (name,logo, photo) => {
 
     const updateBody = {
-        name : req.body.name,
-        logo : req.body.logo,
-        phone : req.body.phone
+        name : name,
+        logo : logo,
+        photo : photo
     }
 
     const findOptions = {
         where : {
-            id : req.body.id
+            id : id
         }
     }
 
-    await WorkShopManager.update(
+    const result = await Workshop.update(
         updateBody,
         findOptions
     )
-    .then(() => {
-        res.status(200).send({message : "Update succesfull!"})
-    })
-    .catch(err => {
-        res.status(404).send({message : "User not found!"})
-    })
+
+    if (result == 0) {
+        return {
+            type: "Error",
+            message: `Error while updating manager.`,
+        };
+    }
+    else {
+        return {
+            type: "Success",
+            message: `Manager with id ${id} is updated.`,
+        };
+    }
 }
+

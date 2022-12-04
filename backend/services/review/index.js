@@ -1,5 +1,5 @@
 exports.getAll = require('./getAll')
 exports.getById = require('./getById')
-exports.getByUserId = require('./getByName')
+exports.getByUserId = require('./getByUserId')
 exports.update = require('./update')
 exports.delete = require('./delete')

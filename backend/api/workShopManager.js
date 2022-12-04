@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const workShopManagerService = "../services/workShopManager"
+const workShopManagerService = require("../services/workShopManager")
 
 router.get("/:id", async (req, res) => {
     workShopManagerService.getById(req, res)

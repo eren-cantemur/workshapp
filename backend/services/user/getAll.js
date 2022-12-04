@@ -1,11 +1,20 @@
-const {Customer} = require('../../models')
+const {User} = require('../../models')
 
-exports.getAll = async (req,res) => {
-    await Customer.findAll()
-    .then((data) => {
-        res.status(200).send({data: data})
-    })
-    .catch(err => {
-        res.status(404).send({message : "User not found!"})
-    })
+exports.getAll = async () => {
+    const users = await User.findAll()
+
+    if (!users) {
+        return {
+            type: "Error",
+            message: "Can not find any user.",
+        };
+    }
+    else {
+        return {
+            type: "Success",
+            message: "User array is added to result.",
+            result: users
+        };
+    }
+    
 }

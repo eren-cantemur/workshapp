@@ -1,10 +1,10 @@
 const {Review} = require('../../models')
 
-exports.getByUserId = async(userId) => {
-
+exports.getById = async (id) => {
+    
     const findOptions = {
         where : {
-            userId : userId
+            id : id
         }
     }
 
@@ -13,7 +13,7 @@ exports.getByUserId = async(userId) => {
     if (!review) {
         return {
             type: "Error",
-            message: `Can not find review with name ${name}.`,
+            message: `Can not find review with id ${id}.`,
         };
     }
     else{
@@ -23,4 +23,5 @@ exports.getByUserId = async(userId) => {
             result: review
         };
     }
+    
 }

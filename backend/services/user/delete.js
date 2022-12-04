@@ -1,24 +1,26 @@
 const {User} = require('../../models')
 
-exports.delete = async (req,res) => {
-
-    if (!req.body.id){
-        res.status(400).send({message : "id must be given!"})
-    }
+exports.delete = async (id) => {
 
     const findOptions = {
-        where : {
-            id : req.body.id
+        where: {
+            id: id
         }
     }
 
-    await User.delete(
-        findOptions
-    )
-    .then(() => {
-        res.status(200).send({message : "Delete succesfull!"})
-    })
-    .catch(err => {
-        res.status(404).send({message : "User not found!"})
-    })
+    const result = await User.destroy(findOptions)
+
+    if (result == 0) {
+        return {
+            type: "Error",
+            message: `Error while deleting user.`,
+        };
+    }
+    else {
+        return {
+            type: "Success",
+            message: `User with id ${id} is deleted.`,
+        };
+    }
 }
+
