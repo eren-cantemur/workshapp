@@ -5,11 +5,20 @@ exports.getById = async (id) => {
     const findOptions = {
         where : {
             id : id
-        }
+        },
+        include : [{
+            model : Address
+        },
+        {
+            model : WorkshopImage
+        },
+        {
+            model  :Review
+        }]
     }
 
     const workshop = await WorkShop.findOne(findOptions)
-    
+
     if (!workshop) {
         return {
             type: "Error",
