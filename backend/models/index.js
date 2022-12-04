@@ -18,7 +18,7 @@ db.Workshop = require("./workshop.js")(sequelize, Sequelize);
 db.Review = require("./review.js")(sequelize, Sequelize);
 db.Admin = require("./admin.js")(sequelize, Sequelize);
 db.Customer = require("./customer.js")(sequelize, Sequelize);
-db.WorkShopImage = require("./workshopImage.js")(sequelize, Sequelize);
+db.WorkshopImage = require("./workshopImage.js")(sequelize, Sequelize);
 
 
 
