@@ -1,19 +1,19 @@
-const {Customer} = require('../../models')
+const { Customer } = require('../../models')
 
-exports.getByName = async(req,req) => {
-    const name = req.query.name
+exports.getByUser = async (req, req) => {
+    const userId = req.query.userId
 
     const findOptions = {
-        where : {
-            name : name
+        where: {
+            userId: userId
         }
     }
 
     await Customer.findOne(findOptions)
-    .then((data) => {
-        res.status(200).send({data: data})
-    })
-    .catch(err => {
-        res.status(404).send({message : "User not found!"})
-    })
+        .then((data) => {
+            res.status(200).send({ data: data })
+        })
+        .catch(err => {
+            res.status(404).send({ message: "User not found!" })
+        })
 }

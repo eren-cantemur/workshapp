@@ -3,7 +3,7 @@ const {Customer} = require('../../models')
 exports.update = async (req,res) => {
 
     if (!req.body.name || !req.body.id || !req.body.photo){
-        res.status(400).send({message : "Name must be given!"})
+        res.status(400).send({message : "Request body is missing data!"})
     }
 
     const updateBody = {

@@ -1,24 +1,24 @@
-const {User} = require('../../models')
+const { Review } = require('../../models')
 
-exports.delete = async (req,res) => {
+exports.delete = async (req, res) => {
 
-    if (!req.body.id){
-        res.status(400).send({message : "id must be given!"})
+    if (!req.body.id) {
+        res.status(400).send({ message: "id must be given!" })
     }
 
     const findOptions = {
-        where : {
-            id : req.body.id
+        where: {
+            id: req.body.id
         }
     }
 
-    await User.delete(
+    await Review.delete(
         findOptions
     )
-    .then(() => {
-        res.status(200).send({message : "Delete succesfull!"})
-    })
-    .catch(err => {
-        res.status(404).send({message : "User not found!"})
-    })
+        .then(() => {
+            res.status(200).send({ message: "Delete succesfull!" })
+        })
+        .catch(err => {
+            res.status(404).send({ message: "Review not found!" })
+        })
 }

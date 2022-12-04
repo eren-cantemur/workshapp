@@ -1,9 +1,9 @@
-const {Customer} = require('../../models')
+const {Review} = require('../../models')
 
 exports.update = async (req,res) => {
 
-    if (!req.body.name || !req.body.id || !req.body.photo){
-        res.status(400).send({message : "Name must be given!"})
+    if (!req.body.comment || !req.body.id || !req.body.rate){
+        res.status(400).send({message : "Request body is missing data!"})
     }
 
     const updateBody = {
@@ -17,7 +17,7 @@ exports.update = async (req,res) => {
         }
     }
 
-    await Customer.update(
+    await Review.update(
         updateBody,
         findOptions
     )

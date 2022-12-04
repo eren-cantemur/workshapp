@@ -1,18 +1,18 @@
-const {Admin} = require('../../models')
+const { Admin } = require('../../models')
 
-exports.update = async (req,res) => {
+exports.update = async (req, res) => {
 
-    if (!req.body.name || !req.body.id){
-        res.status(400).send({message : "Name must be given!"})
+    if (!req.body.name || !req.body.id) {
+        res.status(400).send({ message: "Request body is missing data!" })
     }
 
     const updateBody = {
-        name : req.body.name
+        name: req.body.name
     }
 
     const findOptions = {
-        where : {
-            id : req.body.id
+        where: {
+            id: req.body.id
         }
     }
 
@@ -20,10 +20,10 @@ exports.update = async (req,res) => {
         updateBody,
         findOptions
     )
-    .then(() => {
-        res.status(200).send({message : "Update succesfull!"})
-    })
-    .catch(err => {
-        res.status(404).send({message : "User not found!"})
-    })
+        .then(() => {
+            res.status(200).send({ message: "Update succesfull!" })
+        })
+        .catch(err => {
+            res.status(404).send({ message: "User not found!" })
+        })
 }

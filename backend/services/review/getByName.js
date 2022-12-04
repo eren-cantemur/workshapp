@@ -1,4 +1,4 @@
-const {Customer} = require('../../models')
+const {Review} = require('../../models')
 
 exports.getByName = async(req,req) => {
     const name = req.query.name
@@ -9,7 +9,7 @@ exports.getByName = async(req,req) => {
         }
     }
 
-    await Customer.findOne(findOptions)
+    await Review.findOne(findOptions)
     .then((data) => {
         res.status(200).send({data: data})
     })
