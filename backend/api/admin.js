@@ -19,4 +19,4 @@ router.put(async(req,res)=>{
 router.delete(async(req,res)=>{
     adminService.delete(req,res)
 })
-exports.router
+module.exports = router

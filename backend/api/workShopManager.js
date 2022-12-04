@@ -3,16 +3,20 @@ const router = express.Router();
 
 const workShopManagerService = "../services/workShopManager"
 
-router.post(async(req,res)=>{
-    workShopManagerService.create(req,res)
+router.get("/:id", async (req, res) => {
+    workShopManagerService.getById(req, res)
 })
-router.get(async(req,res)=> {
-    workShopManagerService.get(req,res)
+router.get("/:name", async (req, res) => {
+    workShopManagerService.getByName(req, res)
 })
-router.put(async(req,res)=>{
-    workShopManagerService.update(req,res)
+router.get("/", async (req, res) => {
+    workShopManagerService.getAll(req, res)
 })
-router.delete(async(req,res)=>{
-    workShopManagerService.delete(req,res)
+router.put(async (req, res) => {
+    workShopManagerService.update(req, res)
 })
-exports.router
+router.delete(async (req, res) => {
+    workShopManagerService.delete(req, res)
+})
+
+module.exports = router

@@ -15,4 +15,4 @@ router.put(async(req,res)=>{
 router.delete(async(req,res)=>{
     workShopImageService.delete(req,res)
 })
-exports.router
+module.exports = router

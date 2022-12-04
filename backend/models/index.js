@@ -13,12 +13,12 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.User = require("./user.js")(sequelize, Sequelize);
-db.WorkShopManager = require("./workShopManager.js")(sequelize, Sequelize);
-db.WorkShop = require("./workShop.js")(sequelize, Sequelize);
+db.WorkShopManager = require("./workshopManager.js")(sequelize, Sequelize);
+db.Workshop = require("./workshop.js")(sequelize, Sequelize);
 db.Review = require("./review.js")(sequelize, Sequelize);
 db.Admin = require("./admin.js")(sequelize, Sequelize);
 db.Customer = require("./customer.js")(sequelize, Sequelize);
-db.WorkShopImage = require("./workShopImage.js")(sequelize, Sequelize);
+db.WorkShopImage = require("./workshopImage.js")(sequelize, Sequelize);
 
 
 
