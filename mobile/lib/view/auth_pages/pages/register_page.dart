@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/controller/auth_controller.dart';
+import 'package:mobile/view/auth_pages/pages/login_page.dart';
 import '../components/action_button.dart';
 import '../components/auth_input_field.dart';
 import 'package:mobile/model/paths.dart';
@@ -65,8 +67,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 20,
                   ),
                 ),
-                const AuthButton(
+                AuthButton(
                   title: "Register",
+                  nextPageId: "notyet",
                 ),
                 const Expanded(
                   flex: 2,
@@ -85,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       InkWell(
                         onTap: () {
-                          print('Text Clicked');
+                          AuthController.navigateToNextPage(LoginPage.id, context);
                         },
                         child: Text(
                           'Login',

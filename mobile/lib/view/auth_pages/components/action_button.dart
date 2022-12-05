@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/controller/auth_controller.dart';
 
 class AuthButton extends StatelessWidget {
-  const AuthButton({Key? key, required this.title}) : super(key: key);
-
+  const AuthButton({Key? key, required this.title, required this.nextPageId}) : super(key: key);
   final String title;
+  final String nextPageId;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -28,7 +29,9 @@ class AuthButton extends StatelessWidget {
                   RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                AuthController.navigateToNextPage(nextPageId, context);
+              },
               child: Text(
                 title,
                 style: const TextStyle(fontSize: 20),

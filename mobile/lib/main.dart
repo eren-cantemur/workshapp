@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/view/auth_pages/pages/login_page.dart';
 import 'package:mobile/view/auth_pages/pages/register_page.dart';
+import 'package:provider/provider.dart';
+import 'controller/auth_controller.dart';
 import 'view/auth_pages/pages/welcome_page.dart';
 
 void main() {
@@ -13,17 +15,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.light().copyWith(
-        primaryColor: const Color.fromARGB(253, 13, 152, 106),
-        scaffoldBackgroundColor: const Color.fromARGB(253, 246, 246, 246),
+    return MultiProvider(
+      providers: [
+        Provider<AuthController>(create: (_) => AuthController()),
+      ],
+      child: MaterialApp(
+        theme: ThemeData.light().copyWith(
+          primaryColor: const Color.fromARGB(253, 13, 152, 106),
+          scaffoldBackgroundColor: const Color.fromARGB(253, 246, 246, 246),
+        ),
+        initialRoute: WelcomePage.id,
+        routes: {
+          WelcomePage.id: (context) => const WelcomePage(),
+          LoginPage.id: (context) => const LoginPage(),
+          RegisterPage.id: (context) => const RegisterPage(),
+        },
+        home: WelcomePage(),
       ),
-      initialRoute: RegisterPage.id,
-      routes: {
-        WelcomePage.id: (context) => const WelcomePage(),
-        LoginPage.id: (context) => const LoginPage(),
-        RegisterPage.id: (context) => const RegisterPage(),
-      },
     );
   }
 }
