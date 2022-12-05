@@ -43,6 +43,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: AuthInputField(
                     name: 'Email Adress',
                     hint: 'name@example.com',
+                    obscure: false,
                   ),
                 ),
                 const Expanded(
@@ -56,6 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: AuthInputField(
                     name: "Password",
                     hint: "********",
+                    obscure: true,
                   ),
                 ),
                 const Expanded(

@@ -42,6 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: AuthInputField(
                     name: 'Email Adress',
                     hint: 'name@example.com',
+                    obscure: false,
                   ),
                 ),
                 const Expanded(
@@ -55,6 +56,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: AuthInputField(
                     name: "Password",
                     hint: "********",
+                    obscure: true,
                   ),
                 ),
                 const Expanded(
@@ -78,7 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        "Do not have an account? ",
+                        "Do you have an account? ",
                         style: TextStyle(color: Color.fromARGB(253, 99, 109, 119), fontSize: 18),
                       ),
                       InkWell(

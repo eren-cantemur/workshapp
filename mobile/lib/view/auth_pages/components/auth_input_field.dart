@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AuthInputField extends StatelessWidget {
-  const AuthInputField({Key? key, required this.name, required this.hint}) : super(key: key);
+  const AuthInputField({Key? key, required this.name, required this.hint, required this.obscure}) : super(key: key);
 
   final String name;
   final String hint;
+  final bool obscure;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -70,6 +71,7 @@ class AuthInputField extends StatelessWidget {
                     // labelText: hint,
                     focusColor: Theme.of(context).primaryColor,
                   ),
+                  obscureText: obscure,
                 ),
               ),
               const Expanded(
