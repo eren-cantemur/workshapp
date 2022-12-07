@@ -7,9 +7,7 @@ import '@testing-library/jest-dom'
 describe('RegisterPage', () => {
   it('renders page', () => {
     render(<RegisterPage />)
-    expect(screen.getByTestId('email')).toBeInTheDocument()
-    expect(screen.getByTestId('password')).toBeInTheDocument()
-    expect(screen.getByTestId('checkbox')).toBeInTheDocument()
-    expect(screen.getByTestId('submit')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('name@company.com')).toBeInTheDocument()
+    expect(screen.getByRole('button', {name: 'Create an account'})).toBeInTheDocument()
   })
 })
