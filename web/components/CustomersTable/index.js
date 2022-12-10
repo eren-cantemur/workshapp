@@ -1,8 +1,8 @@
-import EditUserModal from "../EditUserModal";
-import UserRow from "../UserRow";
-import UserTableHeader from "../UserTableHeader";
+import CustomerRow from "../CustomerRow";
+import CustomersTableHeader from "../CustomersTableHeader";
+import EditCustomerModal from "../EditCustomerModal";
 
-export default function UserTable() {
+export default function CustomersTable() {
   return (
     <section class="bg-white dark:bg-gray-900">
       <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -14,12 +14,12 @@ export default function UserTable() {
         </p>
         <div class="relative shadow-md sm:rounded-lg">
           <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <UserTableHeader />
+            <CustomersTableHeader />
             <tbody>
-              <UserRow />
+              <CustomerRow />
             </tbody>
           </table>
-          <EditUserModal />
+          <EditCustomerModal />
         </div>
       </div>
     </section>
