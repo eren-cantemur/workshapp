@@ -1,6 +1,6 @@
 const {Workshop} = require('../../models')
 
-exports.update = async (name, capacity) => {
+exports.update = async (id,name, capacity) => {
 
     const updateBody = {
         name : name,

@@ -1,3 +1,4 @@
+exports.create = require('./create')
 exports.getAll = require('./getAll')
 exports.getById = require('./getById')
 exports.getByUserId = require('./getByUserId')

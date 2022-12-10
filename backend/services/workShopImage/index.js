@@ -1,3 +1,4 @@
+exports.create = require('./create')
 exports.getAll = require('./getAll')
 exports.getByWorkshopId = require('./getByWorkshopId')
 exports.update = require('./update')
