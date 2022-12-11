@@ -68,9 +68,12 @@ class _LoginPageState extends State<LoginPage> {
                     height: 20,
                   ),
                 ),
-                AuthButton(
-                  title: "Login",
-                  nextPageId: "empty",
+                const Expanded(
+                  flex: 7,
+                  child: AuthButton(
+                    title: "Login",
+                    nextPageId: "empty",
+                  ),
                 ),
                 const Expanded(
                   flex: 2,

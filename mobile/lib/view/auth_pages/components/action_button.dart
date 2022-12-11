@@ -7,45 +7,42 @@ class AuthButton extends StatelessWidget {
   final String nextPageId;
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 7,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const Expanded(
-            flex: 19,
-            child: SizedBox(
-              height: 2,
-            ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const Expanded(
+          flex: 19,
+          child: SizedBox(
+            height: 2,
           ),
-          Expanded(
-            flex: 62,
-            child: ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                  Theme.of(context).primaryColor,
-                ),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-                ),
+        ),
+        Expanded(
+          flex: 62,
+          child: ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(
+                Theme.of(context).primaryColor,
               ),
-              onPressed: () {
-                AuthController.navigateToNextPage(nextPageId, context);
-              },
-              child: Text(
-                title,
-                style: const TextStyle(fontSize: 20),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
               ),
             ),
-          ),
-          const Expanded(
-            flex: 19,
-            child: SizedBox(
-              height: 2,
+            onPressed: () {
+              AuthController.navigateToNextPage(nextPageId, context);
+            },
+            child: Text(
+              title,
+              style: const TextStyle(fontSize: 20),
             ),
           ),
-        ],
-      ),
+        ),
+        const Expanded(
+          flex: 19,
+          child: SizedBox(
+            height: 2,
+          ),
+        ),
+      ],
     );
   }
 }

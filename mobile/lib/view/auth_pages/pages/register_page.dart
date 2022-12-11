@@ -67,9 +67,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 20,
                   ),
                 ),
-                AuthButton(
-                  title: "Register",
-                  nextPageId: "notyet",
+                Expanded(
+                  flex: 7,
+                  child: AuthButton(
+                    title: "Register",
+                    nextPageId: "notyet",
+                  ),
                 ),
                 const Expanded(
                   flex: 2,

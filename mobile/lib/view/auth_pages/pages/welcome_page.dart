@@ -71,7 +71,10 @@ class _WelcomePageState extends State<WelcomePage> {
               height: 10,
             ),
           ),
-          AuthButton(title: "Register", nextPageId: RegisterPage.id),
+          Expanded(
+            flex: 7,
+            child: AuthButton(title: "Register", nextPageId: RegisterPage.id),
+          ),
           const Expanded(
             flex: 2,
             child: SizedBox(
