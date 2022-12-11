@@ -3,7 +3,18 @@ const router = express.Router();
 
 const addressService = require("../services/address")
 
-
+router.post("/",async(req,res)=>{
+  const {lat, long, country, city, county, postalCode, openAddress} = req.body
+  if(lat&& long&& country&& city&&county&& postalCode&& openAddress){
+      const response = await addressService.create(lat, long, country, city,county, postalCode, openAddress)
+      res.status(response.type === "Error" ? 400 : 200).send(response);
+  } else {
+    res.status(400).send({
+      type: "Error",
+      message: "Fields supplied not valid.",
+    });
+  }
+})
 router.get("/:id", async (req,res)=>{
     const {id} = req.query
     if(id){
