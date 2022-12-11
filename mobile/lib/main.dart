@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/view/auth_pages/pages/login_page.dart';
 import 'package:mobile/view/auth_pages/pages/profile_info_page.dart';
+import 'package:mobile/view/auth_pages/pages/profile_info_photo.dart';
 import 'package:mobile/view/auth_pages/pages/register_page.dart';
 import 'package:provider/provider.dart';
 import 'controller/auth_controller.dart';
@@ -25,14 +26,15 @@ class MyApp extends StatelessWidget {
           primaryColor: const Color.fromARGB(253, 13, 152, 106),
           scaffoldBackgroundColor: const Color.fromARGB(253, 246, 246, 246),
         ),
-        initialRoute: ProfileInfoPage.id,
+        initialRoute: ProfilePhotoNamePage.id,
         routes: {
           WelcomePage.id: (context) => const WelcomePage(),
           LoginPage.id: (context) => const LoginPage(),
           RegisterPage.id: (context) => const RegisterPage(),
           ProfileInfoPage.id: (context) => const ProfileInfoPage(),
+          ProfilePhotoNamePage.id: (context) => const ProfilePhotoNamePage(),
         },
-        home: ProfileInfoPage(),
+        home: WelcomePage(),
       ),
     );
   }

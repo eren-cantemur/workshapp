@@ -21,14 +21,14 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Column(
-              children: const [
-                Expanded(
+              children: [
+                const Expanded(
                   flex: 10,
                   child: SizedBox(
                     width: 1,
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   flex: 5,
                   child: customText(
                     text: "Location",
@@ -36,33 +36,33 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                         TextStyle(color: Color.fromRGBO(54, 67, 86, 1), fontSize: 25, fontWeight: FontWeight.w600),
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   flex: 5,
                   child: SizedBox(
                     width: 1,
                   ),
                 ),
-                CustomPickerField(
+                const CustomPickerField(
                   items: ["Istanbul", "Izmir", "Ankara", "Bursa"],
                   name: "City",
                 ),
-                Expanded(
+                const Expanded(
                   flex: 4,
                   child: SizedBox(
                     height: 1,
                   ),
                 ),
-                CustomPickerField(
+                const CustomPickerField(
                   items: ["Istanbul", "Izmir", "Ankara", "Bursa"],
                   name: "District",
                 ),
-                Expanded(
+                const Expanded(
                   flex: 4,
                   child: SizedBox(
                     height: 20,
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   flex: 5,
                   child: customText(
                     text: "We will use this to show you closer workshops more.",
@@ -73,7 +73,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                     ),
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   flex: 55,
                   child: SizedBox(
                     height: 10,
@@ -86,7 +86,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                     nextPageId: "notyet",
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   flex: 18,
                   child: SizedBox(
                     height: 10,
