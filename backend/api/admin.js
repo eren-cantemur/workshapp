@@ -32,7 +32,7 @@ router.get("/",async(req,res)=> {
     const response = await adminService.getAll()
     res.status(response.type === "Error" ? 400 : 200).send(response);
 })
-router.put(async(req,res)=>{
+router.put("/",async(req,res)=>{
     const {id, name} = req.body
     if(id&&name){
         const response = await adminService.update(id,name)
@@ -44,7 +44,7 @@ router.put(async(req,res)=>{
       });
     }
 })
-router.delete(async(req,res)=>{
+router.delete("/",async(req,res)=>{
     const {id} = req.body
     if(id){
         const response = await adminService.delete(id)

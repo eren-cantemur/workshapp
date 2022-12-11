@@ -35,7 +35,7 @@ router.get("/",async(req,res)=> {
     res.status(response.type === "Error" ? 400 : 200).send(response);
 })
 
-router.put(async(req,res)=>{
+router.put("/",async(req,res)=>{
     const {lat, long, country, city, county, postalCode, openAddress} = req.body
     if(lat&& long&& country&& city&&county&& postalCode&& openAddress){
         const response = await addressService.update(lat, long, country, city,county, postalCode, openAddress)
@@ -47,7 +47,7 @@ router.put(async(req,res)=>{
       });
     }
 })
-router.delete(async(req,res)=>{
+router.delete("/",async(req,res)=>{
     const {id} = req.body
     if(id){
         const response = await addressService.delete(id)

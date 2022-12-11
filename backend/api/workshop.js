@@ -3,7 +3,7 @@ const router = express.Router();
 
 const workshopService = require("../services/workshop")
 
-router.post(async(req,res)=>{
+router.post("/",async(req,res)=>{
     const {name, capacity} = req.body
     if(name&&capacity){
         const response = await workshopService.create(name, capacity)
@@ -43,7 +43,7 @@ router.get("/",async(req,res)=> {
     const response = await workshopService.getAll()
     res.status(response.type === "Error" ? 400 : 200).send(response);
 })
-router.put(async(req,res)=>{
+router.put("/",async(req,res)=>{
     const {id,name, capacity} = req.body
     if(id&&name&&capacity){
         const response = await workshopService.update(id, name, capacity)
@@ -55,7 +55,7 @@ router.put(async(req,res)=>{
       });
     }
 })
-router.delete(async(req,res)=>{
+router.delete("/",async(req,res)=>{
     const {id} = req.body
     if(id){
         const response = await workshopService.delete(id)

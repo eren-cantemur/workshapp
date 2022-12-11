@@ -3,7 +3,7 @@ const router = express.Router();
 
 const reviewService = require("../services/review")
 
-router.post(async(req,res)=>{
+router.post("/",async(req,res)=>{
     const {comment, rate,userId, workshopId} = req.body
     if(comment&&rate&&userId&&workshopId){
         const response = await reviewService.create(comment, rate, userId,workshopId)
@@ -43,7 +43,7 @@ router.get("/",async(req,res)=> {
     const response = await reviewService.getAll()
     res.status(response.type === "Error" ? 400 : 200).send(response);
 })
-router.put(async(req,res)=>{
+router.put("/",async(req,res)=>{
     const {id, comment, rate} = req.body
     if(id&&comment&&rate){
         const response = await reviewService.update(id, comment, rate)
@@ -55,7 +55,7 @@ router.put(async(req,res)=>{
       });
     }
 })
-router.delete(async(req,res)=>{
+router.delete("/",async(req,res)=>{
     const {id} = req.body
     if(id){
         const response = await reviewService.delete(id)

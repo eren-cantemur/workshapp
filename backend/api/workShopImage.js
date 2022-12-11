@@ -3,7 +3,7 @@ const router = express.Router();
 
 const workshopImageService = require("../services/workshopImage")
 
-router.post(async(req,res)=>{
+router.post("/",async(req,res)=>{
     const {path, workshopId} = req.body
     if(path&&workshopId){
         const response = await workshopImageService.create(path, workshopId)
@@ -44,7 +44,7 @@ router.get("/",async(req,res)=> {
     res.status(response.type === "Error" ? 400 : 200).send(response);
 })
 
-router.delete(async(req,res)=>{
+router.delete("/",async(req,res)=>{
     const {id} = req.body
     if(id){
         const response = await workshopImageService.delete(id)

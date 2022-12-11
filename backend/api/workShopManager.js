@@ -31,7 +31,7 @@ router.get("/",async(req,res)=> {
     const response = await workshopManagerService.getAll()
     res.status(response.type === "Error" ? 400 : 200).send(response);
 })
-router.put(async(req,res)=>{
+router.put("/",async(req,res)=>{
     const {id,name,logo, photo} = req.body
     if(id&&name&&logo&&photo){
         const response = await workshopManagerService.update(id,name,logo, photo)
@@ -43,7 +43,7 @@ router.put(async(req,res)=>{
       });
     }
 })
-router.delete(async(req,res)=>{
+router.delete("/",async(req,res)=>{
     const {id} = req.body
     if(id){
         const response = await workshopManagerService.delete(id)
