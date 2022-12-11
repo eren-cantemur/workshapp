@@ -1,4 +1,4 @@
-`
+```
    src
       ├── app.js			app entry point
       ├── /api              controller layer: api routes
@@ -9,7 +9,7 @@
       ├── /subscribers      async event handlers
       └── /test             test suites
 
-`
+```
 
 ```
 API Docs
