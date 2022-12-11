@@ -7,6 +7,7 @@ const reviewRouter = require("./review")
 const adminRouter = require("./admin")
 const customerRouter = require("./customer")
 const workShopManagerRouter = require("./workShopManager")
+const addressRouter = require("./address")
 
 router.use("/user", userRouter)
 router.use("/admin", adminRouter)
@@ -14,5 +15,6 @@ router.use("/customer", customerRouter)
 router.use("/workShopManager", workShopManagerRouter)
 router.use("/workshop", workShopRouter)
 router.use("/review", reviewRouter)
+router.use("/address", addressRouter)
 
 module.exports = router
