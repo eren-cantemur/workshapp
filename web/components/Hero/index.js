@@ -6,11 +6,10 @@ export default function Hero() {
       <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
         <div class="mr-auto place-self-center lg:col-span-7">
           <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
-            Payments tool for software companies
+            Reach wider audience and enhance your sales
           </h1>
           <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-            From checkout to global sales tax compliance, companies around the
-            world use Flowbite to simplify their payment stack.
+            Workshop owners who use WorkshApp has more potential customers than who don't use. Start using it and increase your revenue.
           </p>
           <a
             href="#"
@@ -39,10 +38,10 @@ export default function Hero() {
         </div>
         <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
           <Image
-            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png"
+            src="https://images.unsplash.com/photo-1544928147-9e66f653d177?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
             alt="mockup"
-            width={606}
-            height={454}
+            width={1080}
+            height={1920}
           />
         </div>
       </div>

@@ -6,7 +6,7 @@ import WorkshopManagerTableHeader from "../WorkshopManagerTableHeader";
 export default function WorkshopManagerTable() {
   return (
     <section>
-      <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+      <div class="flex flex-col items-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
           Workshop Managers
         </h1>
