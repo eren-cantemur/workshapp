@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           ProfileInfoPage.id: (context) => const ProfileInfoPage(),
           ProfilePhotoNamePage.id: (context) => const ProfilePhotoNamePage(),
         },
-        home: WelcomePage(),
+        home: const WelcomePage(),
       ),
     );
   }

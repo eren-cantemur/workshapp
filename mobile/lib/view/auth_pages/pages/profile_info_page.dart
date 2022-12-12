@@ -30,7 +30,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                 ),
                 const Expanded(
                   flex: 5,
-                  child: customText(
+                  child: CustomText(
                     text: "Location",
                     textStyle:
                         TextStyle(color: Color.fromRGBO(54, 67, 86, 1), fontSize: 25, fontWeight: FontWeight.w600),
@@ -64,7 +64,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                 ),
                 const Expanded(
                   flex: 5,
-                  child: customText(
+                  child: CustomText(
                     text: "We will use this to show you closer workshops more.",
                     textStyle: TextStyle(
                       color: Color.fromRGBO(99, 109, 119, 1),

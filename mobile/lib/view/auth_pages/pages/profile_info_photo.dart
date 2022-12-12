@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile/view/auth_pages/components/action_button.dart';
+import 'package:mobile/view/auth_pages/components/auth_input_field.dart';
 
 class ProfilePhotoNamePage extends StatefulWidget {
   const ProfilePhotoNamePage({Key? key}) : super(key: key);
@@ -45,28 +46,47 @@ class _ProfilePhotoNamePageState extends State<ProfilePhotoNamePage> {
             flex: 35,
             child: Container(
               child: _image != null
-                  ? Center(
-                      child: CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 200,
-                        backgroundImage: FileImage(_image!),
-                      ),
+                  ? CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 200,
+                      backgroundImage: FileImage(_image!),
                     )
                   : CircleAvatar(
                       radius: 200,
                       backgroundColor: Colors.white,
-                      child: Text(
-                        "no image selected",
-                        style: TextStyle(color: Theme.of(context).primaryColor),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              getImage();
+                            },
+                            child: const Text(
+                              'SELECT',
+                              style: TextStyle(color: Colors.blueAccent, fontSize: 20),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
             ),
           ),
+          const SizedBox(
+            height: 20,
+          ),
+          const Text(
+            "Profile Photo",
+            style: TextStyle(color: Color.fromRGBO(54, 67, 86, 1), fontSize: 15),
+          ),
           const Expanded(
-            flex: 2,
+            flex: 10,
             child: SizedBox(
               width: 1,
             ),
+          ),
+          const Expanded(
+            flex: 12,
+            child: AuthInputField(name: "Name", hint: "example name", obscure: false),
           ),
           const Expanded(
             flex: 25,
@@ -78,17 +98,6 @@ class _ProfilePhotoNamePageState extends State<ProfilePhotoNamePage> {
             flex: 7,
             child: SizedBox(
               width: 5,
-            ),
-          ),
-          Expanded(
-            flex: 7,
-            child: AuthButton(
-              title: "Select",
-              nextPageId: "not yet",
-              givenColor: Colors.green.shade400,
-              function: () {
-                getImage();
-              },
             ),
           ),
           const Expanded(
