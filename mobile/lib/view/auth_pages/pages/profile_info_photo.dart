@@ -32,91 +32,116 @@ class _ProfilePhotoNamePageState extends State<ProfilePhotoNamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 25,
-            child: SizedBox(
-              width: 1,
-            ),
-          ),
-          Expanded(
-            flex: 35,
-            child: Container(
-              child: _image != null
-                  ? CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 200,
-                      backgroundImage: FileImage(_image!),
-                    )
-                  : CircleAvatar(
-                      radius: 200,
-                      backgroundColor: Colors.white,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Expanded(
+                  flex: 25,
+                  child: SizedBox(
+                    width: 1,
+                  ),
+                ),
+                Expanded(
+                  flex: 35,
+                  child: Container(
+                    child: _image != null
+                        ? CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 200,
+                            backgroundImage: FileImage(_image!),
+                          )
+                        : CircleAvatar(
+                            radius: 200,
+                            backgroundColor: Colors.white,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    getImage();
+                                  },
+                                  child: const Text(
+                                    'SELECT',
+                                    style: TextStyle(color: Colors.blueAccent, fontSize: 20),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  "Profile Photo",
+                  style: TextStyle(color: Color.fromRGBO(54, 67, 86, 1), fontSize: 15),
+                ),
+                _image != null
+                    ? Column(
                         children: [
-                          InkWell(
-                            onTap: () {
-                              getImage();
-                            },
-                            child: const Text(
-                              'SELECT',
-                              style: TextStyle(color: Colors.blueAccent, fontSize: 20),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: InkWell(
+                              onTap: () {
+                                getImage();
+                              },
+                              child: const Text(
+                                'RESELECT',
+                                style: TextStyle(color: Colors.blueAccent, fontSize: 17),
+                              ),
                             ),
                           ),
                         ],
+                      )
+                    : const Expanded(
+                        flex: 10,
+                        child: SizedBox(
+                          width: 1,
+                        ),
                       ),
-                    ),
+                const Expanded(
+                  flex: 12,
+                  child: AuthInputField(name: "Name", hint: "example name", obscure: false),
+                ),
+                const Expanded(
+                  flex: 25,
+                  child: SizedBox(
+                    width: 1,
+                  ),
+                ),
+                const Expanded(
+                  flex: 7,
+                  child: SizedBox(
+                    width: 5,
+                  ),
+                ),
+                const Expanded(
+                  flex: 2,
+                  child: SizedBox(
+                    width: 1,
+                  ),
+                ),
+                Expanded(
+                  flex: 7,
+                  child: AuthButton(title: "Save", nextPageId: "not yet"),
+                ),
+                const Expanded(
+                  flex: 11,
+                  child: SizedBox(
+                    width: 1,
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          const Text(
-            "Profile Photo",
-            style: TextStyle(color: Color.fromRGBO(54, 67, 86, 1), fontSize: 15),
-          ),
-          const Expanded(
-            flex: 10,
-            child: SizedBox(
-              width: 1,
-            ),
-          ),
-          const Expanded(
-            flex: 12,
-            child: AuthInputField(name: "Name", hint: "example name", obscure: false),
-          ),
-          const Expanded(
-            flex: 25,
-            child: SizedBox(
-              width: 1,
-            ),
-          ),
-          const Expanded(
-            flex: 7,
-            child: SizedBox(
-              width: 5,
-            ),
-          ),
-          const Expanded(
-            flex: 2,
-            child: SizedBox(
-              width: 1,
-            ),
-          ),
-          Expanded(
-            flex: 7,
-            child: AuthButton(title: "Save", nextPageId: "not yet"),
-          ),
-          const Expanded(
-            flex: 11,
-            child: SizedBox(
-              width: 1,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
