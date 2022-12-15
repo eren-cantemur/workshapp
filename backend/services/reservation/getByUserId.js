@@ -7,18 +7,18 @@ exports.getByUserId = async(userId) => {
         }
     }
 
-    const reservation = await Reservation.findOne(findOptions)
+    const reservation = await Reservation.findAll(findOptions)
 
     if (!reservation) {
         return {
             type: "Error",
-            message: `Can not find Customer with name ${userId}.`,
+            message: `Can not find Reservation with name ${userId}.`,
         };
     }
     else{
         return {
             type: "Success",
-            message: "Customer is added to result.",
+            message: "Reservations is added to result.",
             result: reservation
         };
     }

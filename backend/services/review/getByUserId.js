@@ -8,18 +8,18 @@ exports.getByUserId = async(userId) => {
         }
     }
 
-    const review = await Review.findOne(findOptions)
+    const review = await Review.findAll(findOptions)
 
     if (!review) {
         return {
             type: "Error",
-            message: `Can not find review with name ${name}.`,
+            message: `Can not find review with user id ${userId}.`,
         };
     }
     else{
         return {
             type: "Success",
-            message: "Review is added to result.",
+            message: "Reviews are added to result.",
             result: review
         };
     }

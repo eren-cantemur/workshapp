@@ -8,7 +8,7 @@ exports.getById = async (managerId) => {
         }
     }
 
-    const workshop = await WorkShop.findOne(findOptions)
+    const workshop = await WorkShop.findAll(findOptions)
     
     if (!workshop) {
         return {
@@ -19,7 +19,7 @@ exports.getById = async (managerId) => {
     else{
         return {
             type: "Success",
-            message: "Workshop is added to result.",
+            message: "Workshops are added to result.",
             result: workshop
         };
     }

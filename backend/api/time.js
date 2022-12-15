@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const reservationService = require("../services/reservation")
+const timeService = require("../services/review")
 
 router.post("/",async(req,res)=>{
-    const {userId, workshopId, repetation} = req.body
-    if(repetation&&userId&&workshopId){
-        const response = await reservationService.create(repetation,userId, workshopId)
+    const {date, repetation,workshopId} = req.body
+    if(date&&repetation&&workshopId){
+        const response = await timeService.create(date,repetation,workshopId)
         res.status(response.type === "Error" ? 400 : 200).send(response);
     } else {
       res.status(400).send({
@@ -18,7 +18,7 @@ router.post("/",async(req,res)=>{
 router.get("/:id",async(req,res)=> {
     const {id} = req.query
     if(id){
-        const response = await reservationService.getById(id)
+        const response = await timeService.getById(id)
         res.status(response.type === "Error" ? 400 : 200).send(response);
     } else {
       res.status(400).send({
@@ -27,10 +27,10 @@ router.get("/:id",async(req,res)=> {
       });
     }
 })
-router.get("/:userId",async(req,res)=> {
-    const {userId} = req.query
-    if(userId){
-        const response = await reservationService.getByUserId(userId)
+router.get("/:workshopId",async(req,res)=> {
+    const {workshopId} = req.query
+    if(workshopId){
+        const response = await timeService.getByWorkshopId(workshopId)
         res.status(response.type === "Error" ? 400 : 200).send(response);
     } else {
       res.status(400).send({
@@ -40,13 +40,13 @@ router.get("/:userId",async(req,res)=> {
     }
 })
 router.get("/",async(req,res)=> {
-    const response = await reservationService.getAll()
+    const response = await timeService.getAll()
     res.status(response.type === "Error" ? 400 : 200).send(response);
 })
 router.put("/",async(req,res)=>{
-    const {id, repetation} = req.body
-    if(id&&repetation){
-        const response = await reservationService.update(id, repetation)
+    const {id, date, repetation} = req.body
+    if(id&&date&&repetation){
+        const response = await timeService.update(id, date, repetation)
         res.status(response.type === "Error" ? 400 : 200).send(response);
     } else {
       res.status(400).send({
@@ -58,7 +58,7 @@ router.put("/",async(req,res)=>{
 router.delete("/",async(req,res)=>{
     const {id} = req.body
     if(id){
-        const response = await reservationService.delete(id)
+        const response = await timeService.delete(id)
         res.status(response.type === "Error" ? 400 : 200).send(response);
     } else {
       res.status(400).send({
