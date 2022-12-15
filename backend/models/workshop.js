@@ -11,6 +11,14 @@ module.exports = (sequelize, Sequelize) => {
             type : Sequelize.INTEGER,
             defaultValue : 0
         },
+        content : {
+            type : Sequelize.STRING,
+            allowNull : false
+        },
+        photo : {
+            type : Sequelize.STRING,
+            allowNull : false
+        },
         capacity : {
             type : Sequelize.INTEGER
         }
