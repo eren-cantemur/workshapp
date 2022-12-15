@@ -4,9 +4,9 @@ const router = express.Router();
 const workshopService = require("../services/workshop")
 
 router.post("/",async(req,res)=>{
-    const {name, capacity} = req.body
-    if(name&&capacity){
-        const response = await workshopService.create(name, capacity)
+    const {name, capacity, content, photo} = req.body
+    if(name&&capacity&& content&&photo){
+        const response = await workshopService.create(name, capacity,content, photo)
         res.status(response.type === "Error" ? 400 : 200).send(response);
     } else {
       res.status(400).send({
@@ -44,9 +44,9 @@ router.get("/",async(req,res)=> {
     res.status(response.type === "Error" ? 400 : 200).send(response);
 })
 router.put("/",async(req,res)=>{
-    const {id,name, capacity} = req.body
-    if(id&&name&&capacity){
-        const response = await workshopService.update(id, name, capacity)
+    const {id,name, capacity,content, photo} = req.body
+    if(id&&name&&capacity&&content&&photo){
+        const response = await workshopService.update(id, name, capacity,content, photo)
         res.status(response.type === "Error" ? 400 : 200).send(response);
     } else {
       res.status(400).send({

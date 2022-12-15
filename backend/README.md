@@ -99,13 +99,17 @@ DELETE /review
 POST /workshop
    {
       name : name,
-      capacity : capacity
+      capacity : capacity,
+      content : content,
+      photo : photo
    }
 PUT /workshop
    {
       id : id
       name : name,
-      capacity : capacity
+      capacity : capacity,
+      content : content,
+      photo : photo
    }
 GET /workshop
 GET /workshop/:id
@@ -138,6 +142,50 @@ GET /workshopManager
 GET /workshopManager/:id
 GET /workshopManager/:name
 DELETE /workshopManager
+   {
+      id : id
+   }
+
+
+POST /time
+   {
+      date: date,
+      repetation : repetation,
+      workshopId : workshopId
+   }
+PUT /time
+   {
+      id : id
+      date: date,
+      repetation : repetation,
+      workshopId : workshopId
+   }
+GET /time
+GET /time/:id
+GET /time/:workshopManagerId
+DELETE /time
+   {
+      id : id
+   }
+
+
+POST /reservation
+   {
+      repetation : repetation,
+      userId : userId,
+      workshopId : workshopId
+   }
+PUT /reservation
+   {
+      id : id
+      repetation : repetation,
+      userId : userId,
+      workshopId : workshopId
+   }
+GET /reservation
+GET /reservation/:id
+GET /reservation/:userId
+DELETE /reservation
    {
       id : id
    }
