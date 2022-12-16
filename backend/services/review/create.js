@@ -21,6 +21,7 @@ exports.create = async (comment, rate,userId,workshopId) => {
         return {
             type: "Success",
             message: `Review with id ${result.id} is created.`,
+            id: result.id,
         };
     }
 }

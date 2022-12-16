@@ -21,6 +21,7 @@ exports.create = async (path,workshopId) => {
         return {
             type: "Success",
             message: `Workshop Image with id ${result.id} is created.`,
+            id: result.id,
         };
     }
 }

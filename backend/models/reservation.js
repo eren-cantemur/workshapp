@@ -5,8 +5,12 @@ module.exports = (sequelize, Sequelize) => {
     WorkshopModel = Workshop(sequelize,Sequelize)
     const Reservation = sequelize.define("reservation", {
         repetation : {
-            type : Sequelize.INTEGER
-        }
+            type : Sequelize.DATE
+        },
+        attandanceStatus  : {
+            type : Sequelize.BOOLEAN,
+            defaultValue : false
+        },
     })
     Reservation.belongsTo(UserModel)
     Reservation.belongsTo(WorkshopModel)

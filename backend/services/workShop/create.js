@@ -23,6 +23,7 @@ exports.create = async (name, capacity, content, photo) => {
         return {
             type: "Success",
             message: `Workshop with id ${result.id} is created.`,
+            id: result.id,
         };
     }
 }

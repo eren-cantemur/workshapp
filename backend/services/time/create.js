@@ -20,6 +20,7 @@ exports.create = async (date, repetation,workshopId) => {
         return {
             type: "Success",
             message: `Time with id ${result.id} is created.`,
+            id: result.id,
         };
     }
 }
