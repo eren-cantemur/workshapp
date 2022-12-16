@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "`\r    src\r       ├── app.js\t\t\tapp entry point\r       ├── /api              controller layer: api routes\r       ├── /config\t\t\tconfig settings, env variables\r       ├── /services         service layer: business logic\r       ├── /models           data access layer: database models\t\r       ├── /scripts          miscellaneous NPM scripts\r       ├── /subscribers      async event handlers\r       └── /test             test suites\r `",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.26.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
