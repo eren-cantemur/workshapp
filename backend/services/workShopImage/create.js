@@ -20,7 +20,7 @@ exports.create = async (path,workshopId) => {
     else {
         return {
             type: "Success",
-            message: `Workshop Image with id ${result.id} is updated.`,
+            message: `Workshop Image with id ${result.id} is created.`,
         };
     }
 }
