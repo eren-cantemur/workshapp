@@ -4,9 +4,9 @@ const router = express.Router();
 const reservationService = require("../services/reservation")
 
 router.post("/",async(req,res)=>{
-    const {userId, workshopId, repetation} = req.body
-    if(repetation&&userId&&workshopId){
-        const response = await reservationService.create(repetation,userId, workshopId)
+    const {userId, workshopId, date} = req.body
+    if(date&&userId&&workshopId){
+        const response = await reservationService.create(date,userId, workshopId)
         res.status(response.type === "Error" ? 400 : 200).send(response);
     } else {
       res.status(400).send({
@@ -44,9 +44,9 @@ router.get("/",async(req,res)=> {
     res.status(response.type === "Error" ? 400 : 200).send(response);
 })
 router.put("/",async(req,res)=>{
-    const {id, repetation} = req.body
-    if(id&&repetation){
-        const response = await reservationService.update(id, repetation)
+    const {id, date} = req.body
+    if(id&&date){
+        const response = await reservationService.update(id, date)
         res.status(response.type === "Error" ? 400 : 200).send(response);
     } else {
       res.status(400).send({

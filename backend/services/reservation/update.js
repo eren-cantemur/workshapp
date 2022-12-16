@@ -1,9 +1,9 @@
 const {Reservation} = require('../../models')
 
-exports.update = async (id,repetation) => {
+exports.update = async (id,date) => {
 
     const updateBody = {
-        repetation : repetation
+        date : date
     }
 
     const findOptions = {
