@@ -4,6 +4,7 @@ module.exports = (sequelize, Sequelize) => {
     UserModel = User(sequelize,Sequelize)
     WorkshopModel = Workshop(sequelize,Sequelize)
     const Reservation = sequelize.define("reservation", {
+
         repetation : {
             type : Sequelize.DATE
         },
@@ -11,6 +12,7 @@ module.exports = (sequelize, Sequelize) => {
             type : Sequelize.BOOLEAN,
             defaultValue : false
         },
+
     })
     Reservation.belongsTo(UserModel)
     Reservation.belongsTo(WorkshopModel)

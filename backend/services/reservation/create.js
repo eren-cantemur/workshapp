@@ -3,7 +3,7 @@ const {Reservation} = require('../../models')
 exports.create = async (repetation, userId, workshopId) => {
 
     const createBody = {
-        repetation : repetation,
+        date : date,
         userId : userId,
         workshopId : workshopId
     }
