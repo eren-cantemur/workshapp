@@ -9,6 +9,9 @@ const customerRouter = require("./customer")
 const workShopManagerRouter = require("./workShopManager")
 const addressRouter = require("./address")
 
+router.get("/", (req, res) => {
+    res.send("Success!")
+})
 router.use("/user", userRouter)
 router.use("/admin", adminRouter)
 router.use("/customer", customerRouter)
