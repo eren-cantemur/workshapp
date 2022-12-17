@@ -4,9 +4,9 @@ const router = express.Router();
 const addressService = require("../services/address")
 
 router.post("/",async(req,res)=>{
-  const {lat, long, country, city, county, postalCode, openAddress} = req.body
+  const {lat, long, country, city, county, postalCode, openAddress, workshopId} = req.body
   if(lat&& long&& country&& city&&county&& postalCode&& openAddress){
-      const response = await addressService.create(lat, long, country, city,county, postalCode, openAddress)
+      const response = await addressService.create(lat, long, country, city,county, postalCode, openAddress, workshopId)
       res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
@@ -31,7 +31,7 @@ router.get("/:id", async (req,res)=>{
 router.get("/:workshopId",async(req,res)=> {
     const {workshopId} = req.query
     if(workshopId){
-        const response = await customerService.getByWorkshopId(workshopId)
+        const response = await addressService.getByWorkshopId(workshopId)
         res.status(response.type === "Error" ? 400 : 200).send(response);
     } else {
       res.status(400).send({
@@ -47,9 +47,9 @@ router.get("/",async(req,res)=> {
 })
 
 router.put("/",async(req,res)=>{
-    const {lat, long, country, city, county, postalCode, openAddress} = req.body
-    if(lat&& long&& country&& city&&county&& postalCode&& openAddress){
-        const response = await addressService.update(lat, long, country, city,county, postalCode, openAddress)
+    const {id, lat, long, country, city, county, postalCode, openAddress} = req.body
+    if(lat&& long&& country&& city&&county&& postalCode&& openAddress && id){
+        const response = await addressService.update(id, lat, long, country, city,county, postalCode, openAddress)
         res.status(response.type === "Error" ? 400 : 200).send(response);
     } else {
       res.status(400).send({

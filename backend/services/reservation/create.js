@@ -1,6 +1,6 @@
 const {Reservation} = require('../../models')
 
-exports.create = async (date,userId,workshopId) => {
+exports.create = async (repetation, userId, workshopId) => {
 
     const createBody = {
         date : date,
@@ -20,6 +20,7 @@ exports.create = async (date,userId,workshopId) => {
         return {
             type: "Success",
             message: `Reservation with id ${result.id} is created.`,
+            id: result.id,
         };
     }
 }
