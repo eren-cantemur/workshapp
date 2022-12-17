@@ -1,6 +1,6 @@
 const {Reservation} = require('../../models')
 
-exports.create = async (repetation, userId, workshopId) => {
+exports.create = async (date, userId, workshopId) => {
 
     const createBody = {
         date : date,
