@@ -56,6 +56,16 @@ router.get("/", async (req, res) => {
 router.put("/", async (req, res) => {
   const { id, name, capacity, content, photo } = req.body
   if (id && name && capacity && content && photo) {
+    if(req.files.image){
+      const uploadResponse = s3Service.upload(req.files.image)
+      if (uploadResponse.type == "Error") {
+        res.status(400).send(uploadResponse.message)
+        return
+      }
+      else {
+        photo = uploadResponse.data.location
+      }
+    }
     const response = await workshopService.update(id, name, capacity, content, photo)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
