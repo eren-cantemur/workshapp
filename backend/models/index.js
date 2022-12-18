@@ -1,10 +1,12 @@
 const dbConfig = require("../config/db.config.js");
-require('dotenv').config()
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
-  dialect: dbConfig.DIALECT ,
-  port :dbConfig.DBPORT
+  dialect: dbConfig.DIALECT,
+  port: 3306,
+  dialectOptions: {
+    ssl: 'Amazon RDS'
+  }
 });
 
 const db = {};
