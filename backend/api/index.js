@@ -10,6 +10,8 @@ const workShopManagerRouter = require("./workShopManager")
 const addressRouter = require("./address");
 const reservationRouter = require('./reservation');
 const timeRouter = require('./time');
+const loginRouter = require('./login')
+const registerRouter = require('./register')
 
 router.use("/user", userRouter)
 router.use("/admin", adminRouter)
@@ -20,5 +22,7 @@ router.use("/review", reviewRouter)
 router.use("/address", addressRouter)
 router.use("/reservation",reservationRouter)
 router.use("/time",timeRouter)
+router.use("/login", loginRouter)
+router.use("/register",registerRouter)
 
 module.exports = router
