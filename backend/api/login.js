@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const loginService = "../services/login";
+import { loginService } from "../services/login";
 
 router.post("/", async (req, res) => {
   const { email, password } = req.body;
@@ -13,6 +13,7 @@ router.post("/", async (req, res) => {
     res.status(400).send({
       type: "Error",
       message: "Fields supplied not valid.",
+      body: {email, password},
     });
   }
 });
