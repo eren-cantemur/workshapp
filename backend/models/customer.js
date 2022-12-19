@@ -10,6 +10,6 @@ module.exports = (sequelize, Sequelize) => {
             type : Sequelize.STRING
         }
     })
-    Customer.belongsTo(UserModel)
+    Customer.User = Customer.belongsTo(UserModel)
     return Customer;
 }

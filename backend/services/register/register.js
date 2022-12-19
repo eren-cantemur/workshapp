@@ -1,13 +1,9 @@
-import { SALTROUNDS } from "../../config/bcrypt.config";
-import { Admin } from "../../models/admin";
-import { Customer } from "../../models/customer";
-import { User } from "../../models/user";
-import { WorkshopManager } from "../../models/workshopManager";
+const { User, WorkshopManager, Admin, Customer } = require('../../models')
+const bcrypt = require('bcrypt')
+const SALTROUNDS = require('../../config/bcrypt.config').SALTROUNDS
 
-import * as bcrypt from "bcrypt";
-
-register = async (email, password, role) => {
-  const user = await User.findOne({ email: email });
+exports.register = async (email, password, role) => {
+  const user = await User.findOne({where : {email: email}});
   const hashedPassword = await bcrypt.hash(password, SALTROUNDS);
 
   var newUser;
@@ -19,24 +15,33 @@ register = async (email, password, role) => {
     };
   } else {
     if (role === "customer") {
-      newUser = Customer.create({
-        name: "",
+      newUser = await Customer.create({name: "",
         photo: "",
         user: {
           email: email,
           password: hashedPassword,
-        },
-      });
+        }
+      },{
+        include: [{
+          association: Customer.User,
+        }]
+      }
+      );
     } else if (role === "admin") {
-      newUser = Admin.create({
+      newUser = await Admin.create({
         name: "",
         user: {
           email: email,
           password: hashedPassword,
         },
-      });
+      },{
+        include: [{
+          association: Admin.User,
+        }]
+      }
+      );
     } else if (role === "workshopManager") {
-      newUser = WorkshopManager.create({
+      newUser = await WorkshopManager.create({
         name: "",
         logo: "",
         phone: "",
@@ -44,14 +49,19 @@ register = async (email, password, role) => {
           email: email,
           password: hashedPassword,
         },
-      });
+      },{
+        include: [{
+          association: WorkshopManager.User,
+        }]
+      }
+      );
     } else {
       return {
         type: "Error",
         message: "Couldn't identify role.",
       };
     }
-
+    
     return {
       type: "Success",
       message: `User is registered as ${role} with email: ${
@@ -60,5 +70,3 @@ register = async (email, password, role) => {
     };
   }
 };
-
-module.exports = { register };
