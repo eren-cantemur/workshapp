@@ -12,8 +12,6 @@ const workShopManagerRouter = require("./workshopManager")
 const addressRouter = require("./address");
 const reservationRouter = require('./reservation');
 const timeRouter = require('./time');
-const loginRouter = require('./login')
-const registerRouter = require('./register')
 
 router.get("/", (req, res) => {
     res.send("Success!")
@@ -29,8 +27,6 @@ router.use("/review", reviewRouter)
 router.use("/address", addressRouter)
 router.use("/reservation",reservationRouter)
 router.use("/time",timeRouter)
-router.use("/login", loginRouter)
-router.use("/register",registerRouter)
 
 
 module.exports = router

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-import { loginService } from "../services/login";
+const loginService = require("../services/login")
 
 router.post("/", async (req, res) => {
   const { email, password } = req.body;
