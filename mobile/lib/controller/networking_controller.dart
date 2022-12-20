@@ -58,6 +58,25 @@ class NetworkController {
   }
 
   static Future<List<Workshop>> getWorkshops() async {
-    return [Workshop(name: "Kokteyl")];
+    return [
+      Workshop(
+          name: "Kokteyl 101",
+          location: "Istanbul",
+          price: "450",
+          owner: "Kamare Workshops",
+          imageURL: "https://iyikigormusum.com/uploads/d709353c272bf0af74aa2a30b7222a44.jpeg"),
+      Workshop(
+          name: "Kısa Film Çekmek",
+          location: "Istanbul",
+          price: "300",
+          owner: "Kamare Workshops",
+          imageURL: "https://cdn.wannart.com/production/post/2018/03/kısa-film-wannart.jpg"),
+      Workshop(
+          name: "Kahve Atolyesi",
+          location: "Istanbul",
+          price: "200",
+          owner: "Kamare Workshops",
+          imageURL: "https://cdn.yemek.com/mnresize/940/940/uploads/2018/08/kahve-sozlugu-editor.jpg"),
+    ];
   }
 }

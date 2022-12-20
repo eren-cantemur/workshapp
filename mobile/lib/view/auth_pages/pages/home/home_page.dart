@@ -12,7 +12,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: HomeList());
+    return Scaffold(
+        body: Column(
+      children: [
+        Expanded(
+            child: Container(
+          color: Colors.red,
+        )),
+        const Expanded(child: HomeList()),
+      ],
+    ));
   }
 }
 
