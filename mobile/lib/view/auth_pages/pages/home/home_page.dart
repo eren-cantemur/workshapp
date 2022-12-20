@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/view/auth_pages/pages/home/featured_card.dart';
 import 'package:mobile/view/auth_pages/pages/home/home_list_view.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,15 +14,35 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      children: [
-        Expanded(
+      appBar: AppBar(
+        title: Text(
+          "WorkshApp",
+          style: TextStyle(
+            color: const Color.fromRGBO(0, 33, 64, 1),
+          ),
+        ),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        shadowColor: Colors.transparent,
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            flex: 3,
             child: Container(
-          color: Colors.red,
-        )),
-        const Expanded(child: HomeList()),
-      ],
-    ));
+              color: Colors.transparent,
+              child: FeaturedCard(),
+            ),
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          const Expanded(
+            flex: 5,
+            child: HomeList(),
+          ),
+        ],
+      ),
+    );
   }
 }
 

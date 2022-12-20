@@ -79,4 +79,13 @@ class NetworkController {
           imageURL: "https://cdn.yemek.com/mnresize/940/940/uploads/2018/08/kahve-sozlugu-editor.jpg"),
     ];
   }
+
+  static Future<Workshop> getFeaturedWorkshop() async {
+    return Workshop(
+        name: "Kokteyl",
+        location: "Istanbul",
+        price: "500",
+        owner: "Gibi Workshop House",
+        imageURL: "https://iyikigormusum.com/uploads/d709353c272bf0af74aa2a30b7222a44.jpeg");
+  }
 }

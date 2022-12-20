@@ -7,4 +7,8 @@ class HomeListController {
   Future<List<Workshop>> getWorkshops() async {
     return await NetworkController.getWorkshops();
   }
+
+  Future<Workshop> getFeaturedWorkshop() async {
+    return await NetworkController.getFeaturedWorkshop();
+  }
 }

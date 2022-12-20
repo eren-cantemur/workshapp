@@ -31,6 +31,7 @@ class _HomeListState extends State<HomeList> {
             itemBuilder: (context, index) {
               return WorkshopCell(
                 workshop: snapshot.data![index],
+                index: index,
               );
             },
           );
