@@ -31,24 +31,28 @@ class NetworkController {
     }
   }
 
-  static Future<bool> register(String email, String password) async {
+  static Future<String> register(String email, String password) async {
     Map data = {"mail": email, "password": password};
     var body = jsonEncode(data);
-    var response = await http.post(Uri.parse('$mainURL/register'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: body);
-    if (response.statusCode == 200) {
+    try {
+      var response = await http.post(Uri.parse('$mainURL/register'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: body);
       var decodedData = jsonDecode(response.body);
-      String? jwt = decodedData["jwt"];
-      if (jwt != null) {
-        await LocalDataController.saveJwt(jwt);
-        return true;
+      if (response.statusCode == 200) {
+        String? jwt = decodedData["jwt"];
+        if (jwt != null) {
+          await LocalDataController.saveJwt(jwt);
+          return "done";
+        }
+      } else if (response.statusCode == 400) {
+        return decodedData['message'];
       }
+      return "error";
+    } catch (e) {
+      throw e.toString();
     }
-    //todo: show popup here
-    return false;
-    //todo show pop up according to response status - ...
   }
 }

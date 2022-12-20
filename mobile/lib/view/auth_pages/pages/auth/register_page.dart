@@ -45,7 +45,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 Expanded(
                   flex: 12,
                   child: AuthInputField(
-                    controller: _passwordTextFieldController,
+                    controller: _mailTextFieldController,
                     name: 'Email Adress',
                     hint: 'name@example.com',
                     obscure: false,
@@ -78,7 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     title: "Register",
                     nextPageId: "notyet",
                     function: () {
-                      authController.login(
+                      authController.register(
                           _mailTextFieldController.value.text, _mailTextFieldController.value.text, context);
                     },
                   ),

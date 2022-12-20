@@ -10,10 +10,28 @@ import 'local_data_controller.dart';
 import 'dart:io';
 
 class AuthController extends ChangeNotifier {
-  Future<void> register(String email, String password) async {
-    final success = await NetworkController.register(email, password);
-    if (success) {
-      //navigate to main page.
+  Future<void> register(String email, String password, context) async {
+    try {
+      final response = await NetworkController.register(email, password);
+      if (response == "done") {
+        Navigator.pushNamed(context, HomePage.id);
+      } else {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => CustomDialog(
+            title: "Error",
+            text: response,
+          ),
+        );
+      }
+    } catch (e) {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => CustomDialog(
+          title: "Unexpected Error.",
+          text: e.toString(),
+        ),
+      );
     }
   }
 
@@ -58,16 +76,16 @@ class AuthController extends ChangeNotifier {
     //todo pop old page
   }
 
-  static Future<void> saveLocationData(String city, String district) async {
-    String jwt = "123"; //get from provider
-    //todo send location data
-    //todo navigate if success
-    //todo pop up if fail
-  }
-
-  Future<void> saveNameAndPhoto() async {
+  Future<void> saveNameAndPhoto(String name, File? photo) async {
     //todo send photo and name
     //todo navigate to feed page if success.
     //todo show pop up if fail.
   }
+
+  // static Future<void> saveLocationData(String city, String district) async {
+  //   String jwt = "123"; //get from provider
+  //   //todo send location data
+  //   //todo navigate if success
+  //   //todo pop up if fail
+  // }
 }
