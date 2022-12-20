@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../model/workshop_model.dart';
 import 'local_data_controller.dart';
 
 class NetworkController {
@@ -54,5 +55,9 @@ class NetworkController {
     } catch (e) {
       throw e.toString();
     }
+  }
+
+  static Future<List<Workshop>> getWorkshops() async {
+    return [Workshop(name: "Kokteyl")];
   }
 }

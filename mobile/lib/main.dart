@@ -3,7 +3,7 @@ import 'package:mobile/view/auth_pages/pages/auth/login_page.dart';
 import 'package:mobile/view/auth_pages/pages/auth/profile_info_page.dart';
 import 'package:mobile/view/auth_pages/pages/auth/profile_info_photo.dart';
 import 'package:mobile/view/auth_pages/pages/auth/register_page.dart';
-import 'package:mobile/view/auth_pages/pages/home_page.dart';
+import 'package:mobile/view/auth_pages/pages/home/home_page.dart';
 import 'package:provider/provider.dart';
 import 'controller/auth_controller.dart';
 import 'view/auth_pages/pages/auth/welcome_page.dart';
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           primaryColor: const Color.fromARGB(253, 13, 152, 106),
           scaffoldBackgroundColor: const Color.fromARGB(253, 246, 246, 246),
         ),
-        initialRoute: ProfilePhotoNamePage.id,
+        initialRoute: HomePage.id,
         routes: {
           WelcomePage.id: (context) => const WelcomePage(),
           LoginPage.id: (context) => const LoginPage(),
