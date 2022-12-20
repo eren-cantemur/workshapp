@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/view/auth_pages/pages/login_page.dart';
-import 'package:mobile/view/auth_pages/pages/register_page.dart';
-import '../components/action_button.dart';
+import 'package:mobile/view/auth_pages/pages/auth/login_page.dart';
+import 'package:mobile/view/auth_pages/pages/auth/register_page.dart';
+import '../../components/action_button.dart';
 import 'package:mobile/model/paths.dart';
 import 'package:mobile/model/app_text_data.dart';
 import 'package:mobile/controller/auth_controller.dart';
@@ -71,7 +71,10 @@ class _WelcomePageState extends State<WelcomePage> {
               height: 10,
             ),
           ),
-          AuthButton(title: "Register", nextPageId: RegisterPage.id),
+          Expanded(
+            flex: 7,
+            child: AuthButton(title: "Register", nextPageId: RegisterPage.id),
+          ),
           const Expanded(
             flex: 2,
             child: SizedBox(
