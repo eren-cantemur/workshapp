@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:mobile/controller/auth_controller.dart';
 import 'package:mobile/view/auth_pages/components/action_button.dart';
 import 'package:mobile/view/auth_pages/components/auth_input_field.dart';
 
@@ -15,18 +16,13 @@ class ProfilePhotoNamePage extends StatefulWidget {
 
 class _ProfilePhotoNamePageState extends State<ProfilePhotoNamePage> {
   File? _image;
-  final picker = ImagePicker();
-
-  Future getImage() async {
-    final pickedFile =
-        await picker.pickImage(source: ImageSource.gallery, maxHeight: 1500, maxWidth: 1500, imageQuality: 50);
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-      });
-    } else {
-      print('No image selected.');
-    }
+  final TextEditingController _nameTextFieldController = TextEditingController();
+  AuthController authController = AuthController();
+  void imageRequest() async {
+    File? imageTemp = await authController.getImage();
+    setState(() {
+      _image = imageTemp;
+    });
   }
 
   @override
@@ -64,7 +60,7 @@ class _ProfilePhotoNamePageState extends State<ProfilePhotoNamePage> {
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    getImage();
+                                    imageRequest();
                                   },
                                   child: const Text(
                                     'SELECT',
@@ -90,7 +86,7 @@ class _ProfilePhotoNamePageState extends State<ProfilePhotoNamePage> {
                             padding: const EdgeInsets.all(10.0),
                             child: InkWell(
                               onTap: () {
-                                getImage();
+                                imageRequest();
                               },
                               child: const Text(
                                 'RESELECT',
@@ -106,9 +102,10 @@ class _ProfilePhotoNamePageState extends State<ProfilePhotoNamePage> {
                           width: 1,
                         ),
                       ),
-                const Expanded(
+                Expanded(
                   flex: 12,
-                  child: AuthInputField(name: "Name", hint: "example name", obscure: false),
+                  child: AuthInputField(
+                      controller: _nameTextFieldController, name: "Name", hint: "example name", obscure: false),
                 ),
                 const Expanded(
                   flex: 25,
@@ -130,7 +127,13 @@ class _ProfilePhotoNamePageState extends State<ProfilePhotoNamePage> {
                 ),
                 Expanded(
                   flex: 7,
-                  child: AuthButton(title: "Save", nextPageId: "not yet"),
+                  child: AuthButton(
+                    title: "Save",
+                    nextPageId: "not yet",
+                    function: () {
+                      authController.saveNameAndPhoto();
+                    },
+                  ),
                 ),
                 const Expanded(
                   flex: 11,
