@@ -27,6 +27,8 @@ class _HomeListState extends State<HomeList> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               return WorkshopCell(

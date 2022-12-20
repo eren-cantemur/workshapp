@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/model/workshop_model.dart';
 
 class WorkshopCell extends StatelessWidget {
@@ -13,9 +14,9 @@ class WorkshopCell extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(3, 0, 3, 15),
+      padding: EdgeInsets.fromLTRB(3, 0, 3, height / 40),
       child: SizedBox(
-        height: MediaQuery.of(context).size.height / 6,
+        height: MediaQuery.of(context).size.height / 7,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
           child: ClipRRect(
@@ -27,7 +28,7 @@ class WorkshopCell extends StatelessWidget {
                   Expanded(
                     flex: 5,
                     child: Padding(
-                      padding: const EdgeInsets.all(5.0),
+                      padding: const EdgeInsets.all(0.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(15),
                         child: Image(
@@ -41,7 +42,7 @@ class WorkshopCell extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 12,
                   ),
                   Expanded(
                     flex: 10,
@@ -56,23 +57,30 @@ class WorkshopCell extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          flex: 11,
+                          flex: 13,
                           child: Text(
                             workshop.name,
                             style: TextStyle(
-                                fontSize: height / 45,
-                                color: const Color.fromRGBO(0, 33, 64, 1),
-                                fontWeight: FontWeight.w600),
+                              fontSize: height / 45,
+                              color: const Color.fromRGBO(0, 33, 64, 1),
+                              fontWeight: FontWeight.w600,
+                              fontFamily: GoogleFonts.poppins().fontFamily,
+                            ),
                           ),
                         ),
+                        SizedBox(
+                          height: 4,
+                        ),
                         Expanded(
-                          flex: 7,
+                          flex: 10,
                           child: Text(
                             workshop.owner,
                             style: TextStyle(
-                                fontSize: height / 60,
-                                color: const Color.fromRGBO(0, 33, 64, 1),
-                                fontWeight: FontWeight.w400),
+                              fontSize: height / 60,
+                              color: const Color.fromRGBO(0, 33, 64, 1),
+                              fontWeight: FontWeight.w400,
+                              fontFamily: GoogleFonts.poppins().fontFamily,
+                            ),
                           ),
                         ),
                         const Expanded(
@@ -82,7 +90,7 @@ class WorkshopCell extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          flex: 10,
+                          flex: 12,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -93,6 +101,7 @@ class WorkshopCell extends StatelessWidget {
                                   fontSize: height / 50,
                                   color: const Color.fromRGBO(0, 33, 64, 1),
                                   fontWeight: FontWeight.w500,
+                                  fontFamily: GoogleFonts.poppins().fontFamily,
                                 ),
                               ),
                               const SizedBox(
@@ -102,9 +111,11 @@ class WorkshopCell extends StatelessWidget {
                               Text(
                                 workshop.price,
                                 style: TextStyle(
-                                    fontSize: height / 50,
-                                    color: const Color.fromRGBO(0, 33, 64, 1),
-                                    fontWeight: FontWeight.w500),
+                                  fontSize: height / 50,
+                                  color: const Color.fromRGBO(0, 33, 64, 1),
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: GoogleFonts.poppins().fontFamily,
+                                ),
                               ),
                             ],
                           ),

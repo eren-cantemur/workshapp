@@ -24,23 +24,20 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         shadowColor: Colors.transparent,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 3,
-            child: Container(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 0.3,
               color: Colors.transparent,
               child: FeaturedCard(),
             ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          const Expanded(
-            flex: 5,
-            child: HomeList(),
-          ),
-        ],
+            SizedBox(
+              height: 15,
+            ),
+            const HomeList(),
+          ],
+        ),
       ),
     );
   }

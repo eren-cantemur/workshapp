@@ -77,6 +77,18 @@ class NetworkController {
           price: "200",
           owner: "Kamare Workshops",
           imageURL: "https://cdn.yemek.com/mnresize/940/940/uploads/2018/08/kahve-sozlugu-editor.jpg"),
+      Workshop(
+          name: "Kahve Atolyesi",
+          location: "Istanbul",
+          price: "200",
+          owner: "Kamare Workshops",
+          imageURL: "https://cdn.yemek.com/mnresize/940/940/uploads/2018/08/kahve-sozlugu-editor.jpg"),
+      Workshop(
+          name: "Kahve Atolyesi",
+          location: "Istanbul",
+          price: "200",
+          owner: "Kamare Workshops",
+          imageURL: "https://cdn.yemek.com/mnresize/940/940/uploads/2018/08/kahve-sozlugu-editor.jpg"),
     ];
   }
 
