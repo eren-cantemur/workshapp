@@ -63,7 +63,7 @@ class _FeaturedCardState extends State<FeaturedCard> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Expanded(
+              const Expanded(
                 flex: 17,
                 child: SizedBox(
                   width: 2,
@@ -74,7 +74,7 @@ class _FeaturedCardState extends State<FeaturedCard> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
                     child: Text(
-                      "Kokteyl 102",
+                      "Tum içecek workshoplarinda -%30!",
                       style: TextStyle(fontSize: height / 45, color: Colors.white, fontWeight: FontWeight.w600),
                     ),
                   ),

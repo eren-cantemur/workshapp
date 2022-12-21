@@ -5,10 +5,10 @@ import '../model/workshop_model.dart';
 import 'local_data_controller.dart';
 
 class NetworkController {
-  static String mainURL = "https://king-prawn-app-ffmuq.ondigitalocean.app";
-  // static String mainURL = "https://king-prawn-app-ffmuq.ondigitalocean.app";
+  static String mainURL = "http://workshappbackendlb-679277189.eu-central-1.elb.amazonaws.com";
+
   static Future<String> login(String email, String password) async {
-    Map data = {"mail": email, "password": password};
+    Map data = {"email": email, "password": password};
     var body = jsonEncode(data);
     try {
       var response = await http.post(Uri.parse('$mainURL/login'),
@@ -18,7 +18,7 @@ class NetworkController {
           body: body);
       var decodedData = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        String? jwt = decodedData["jwt"];
+        String? jwt = decodedData["result"];
         if (jwt != null) {
           await LocalDataController.saveJwt(jwt);
           return "done";
@@ -33,7 +33,7 @@ class NetworkController {
   }
 
   static Future<String> register(String email, String password) async {
-    Map data = {"mail": email, "password": password};
+    Map data = {"email": email, "password": password, "role": "customer"};
     var body = jsonEncode(data);
     try {
       var response = await http.post(Uri.parse('$mainURL/register'),
@@ -43,10 +43,12 @@ class NetworkController {
           body: body);
       var decodedData = jsonDecode(response.body);
       if (response.statusCode == 200) {
-        String? jwt = decodedData["jwt"];
+        String? jwt = decodedData["result"];
         if (jwt != null) {
           await LocalDataController.saveJwt(jwt);
           return "done";
+        } else {
+          return "Missing response data";
         }
       } else if (response.statusCode == 400) {
         return decodedData['message'];
@@ -57,7 +59,13 @@ class NetworkController {
     }
   }
 
-  static Future<List<Workshop>> getWorkshops() async {
+  static Future<List<Workshop>> getWorkshops(String jwt) async {
+    final response = http.get(
+      Uri.parse('$mainURL/workshop'),
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', 'Authorization': jwt},
+    );
+    //todo parse response
+
     return [
       Workshop(
           name: "Kokteyl 101",

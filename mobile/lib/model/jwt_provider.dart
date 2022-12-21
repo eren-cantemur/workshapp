@@ -14,15 +14,17 @@ class JWTProvider extends ChangeNotifier {
     return null;
   }
 
-  static getToken() async {
+  getToken() async {
+    print("whaat");
     String? readedJWT = await LocalDataController.readJWT();
     if (readedJWT != null) {
-      JWTProvider().jwt = readedJWT;
+      jwt = readedJWT;
+    } else {
+      await LocalDataController.saveJwt("jwt");
     }
   }
 
   set jwt(String? value) {
     _jwt = value;
-    notifyListeners();
   }
 }

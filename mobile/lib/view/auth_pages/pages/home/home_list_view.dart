@@ -17,7 +17,13 @@ class _HomeListState extends State<HomeList> {
   @override
   void initState() {
     super.initState();
-    data = _controller.getWorkshops();
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    data = _controller.getWorkshops(context);
   }
 
   @override
@@ -38,6 +44,7 @@ class _HomeListState extends State<HomeList> {
             },
           );
         } else if (snapshot.hasError) {
+          print(snapshot.error);
           return Text('${snapshot.error}');
         }
         return const CircularProgressIndicator();
