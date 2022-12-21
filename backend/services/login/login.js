@@ -24,18 +24,17 @@ exports.login = async (email, password) => {
     } else {
       var role = "";
       
-      const admin = Admin.findOne({ userID: user.id });
-
+      const admin = await Admin.findOne({where: {userID: user.id }});
       if (admin) {
         role = "admin";
       } else {
-        const workshopManager = WorkshopManager.findOne({ userId: user.id });
+        const workshopManager = await WorkshopManager.findOne({where: {userID: user.id }});
 
         if (workshopManager) {
           role = "workshopManager";
           
         } else {
-          const customer = Customer.findOne({ userId: user.id });
+          const customer = await Customer.findOne({where: {userID: user.id }});
 
           if (customer) {
             role = "customer";

@@ -1,6 +1,20 @@
 import Image from "next/image";
 
 export default function Register() {
+  // const [email, setEmail] = useState(null);
+  // const [password, setPassword] = useState(null);
+
+  // const handleSubmit = async () => {
+  //   event.preventDefault();
+  //   console.log("handleSubmit");
+  //   const { message, result } = await loginRequest(email, password);
+    
+  //   if (result?.token) {
+  //     Cookie.set(COOKIENAME, token);
+  //   }
+    
+  //   console.log(message);
+  // };
   return (
     <section class="bg-gray-50 dark:bg-gray-900">
       <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -31,6 +45,9 @@ export default function Register() {
                   Your email
                 </label>
                 <input
+                  onChange={(event) => {
+                    setEmail(event.target.value);
+                  }}
                   type="email"
                   name="email"
                   id="email"
@@ -47,6 +64,9 @@ export default function Register() {
                   Password
                 </label>
                 <input
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                  }}
                   type="password"
                   name="password"
                   id="password"
@@ -63,6 +83,9 @@ export default function Register() {
                   Confirm password
                 </label>
                 <input
+                  onChange={(event) => {
+                    setConfirmPassword(event.target.value);
+                  }}
                   type="confirm-password"
                   name="confirm-password"
                   id="confirm-password"
