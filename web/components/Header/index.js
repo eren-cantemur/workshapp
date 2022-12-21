@@ -3,7 +3,6 @@ import { COOKIENAME } from "../../config/cookie.config";
 import { useEffect, useState } from "react";
 
 export default function Header() {
-  // const token = Cookie.get(COOKIENAME);
   const [token, setToken] = useState("");
   useEffect(() => {
     setToken(Cookie.get(COOKIENAME));
