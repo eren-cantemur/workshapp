@@ -3,6 +3,6 @@ import { APIURL } from "../config/api.config";
 
 export default async function loginRequest(email, password) {
   const response = await postRequest("/login", { email, password });
-  console.log(response.body);
+
   return response;
 }

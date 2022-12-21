@@ -3,21 +3,21 @@ import { useState } from "react";
 import loginRequest from "../../requests/login";
 import Cookie from "js-cookie";
 import { COOKIENAME } from "../../config/cookie.config";
-import { useRouter } from "next/router";
 
 export default function Login() {
-  const router = useRouter();
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
   const handleSubmit = async () => {
     event.preventDefault();
+    
     const { message, result } = await loginRequest(email, password);
-    console.log(message, result);
+    
     if (result?.token) {
       Cookie.set(COOKIENAME, token);
-      router.push("/");
     }
+    
+    console.log(message);
   };
 
   return (

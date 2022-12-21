@@ -1,14 +1,14 @@
 const dbConfig = require("../config/db.config.js");
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-  host: dbConfig.DBHOST,
+  host: dbConfig.HOST,
   port: dbConfig.DBPORT,
-  dialect: "mysql",
-  ssl: "Amazon RDS",
-  logging: console.log,
-  maxConcurrentQueries: 100,
-  pool: { maxConnections: 5, maxIdleTime: 30 },
-  language: "en",
+  dialect: 'mysql',
+  dialectOptions: {
+    ssl: 'Amazon RDS'
+  },
+  
+  
 });
 
 const db = {};
