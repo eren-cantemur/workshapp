@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull : false
         },
         repetation : {
-            type : INTEGER,
+            type : Sequelize.INTEGER,
             allowNull : false
         }
     })

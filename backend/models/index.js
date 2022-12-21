@@ -2,11 +2,13 @@ const dbConfig = require("../config/db.config.js");
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
-  dialect: dbConfig.DIALECT,
   port: dbConfig.DBPORT,
+  dialect: 'mysql',
   dialectOptions: {
     ssl: 'Amazon RDS'
-  }
+  },
+  
+  
 });
 
 const db = {};
@@ -22,6 +24,7 @@ db.Admin = require("./admin.js")(sequelize, Sequelize);
 db.Customer = require("./customer.js")(sequelize, Sequelize);
 db.WorkshopImage = require("./workshopImage.js")(sequelize, Sequelize);
 db.Reservation = require("./reservation.js")(sequelize, Sequelize);
+db.Time = require("./time.js")(sequelize, Sequelize);
 
 
 
