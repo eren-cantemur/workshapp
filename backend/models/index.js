@@ -9,9 +9,24 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   logging: console.log,
   maxConcurrentQueries: 100,
   pool: { maxConnections: 5, maxIdleTime: 30 },
-  language: 'en'
+  language: "en",
 });
 
+console.log([
+  dbConfig.DB,
+  dbConfig.USER,
+  dbConfig.PASSWORD,
+  {
+    host: dbConfig.HOST,
+    port: dbConfig.DBPORT,
+    dialect: "mysql",
+    ssl: "Amazon RDS",
+    logging: console.log,
+    maxConcurrentQueries: 100,
+    pool: { maxConnections: 5, maxIdleTime: 30 },
+    language: "en",
+  },
+]);
 const db = {};
 
 db.Sequelize = Sequelize;
