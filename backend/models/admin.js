@@ -7,6 +7,6 @@ module.exports = (sequelize, Sequelize) => {
             allowNull : false
         }
     })
-    Admin.belongsTo(UserModel)
+    Admin.User = Admin.belongsTo(UserModel)
     return Admin;
 }

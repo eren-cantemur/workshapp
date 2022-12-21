@@ -1,8 +1,8 @@
-const WorkshopManager = require('./workShopManager')
+const WorkshopManager = require('./workshopManager')
 
 module.exports = (sequelize, Sequelize) => {
     WorkshopManagerModel = WorkshopManager(sequelize,Sequelize)
-    const WorkShop = sequelize.define("workshop", {
+    const Workshop = sequelize.define("workshop", {
         name : {
             type : Sequelize.STRING,
             allowNull : false
@@ -11,10 +11,18 @@ module.exports = (sequelize, Sequelize) => {
             type : Sequelize.INTEGER,
             defaultValue : 0
         },
+        content : {
+            type : Sequelize.STRING,
+            allowNull : false
+        },
+        photo : {
+            type : Sequelize.STRING,
+            allowNull : false
+        },
         capacity : {
             type : Sequelize.INTEGER
         }
     })
     Workshop.belongsTo(WorkshopManagerModel)
-    return WorkShop;
+    return Workshop;
 }

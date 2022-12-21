@@ -1,12 +1,12 @@
-const WorkShop = require('./workShop')
+const Workshop = require('./workshop')
 module.exports = (sequelize, Sequelize) => {
-    WorkShopModel = WorkShop(sequelize,Sequelize)
-    const WorkShopImage = sequelize.define("workShopImage", {
+    WorkshopModel = Workshop(sequelize,Sequelize)
+    const WorkshopImage = sequelize.define("workshopImage", {
         path : {
             type : Sequelize.STRING,
             allowNull : false
         }
     })
-    WorkShopImage.belongsTo(WorkShopModel)
-    return WorkShopImage;
+    WorkshopImage.belongsTo(WorkshopModel)
+    return WorkshopImage;
 }
