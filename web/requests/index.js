@@ -9,7 +9,7 @@ async function postRequest(url, body) {
       "Content-Type": "application/json",
       token: Cookie.get(COOKIENAME),
     },
-    body: body,
+    body: JSON.stringify(body),
   });
 
   return response;
