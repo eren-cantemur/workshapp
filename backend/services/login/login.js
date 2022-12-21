@@ -1,15 +1,10 @@
-import { User } from "../../models/user";
-import { Customer } from "../../models/customer";
-import { WorkshopManager } from "../../models/workshopManager";
-import { Admin } from "../../models/admin";
+const { User, WorkshopManager, Admin, Customer } = require('../../models')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const { JWTPRIVATEKEY } = require('../../config/jwt.config')
 
-import * as bcrypt from "bcrypt";
-import * as jwt from "jsonwebtoken";
-import { JWTPRIVATEKEY } from "../../config/jwt.config";
-
-login = async (email, password) => {
-  const user = await User.findOne({ email: email });
-
+exports.login = async (email, password) => {
+  const user = await User.findOne({where : {email: email}});
   if (user === null) {
     return {
       type: "Error",
@@ -49,12 +44,12 @@ login = async (email, password) => {
       }
 
       const privateKey = JWTPRIVATEKEY;
-
+      
       const token = await jwt.sign(
         { userID: user.id, role: role },
         privateKey,
-        { algorithm: "RS256" },
-        { expiresIn: "14d" }
+        { algorithm: "RS256",
+          expiresIn: "14d" }
       );
 
       return {
@@ -66,4 +61,3 @@ login = async (email, password) => {
   }
 };
 
-module.exports = { login };

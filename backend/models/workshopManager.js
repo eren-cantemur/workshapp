@@ -13,6 +13,6 @@ module.exports = (sequelize, Sequelize) => {
             type : Sequelize.STRING
         }
     })
-    WorkshopManager.belongsTo(UserModel)
+    WorkshopManager.User = WorkshopManager.belongsTo(UserModel)
     return WorkshopManager;
 }
