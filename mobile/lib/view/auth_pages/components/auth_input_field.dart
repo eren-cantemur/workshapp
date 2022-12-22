@@ -1,11 +1,34 @@
 import 'package:flutter/material.dart';
 
-class AuthInputField extends StatelessWidget {
-  const AuthInputField({Key? key, required this.name, required this.hint, required this.obscure}) : super(key: key);
+class AuthInputField extends StatefulWidget {
+  const AuthInputField(
+      {Key? key, required this.controller, required this.name, required this.hint, required this.obscure})
+      : super(key: key);
 
   final String name;
   final String hint;
   final bool obscure;
+  final TextEditingController controller;
+
+  @override
+  State<AuthInputField> createState() => _AuthInputFieldState();
+}
+
+class _AuthInputFieldState extends State<AuthInputField> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = widget.controller;
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,7 +46,7 @@ class AuthInputField extends StatelessWidget {
               Expanded(
                 flex: 10,
                 child: Text(
-                  name,
+                  widget.name,
                   style: const TextStyle(
                       fontSize: 16, color: Color.fromRGBO(99, 109, 119, 1), fontWeight: FontWeight.w500),
                 ),
@@ -56,10 +79,11 @@ class AuthInputField extends StatelessWidget {
               Expanded(
                 flex: 10,
                 child: TextField(
+                  controller: _controller,
                   decoration: InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
-                    hintText: hint,
+                    hintText: widget.hint,
                     enabledBorder: OutlineInputBorder(
                       borderSide: const BorderSide(color: Color.fromARGB(0, 13, 152, 106), width: 0.0),
                       borderRadius: BorderRadius.circular(8.0),
@@ -71,7 +95,7 @@ class AuthInputField extends StatelessWidget {
                     // labelText: hint,
                     focusColor: Theme.of(context).primaryColor,
                   ),
-                  obscureText: obscure,
+                  obscureText: widget.obscure,
                 ),
               ),
               const Expanded(

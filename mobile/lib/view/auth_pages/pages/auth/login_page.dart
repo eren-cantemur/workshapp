@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/controller/auth_controller.dart';
-import 'package:mobile/view/auth_pages/pages/register_page.dart';
-import '../components/auth_input_field.dart';
-import '../components/action_button.dart';
+import 'package:mobile/view/auth_pages/pages/auth/register_page.dart';
+import '../../components/auth_input_field.dart';
+import '../../components/action_button.dart';
 import 'package:mobile/model/paths.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,6 +14,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _mailTextFieldController = TextEditingController();
+  final TextEditingController _passwordTextFieldController = TextEditingController();
+  AuthController authController = AuthController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,9 +43,10 @@ class _LoginPageState extends State<LoginPage> {
                     width: 1,
                   ),
                 ),
-                const Expanded(
+                Expanded(
                   flex: 12,
                   child: AuthInputField(
+                    controller: _mailTextFieldController,
                     name: 'Email Adress',
                     hint: 'name@example.com',
                     obscure: false,
@@ -54,12 +58,13 @@ class _LoginPageState extends State<LoginPage> {
                     height: 10,
                   ),
                 ),
-                const Expanded(
+                Expanded(
                   flex: 12,
                   child: AuthInputField(
                     name: "Password",
                     hint: "********",
                     obscure: true,
+                    controller: _passwordTextFieldController,
                   ),
                 ),
                 const Expanded(
@@ -68,9 +73,16 @@ class _LoginPageState extends State<LoginPage> {
                     height: 20,
                   ),
                 ),
-                AuthButton(
-                  title: "Login",
-                  nextPageId: "empty",
+                Expanded(
+                  flex: 7,
+                  child: AuthButton(
+                    title: "Login",
+                    nextPageId: "empty",
+                    function: () {
+                      authController.login(
+                          _mailTextFieldController.value.text, _passwordTextFieldController.value.text, context);
+                    },
+                  ),
                 ),
                 const Expanded(
                   flex: 2,

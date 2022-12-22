@@ -1,6 +1,8 @@
 const { User, WorkshopManager, Admin, Customer } = require('../../models')
 const bcrypt = require('bcrypt')
 const SALTROUNDS = require('../../config/bcrypt.config').SALTROUNDS
+const jwt = require('jsonwebtoken')
+const { JWTPRIVATEKEY } = require('../../config/jwt.config')
 
 exports.register = async (email, password, role) => {
   const user = await User.findOne({where : {email: email}});
@@ -61,12 +63,20 @@ exports.register = async (email, password, role) => {
         message: "Couldn't identify role.",
       };
     }
-    
+    const privateKey = JWTPRIVATEKEY;
+   
+    const token = await jwt.sign(
+      { userID: newUser.id, role: role },
+      privateKey,
+      { algorithm: "RS256",
+        expiresIn: "14d" }
+    );
     return {
       type: "Success",
       message: `User is registered as ${role} with email: ${
         newUser.toJSON().user.email
       }`,
+      result: token,
     };
   }
 };
