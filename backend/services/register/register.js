@@ -66,7 +66,7 @@ exports.register = async (email, password, role) => {
     const privateKey = JWTPRIVATEKEY;
    
     const token = await jwt.sign(
-      { userID: newUser.id, role: role },
+      { userID: newUser.user.id, role: role },
       privateKey,
       { algorithm: "RS256",
         expiresIn: "14d" }

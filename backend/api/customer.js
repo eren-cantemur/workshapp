@@ -1,10 +1,11 @@
 const express = require('express');
+const verifyRole = require('../middleware/roleVerif');
 const router = express.Router();
 
 const customerService = require("../services/customer")
 
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", verifyRole(req, res, next, "customer", 1), async (req, res) => {
   const { id } = req.query
   if (id) {
     const response = await customerService.getById(id)
@@ -16,7 +17,7 @@ router.get("/:id", async (req, res) => {
     });
   }
 })
-router.get("/:name", async (req, res) => {
+router.get("/:name", verifyRole(req, res, next, "customer", 2), async (req, res) => {
   const { name } = req.query
   if (name) {
     const response = await customerService.getByName(name)
@@ -28,11 +29,11 @@ router.get("/:name", async (req, res) => {
     });
   }
 })
-router.get("/", async (req, res) => {
+router.get("/", verifyRole(req, res, next, "customer", 3), async (req, res) => {
   const response = await customerService.getAll()
   res.status(response.type === "Error" ? 400 : 200).send(response);
 })
-router.put("/", async (req, res) => {
+router.put("/", verifyRole(req, res, next, "customer", 4), async (req, res) => {
   const { id, name, photo } = req.body
   if (id && name && photo) {
     if (req.files.image) {
@@ -54,7 +55,7 @@ router.put("/", async (req, res) => {
     });
   }
 })
-router.delete("/", async (req, res) => {
+router.delete("/", verifyRole(req, res, next, "customer", 5), async (req, res) => {
   const { id } = req.body
   if (id) {
     const response = await customerService.delete(id)
