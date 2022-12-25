@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -65,12 +67,12 @@ class NetworkController {
       headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', 'Authorization': jwt},
     );
     //todo parse response
-
+    var intValue = Random().nextInt(10);
     return [
       Workshop(
           name: "Kokteyl 101",
           location: "Istanbul",
-          price: "450",
+          price: intValue.toString(),
           owner: "Kamare Workshops",
           imageURL: "https://iyikigormusum.com/uploads/d709353c272bf0af74aa2a30b7222a44.jpeg"),
       Workshop(

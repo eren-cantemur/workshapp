@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/controller/feed_data_provider.dart';
 import 'package:mobile/model/jwt_provider.dart';
 import 'package:mobile/view/auth_pages/pages/auth/login_page.dart';
 import 'package:mobile/view/auth_pages/pages/auth/profile_info_page.dart';
@@ -21,7 +22,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<AuthController>(create: (_) => AuthController()),
         ListenableProvider(create: (context) => JWTProvider()),
       ],
       child: MaterialApp(

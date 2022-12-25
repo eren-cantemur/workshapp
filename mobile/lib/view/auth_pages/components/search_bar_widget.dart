@@ -1,26 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class SearchBar extends StatefulWidget {
+import '../../../controller/feed_data_provider.dart';
+
+class SearchBar extends StatelessWidget {
   final ValueChanged<String> onChanged;
-  final Function onSubmitted;
   final TextEditingController controller;
 
   const SearchBar({
     Key? key,
     required this.onChanged,
-    required this.onSubmitted,
     required this.controller,
   }) : super(key: key);
-
-  @override
-  _SearchBarState createState() => _SearchBarState();
-}
-
-class _SearchBarState extends State<SearchBar> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +20,8 @@ class _SearchBarState extends State<SearchBar> {
         children: [
           Expanded(
             child: TextField(
-              controller: widget.controller,
-              onChanged: widget.onChanged,
+              controller: controller,
+              onChanged: onChanged,
               decoration: const InputDecoration(
                 hintText: 'What are you looking for?',
                 hintStyle: TextStyle(color: Colors.grey),
@@ -40,7 +31,7 @@ class _SearchBarState extends State<SearchBar> {
           IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              widget.onSubmitted.call();
+              Provider.of<FeedDataProvider>(context, listen: false).updateData(context);
               // Send HTTP request and update list view
             },
           ),
