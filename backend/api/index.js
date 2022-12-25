@@ -26,7 +26,6 @@ router.use("/workshop", verifyToken, workShopRouter)
 router.use("/review", verifyToken, reviewRouter)
 router.use("/address", verifyToken, addressRouter)
 router.use("/reservation", verifyToken, reservationRouter)
-router.use("/time", verifyToken, timeRouter)
 
 
 module.exports = router
