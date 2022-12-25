@@ -4,17 +4,19 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile/controller/networking_controller.dart';
 import 'package:mobile/view/auth_pages/components/custom_dialogue.dart';
-import 'package:mobile/view/auth_pages/pages/home_page.dart';
+import 'package:mobile/view/auth_pages/pages/auth/profile_info_photo.dart';
+import 'package:mobile/view/auth_pages/pages/auth/welcome_page.dart';
+import 'package:mobile/view/auth_pages/pages/home/home_page.dart';
 import 'dart:convert';
 import 'local_data_controller.dart';
 import 'dart:io';
 
 class AuthController extends ChangeNotifier {
-  Future<void> register(String email, String password, context) async {
+  register(String email, String password, context) async {
     try {
       final response = await NetworkController.register(email, password);
       if (response == "done") {
-        Navigator.pushNamed(context, HomePage.id);
+        Navigator.pushNamed(context, ProfilePhotoNamePage.id);
       } else {
         showDialog<String>(
           context: context,
@@ -71,12 +73,18 @@ class AuthController extends ChangeNotifier {
     return null;
   }
 
+  static Future<bool> logout(context) async {
+    Navigator.of(context).pushNamedAndRemoveUntil(WelcomePage.id, (Route<dynamic> route) => false);
+    return true;
+  }
+
   static void navigateToNextPage(String nextPageId, BuildContext context) {
     Navigator.pushNamed(context, nextPageId);
     //todo pop old page
   }
 
-  Future<void> saveNameAndPhoto(String name, File? photo) async {
+  Future<void> saveNameAndPhoto(String name, File? photo, context) async {
+    Navigator.of(context).pushNamedAndRemoveUntil(HomePage.id, (Route<dynamic> route) => false);
     //todo send photo and name
     //todo navigate to feed page if success.
     //todo show pop up if fail.

@@ -131,7 +131,7 @@ class _ProfilePhotoNamePageState extends State<ProfilePhotoNamePage> {
                     title: "Save",
                     nextPageId: "not yet",
                     function: () {
-                      authController.saveNameAndPhoto(_nameTextFieldController.value.text, _image);
+                      authController.saveNameAndPhoto(_nameTextFieldController.value.text, _image, context);
                     },
                   ),
                 ),

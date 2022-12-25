@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobile/controller/local_data_controller.dart';
-import 'package:provider/provider.dart';
-import 'package:file/local.dart';
 
 class JWTProvider extends ChangeNotifier {
   String? _jwt;
@@ -14,15 +12,17 @@ class JWTProvider extends ChangeNotifier {
     return null;
   }
 
-  static getToken() async {
-    String? readedJWT = await LocalDataController.readJWT();
-    if (readedJWT != null) {
-      JWTProvider().jwt = readedJWT;
-    }
-  }
-
   set jwt(String? value) {
     _jwt = value;
-    notifyListeners();
+  }
+
+  getToken() async {
+    String? readedJWT = await LocalDataController.readJWT();
+    if (readedJWT != null) {
+      jwt = readedJWT;
+    } else {
+      //todo logout
+      await LocalDataController.saveJwt("jwt");
+    }
   }
 }
