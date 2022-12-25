@@ -1,17 +1,15 @@
-const {RouteRoles} = require('../lib/routeRoles') 
-const {JWTPRIVATEKEY} = require('../config/jwt.config')
-const jwt = require('jsonwebtoken')
-const verifyRole = (req, res, next, path, id) => {
-    const authenticateToken = req.headers.authorization
-    const token = authenticateToken.split(' ')[1]
-    
-    const decoded = jwt.verify(token, JWTPRIVATEKEY, {algorithms: "RS256"})
+const RouteRoles = require('../lib/routeRoles')
 
-    if (!RouteRoles[path][id].includes(decoded.role)){
-        return res.status(403).send({message:"user type not allowed to do this operation."})
+const verifyRole = (path, id) => {
+    return (req, res, next,) => {
+        const user = req.user
+        const control = RouteRoles[path][id].includes(user.role)
+        if (!control) {
+            console.log("alper")
+            return res.status(403).send({ message: "User type not allowed to do this operation." })
+        }
+        next()
     }
-
-    next()
 }
 
 module.exports = verifyRole

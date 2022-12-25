@@ -4,10 +4,10 @@ const router = express.Router();
 
 const reviewService = require("../services/review")
 
-router.post("/", verifyRole(req, res, next, "review", 1), async (req, res) => {
-  const { comment, rate, userId, workshopId } = req.body
-  if (comment && rate && userId && workshopId) {
-    const response = await reviewService.create(comment, rate, userId, workshopId)
+router.post("/", verifyRole("review", 1), async (req, res) => {
+  const { comment, rate, workshopId } = req.body
+  if (comment && rate  && workshopId) {
+    const response = await reviewService.create(comment, rate, req.user.id , workshopId)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
@@ -16,7 +16,7 @@ router.post("/", verifyRole(req, res, next, "review", 1), async (req, res) => {
     });
   }
 })
-router.get("/:id", verifyRole(req, res, next, "review", 2), async (req, res) => {
+router.get("/:id", verifyRole("review", 2), async (req, res) => {
   const { id } = req.query
   if (id) {
     const response = await reviewService.getById(id)
@@ -28,7 +28,7 @@ router.get("/:id", verifyRole(req, res, next, "review", 2), async (req, res) => 
     });
   }
 })
-router.get("/:userId", verifyRole(req, res, next, "review", 3), async (req, res) => {
+router.get("/:userId", verifyRole("review", 3), async (req, res) => {
   const { userId } = req.query
   if (userId) {
     const response = await reviewService.getByUserId(userId)
@@ -40,14 +40,14 @@ router.get("/:userId", verifyRole(req, res, next, "review", 3), async (req, res)
     });
   }
 })
-router.get("/", verifyRole(req, res, next, "review", 4), async (req, res) => {
+router.get("/", verifyRole("review", 4), async (req, res) => {
   const response = await reviewService.getAll()
   res.status(response.type === "Error" ? 400 : 200).send(response);
 })
-router.put("/", verifyRole(req, res, next, "review", 5), async (req, res) => {
+router.put("/", verifyRole("review", 5), async (req, res) => {
   const { id, comment, rate } = req.body
   if (id && comment && rate) {
-    const response = await reviewService.update(id, comment, rate)
+    const response = await reviewService.update(id, comment, rate, req.user.id)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
@@ -56,10 +56,10 @@ router.put("/", verifyRole(req, res, next, "review", 5), async (req, res) => {
     });
   }
 })
-router.delete("/", verifyRole(req, res, next, "review", 6), async (req, res) => {
+router.delete("/", verifyRole("review", 6), async (req, res) => {
   const { id } = req.body
   if (id) {
-    const response = await reviewService.delete(id)
+    const response = await reviewService.delete(id, req.user.id)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({

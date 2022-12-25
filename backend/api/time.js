@@ -4,7 +4,7 @@ const router = express.Router();
 
 const timeService = require("../services/review")
 
-router.post("/", verifyRole(req, res, next, "time", 1), async (req, res) => {
+router.post("/", verifyRole("time", 1), async (req, res) => {
   const { date, repetation, workshopId } = req.body
   if (date && repetation && workshopId) {
     const response = await timeService.create(date, repetation, workshopId)
@@ -16,7 +16,7 @@ router.post("/", verifyRole(req, res, next, "time", 1), async (req, res) => {
     });
   }
 })
-router.get("/:id", verifyRole(req, res, next, "time", 2), async (req, res) => {
+router.get("/:id", verifyRole("time", 2), async (req, res) => {
   const { id } = req.query
   if (id) {
     const response = await timeService.getById(id)
@@ -28,7 +28,7 @@ router.get("/:id", verifyRole(req, res, next, "time", 2), async (req, res) => {
     });
   }
 })
-router.get("/:workshopId", verifyRole(req, res, next, "time", 3), async (req, res) => {
+router.get("/:workshopId", verifyRole("time", 3), async (req, res) => {
   const { workshopId } = req.query
   if (workshopId) {
     const response = await timeService.getByWorkshopId(workshopId)
@@ -40,11 +40,11 @@ router.get("/:workshopId", verifyRole(req, res, next, "time", 3), async (req, re
     });
   }
 })
-router.get("/", verifyRole(req, res, next, "time", 4), async (req, res) => {
+router.get("/", verifyRole("time", 4), async (req, res) => {
   const response = await timeService.getAll()
   res.status(response.type === "Error" ? 400 : 200).send(response);
 })
-router.put("/", verifyRole(req, res, next, "time", 5), async (req, res) => {
+router.put("/", verifyRole("time", 5), async (req, res) => {
   const { id, date, repetation } = req.body
   if (id && date && repetation) {
     const response = await timeService.update(id, date, repetation)
@@ -56,7 +56,7 @@ router.put("/", verifyRole(req, res, next, "time", 5), async (req, res) => {
     });
   }
 })
-router.delete("/", verifyRole(req, res, next, "time", 6), async (req, res) => {
+router.delete("/", verifyRole("time", 6), async (req, res) => {
   const { id } = req.body
   if (id) {
     const response = await timeService.delete(id)

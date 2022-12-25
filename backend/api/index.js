@@ -12,16 +12,16 @@ const workShopManagerRouter = require("./workshopManager")
 const addressRouter = require("./address");
 const reservationRouter = require('./reservation');
 const timeRouter = require('./time');
-const {verifyToken} = require('../middleware/jwtVerif')
+const  verifyToken  = require('../middleware/jwtVerif')
 router.get("/", (req, res) => {
     res.send("Success!")
 })
-router.use("/login",loginRouter)
-router.use("/register",registerRouter)
-router.use("/user", userRouter)
-router.use("/admin", adminRouter)
-router.use("/customer", customerRouter)
-router.use("/workshopManager", workShopManagerRouter)
+router.use("/login", loginRouter)
+router.use("/register", registerRouter)
+router.use("/user", verifyToken, userRouter)
+router.use("/admin", verifyToken, adminRouter)
+router.use("/customer", verifyToken, customerRouter)
+router.use("/workshopManager", verifyToken, workShopManagerRouter)
 router.use("/workshop", verifyToken, workShopRouter)
 router.use("/review", verifyToken, reviewRouter)
 router.use("/address", verifyToken, addressRouter)

@@ -1,6 +1,6 @@
 const { User } = require('../../models')
 
-exports.update = async (id, email, password) => {
+exports.update = async (userId, email, password) => {
 
     const updateBody = {
         email : email,
@@ -9,7 +9,7 @@ exports.update = async (id, email, password) => {
 
     const findOptions = {
         where : {
-            id : id
+            id : userId
         }
     }
     const result = await User.update(

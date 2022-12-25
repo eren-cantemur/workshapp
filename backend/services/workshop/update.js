@@ -1,17 +1,18 @@
 const {Workshop} = require('../../models')
 
-exports.update = async (id,name, capacity,content, photo) => {
+exports.update = async (id,name, capacity,description, photo, managerId) => {
 
     const updateBody = {
         name : name,
         capacity : capacity,
-        content : content,
+        description : description,
         photo : photo
     }
 
     const findOptions = {
         where : {
-            id : id
+            id : id,
+            workshopManagerId : managerId
         }
     }
 

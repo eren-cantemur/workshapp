@@ -4,7 +4,7 @@ const router = express.Router();
 
 const addressService = require("../services/address")
 
-router.post("/", verifyRole(req, res, next, "address", 1), async (req, res) => {
+router.post("/", verifyRole("address", 1), async (req, res) => {
   const { lat, long, country, city, county, postalCode, openAddress, workshopId } = req.body
   if (lat && long && country && city && county && postalCode && openAddress) {
     const response = await addressService.create(lat, long, country, city, county, postalCode, openAddress, workshopId)
@@ -16,7 +16,7 @@ router.post("/", verifyRole(req, res, next, "address", 1), async (req, res) => {
     });
   }
 })
-router.get("/:id", verifyRole(req, res, next, "address", 2), async (req, res) => {
+router.get("/:id", verifyRole("address", 2), async (req, res) => {
   const { id } = req.query
   if (id) {
     const response = await addressService.getById(id)
@@ -29,7 +29,7 @@ router.get("/:id", verifyRole(req, res, next, "address", 2), async (req, res) =>
   }
 })
 
-router.get("/:workshopId", verifyRole(req, res, next, "address", 3), async (req, res) => {
+router.get("/:workshopId", verifyRole("address", 3), async (req, res) => {
   const { workshopId } = req.query
   if (workshopId) {
     const response = await addressService.getByWorkshopId(workshopId)
@@ -42,12 +42,12 @@ router.get("/:workshopId", verifyRole(req, res, next, "address", 3), async (req,
   }
 })
 
-router.get("/", verifyRole(req, res, next, "address", 4), async (req, res) => {
+router.get("/", verifyRole("address", 4), async (req, res) => {
   const response = await addressService.getAll()
   res.status(response.type === "Error" ? 400 : 200).send(response);
 })
 
-router.put("/", verifyRole(req, res, next, "address", 5), async (req, res) => {
+router.put("/", verifyRole("address", 5), async (req, res) => {
   const { id, lat, long, country, city, county, postalCode, openAddress } = req.body
   if (lat && long && country && city && county && postalCode && openAddress && id) {
     const response = await addressService.update(id, lat, long, country, city, county, postalCode, openAddress)
@@ -59,7 +59,7 @@ router.put("/", verifyRole(req, res, next, "address", 5), async (req, res) => {
     });
   }
 })
-router.delete("/", verifyRole(req, res, next, "address", 6), async (req, res) => {
+router.delete("/", verifyRole("address", 6), async (req, res) => {
   const { id } = req.body
   if (id) {
     const response = await addressService.delete(id)

@@ -11,6 +11,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         phone : {
             type : Sequelize.STRING
+        },
+        description : {
+            type : Sequelize.STRING
         }
     })
     WorkshopManager.User = WorkshopManager.belongsTo(UserModel)

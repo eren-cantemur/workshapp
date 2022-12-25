@@ -5,7 +5,7 @@ const router = express.Router();
 const customerService = require("../services/customer")
 
 
-router.get("/:id", verifyRole(req, res, next, "customer", 1), async (req, res) => {
+router.get("/:id", verifyRole("customer", 1), async (req, res) => {
   const { id } = req.query
   if (id) {
     const response = await customerService.getById(id)
@@ -17,7 +17,7 @@ router.get("/:id", verifyRole(req, res, next, "customer", 1), async (req, res) =
     });
   }
 })
-router.get("/:name", verifyRole(req, res, next, "customer", 2), async (req, res) => {
+router.get("/:name", verifyRole("customer", 2), async (req, res) => {
   const { name } = req.query
   if (name) {
     const response = await customerService.getByName(name)
@@ -29,11 +29,11 @@ router.get("/:name", verifyRole(req, res, next, "customer", 2), async (req, res)
     });
   }
 })
-router.get("/", verifyRole(req, res, next, "customer", 3), async (req, res) => {
+router.get("/", verifyRole("customer", 3), async (req, res) => {
   const response = await customerService.getAll()
   res.status(response.type === "Error" ? 400 : 200).send(response);
 })
-router.put("/", verifyRole(req, res, next, "customer", 4), async (req, res) => {
+router.put("/", verifyRole("customer", 4), async (req, res) => {
   const { id, name, photo } = req.body
   if (id && name && photo) {
     if (req.files.image) {
@@ -46,7 +46,7 @@ router.put("/", verifyRole(req, res, next, "customer", 4), async (req, res) => {
         photo = uploadResponse.data.location
       }
     }
-    const response = await customerService.update(id, name, photo)
+    const response = await customerService.update(req.user.id, name, photo)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
@@ -55,10 +55,10 @@ router.put("/", verifyRole(req, res, next, "customer", 4), async (req, res) => {
     });
   }
 })
-router.delete("/", verifyRole(req, res, next, "customer", 5), async (req, res) => {
-  const { id } = req.body
-  if (id) {
-    const response = await customerService.delete(id)
+router.delete("/", verifyRole("customer", 5), async (req, res) => {
+  
+  if (req.user) {
+    const response = await customerService.delete(req.user.id)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
