@@ -67,6 +67,18 @@ router.put("/", verifyRole("review", 5), async (req, res) => {
     });
   }
 })
+router.put("/changeStatus", verifyRole("review", 7), async (req, res) => {
+  const { id, isApproved} = req.body
+  if (id && isApproved) {
+    const response = await reviewService.changeStatus(id, isApproved)
+    res.status(response.type === "Error" ? 400 : 200).send(response);
+  } else {
+    res.status(400).send({
+      type: "Error",
+      message: "Fields supplied not valid.",
+    });
+  }
+})
 router.delete("/", verifyRole("review", 6), async (req, res) => {
   const { id } = req.body
   if (id) {

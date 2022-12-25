@@ -47,7 +47,7 @@ router.put("/", verifyRole("user", 4), async (req, res) => {
     });
   }
 })
-router.put("/approve", verifyRole("user", 5), async (req, res) => {
+router.put("/changeStatus", verifyRole("user", 5), async (req, res) => {
   const { id, isApproved} = req.body
   if (id && isApproved) {
     const response = await userService.changeStatus(id, isApproved)
