@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/controller/feed_data_provider.dart';
 import 'package:mobile/model/jwt_provider.dart';
-import 'package:mobile/view/auth_pages/pages/auth/login_page.dart';
-import 'package:mobile/view/auth_pages/pages/auth/profile_info_page.dart';
-import 'package:mobile/view/auth_pages/pages/auth/profile_info_photo.dart';
-import 'package:mobile/view/auth_pages/pages/auth/register_page.dart';
-import 'package:mobile/view/auth_pages/pages/home/home_page.dart';
+import 'package:mobile/view/auth/pages/login_page.dart';
+import 'package:mobile/view/auth/pages/profile_info_page.dart';
+import 'package:mobile/view/auth/pages/profile_info_photo.dart';
+import 'package:mobile/view/auth/pages/register_page.dart';
+import 'package:mobile/view/home/pages/home_page.dart';
 import 'package:provider/provider.dart';
-import 'controller/auth_controller.dart';
-import 'view/auth_pages/pages/auth/welcome_page.dart';
+import 'view/auth/pages/welcome_page.dart';
 
 void main() {
   runApp(const MyApp());

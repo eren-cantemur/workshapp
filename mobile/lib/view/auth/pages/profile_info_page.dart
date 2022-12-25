@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/view/auth_pages/components/action_button.dart';
-import 'package:mobile/view/auth_pages/components/custom_positioned_text.dart';
+import 'package:mobile/view/auth/components/action_button.dart';
+import 'package:mobile/view/auth/components/custom_positioned_text.dart';
 
-import '../../components/custom_picker.dart';
+import '../components/custom_picker.dart';
 
 class ProfileInfoPage extends StatefulWidget {
   const ProfileInfoPage({Key? key}) : super(key: key);

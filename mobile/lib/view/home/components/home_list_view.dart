@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/controller/feed_data_provider.dart';
 import 'package:mobile/controller/home_list_controller.dart';
 import 'package:mobile/model/workshop_model.dart';
-import 'package:mobile/view/auth_pages/pages/home/workshop_cell.dart';
+import 'package:mobile/view/home/components/workshop_cell.dart';
 import 'package:provider/provider.dart';
 
 class HomeList extends StatefulWidget {

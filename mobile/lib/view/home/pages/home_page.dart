@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/controller/home_list_controller.dart';
 import 'package:mobile/controller/home_page_controller.dart';
-import 'package:mobile/view/auth_pages/components/search_bar_widget.dart';
-import 'package:mobile/view/auth_pages/pages/home/featured_card.dart';
-import 'package:mobile/view/auth_pages/pages/home/home_list_view.dart';
+import 'package:mobile/view/auth/components/search_bar_widget.dart';
+import 'package:mobile/view/home/components/featured_card.dart';
+import 'package:mobile/view/home/components/home_list_view.dart';
 import 'package:provider/provider.dart';
-import '../../../../controller/feed_data_provider.dart';
-import '../../../../model/workshop_model.dart';
+import '../../../../../controller/feed_data_provider.dart';
+import '../../../../../model/workshop_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

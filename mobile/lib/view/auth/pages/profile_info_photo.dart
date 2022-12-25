@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile/controller/auth_controller.dart';
-import 'package:mobile/view/auth_pages/components/action_button.dart';
-import 'package:mobile/view/auth_pages/components/auth_input_field.dart';
+import 'package:mobile/view/auth/components/action_button.dart';
+import 'package:mobile/view/auth/components/auth_input_field.dart';
 
 class ProfilePhotoNamePage extends StatefulWidget {
   const ProfilePhotoNamePage({Key? key}) : super(key: key);
