@@ -7,6 +7,7 @@ export default function CreateWorkshopModal() {
   const [images, setImages] = useState(null);
   const [name, setName] = useState(null);
   const [capacity, setCapacity] = useState(null);
+  const [price, setPrice] = useState(null);
   const [category, setCategory] = useState(null);
   const [description, setDescription] = useState(null);
 
@@ -22,6 +23,7 @@ export default function CreateWorkshopModal() {
       images,
       name,
       capacity,
+      price,
       category,
       description,
     });
@@ -172,6 +174,25 @@ export default function CreateWorkshopModal() {
                   <option value="PH">Phones</option>
                 </select>
               </div>    
+              <div>
+                <label
+                  for="price"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Price
+                </label>
+                <input
+                  type="number"
+                  name="price"
+                  id="price"
+                  value={price}
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="How much will you charge in $?"
+                  onChange={(event) => {
+                    setPrice(event.target.value);
+                  }}
+                />
+              </div>
               <div class="sm:col-span-2">
                 <label
                   for="description"
