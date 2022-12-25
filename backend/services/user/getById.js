@@ -19,7 +19,7 @@ exports.getById = async (id) => {
     else{
         return {
             type: "Success",
-            message: "User is added to result.",
+            message: "User is found.",
             result: user
         };
     }

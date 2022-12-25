@@ -1,6 +1,18 @@
 import Image from "next/image";
+import Cookie from "js-cookie";
+import { COOKIENAME } from "../../config/cookie.config";
+import { useRouter } from "next/router";
+import { postRequest } from "../../requests";
+import { useEffect, useState } from "react";
 
 export default function Profile() {
+  const [data, setData] = useState(null)
+  const [isLoading, setLoading] = useState(false)
+  useEffect(() => {
+    postRequest('/user/me', {}).then((res) => res.json()).then((data) => { setData(data); setLoading(false); } );
+  }, []);
+  if (isLoading) return <p>Loading...</p>
+  if (!data) return <p>No profile data</p>
   return (
     <section class="bg-white dark:bg-gray-900">
       <div class="py-4 px-4 mx-auto max-w-2xl lg:py-4">
@@ -17,13 +29,13 @@ export default function Profile() {
                   class="w-8 h-8 rounded-full"
                   src="https://flowbite.com/docs/images/logo.svg"
                   alt="Flowbite logo"
-                />
+                  />
               </a>
             </div>
             <div>
               <p class="mb-1 text-base font-semibold leading-none text-gray-900 dark:text-white">
                 <a href="#" class="hover:underline">
-                  Flowbite
+                  User ID = {data.userID}
                 </a>
               </p>
               <p class="mb-3 text-sm font-normal">Tech company</p>

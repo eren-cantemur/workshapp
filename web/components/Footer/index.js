@@ -4,7 +4,7 @@ export default function Footer() {
       <div class="mx-auto max-w-screen-xl">
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
-            <a href="https://flowbite.com" class="flex items-center">
+            <a href="/" class="flex items-center">
               <img
                 src="https://flowbite.com/docs/images/logo.svg"
                 class="mr-3 h-8"
@@ -22,17 +22,17 @@ export default function Footer() {
               </h2>
               <ul class="text-gray-600 dark:text-gray-400">
                 <li class="mb-4">
-                  <a href="https://flowbite.com" class="hover:underline">
+                  <a href="/" class="hover:underline">
                     Flowbite
                   </a>
                 </li>
                 <li class="mb-4">
-                  <a href="https://tailwindcss.com/" class="hover:underline">
+                  <a href="/" class="hover:underline">
                     Tailwind CSS
                   </a>
                 </li>
                 <li>
-                  <a href="https://unsplash.com/" class="hover:underline">
+                  <a href="/" class="hover:underline">
                     Unsplash
                   </a>
                 </li>
@@ -45,7 +45,7 @@ export default function Footer() {
               <ul class="text-gray-600 dark:text-gray-400">
                 <li class="mb-4">
                   <a
-                    href="https://discord.gg/"
+                    href="/"
                     class="hover:underline"
                   >
                     Discord
@@ -83,7 +83,7 @@ export default function Footer() {
           </span>
           <div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
             <a
-              href="#"
+              href="https://facebook.com/workshapp"
               class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <svg
@@ -100,7 +100,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://facebook.com/workshapp"
+              href="https://instagram.com/worksh.app"
               class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <svg
@@ -117,7 +117,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://instagram.com/workshapp"
+              href="https://twitter.com/workshapp"
               class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
             >
               <svg

@@ -7,7 +7,7 @@ async function postRequest(url, body) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      token: Cookie.get(COOKIENAME),
+      "Authorization": "Bearer " + Cookie.get(COOKIENAME),
     },
     body: JSON.stringify(body),
   });
