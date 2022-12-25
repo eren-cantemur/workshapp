@@ -36,8 +36,8 @@ router.get("/", verifyRole("user", 3), async (req, res) => {
 })
 
 router.put("/", verifyRole("user", 4), async (req, res) => {
-  const { id, email, password } = req.body
-  if (id && email && password) {
+  const { email, password } = req.body
+  if (email && password) {
     const response = await userService.update(req.user.id, email, password )
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {

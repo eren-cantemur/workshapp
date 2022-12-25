@@ -6,7 +6,7 @@ const s3Service = require("../services/s3")
 const workshopService = require("../services/workshop")
 
 router.post("/", verifyRole("workshop", 1), async (req, res) => {
-  const { name, capacity, description, categoryId} = req.body
+  const { name, capacity, description, categoryId } = req.body
   if (name && capacity && description && req.files.image && categoryId) {
     const uploadResponse = s3Service.upload(req.files.image)
     if (uploadResponse.type == "Error") {
@@ -15,7 +15,7 @@ router.post("/", verifyRole("workshop", 1), async (req, res) => {
     }
     else {
       const photo = uploadResponse.data.location
-      const response = await workshopService.create(name, capacity, description, photo, categoryId,req.user.id)
+      const response = await workshopService.create(name, capacity, description, photo, categoryId, req.user.id)
       res.status(response.type === "Error" ? 400 : 200).send(response);
     }
 
@@ -50,13 +50,24 @@ router.get("/:workshopManagerId", verifyRole("workshop", 3), async (req, res) =>
     });
   }
 })
+router.get("/getByToken", verifyRole("workshop", 3), async (req, res) => {
+  if (req.user) {
+    const response = await workshopService.getByWorkshopManagerId(req.user.id)
+    res.status(response.type === "Error" ? 400 : 200).send(response);
+  } else {
+    res.status(400).send({
+      type: "Error",
+      message: "Fields supplied not valid.",
+    });
+  }
+})
 router.get("/", verifyRole("workshop", 4), async (req, res) => {
   const response = await workshopService.getAll()
   res.status(response.type === "Error" ? 400 : 200).send(response);
 })
 router.put("/", verifyRole("workshop", 5), async (req, res) => {
-  const { id, name, capacity, description, photo } = req.body
-  if (id && name && capacity && description && photo) {
+  const { id, name, capacity, description, photo, categoryId } = req.body
+  if (id && name && capacity && description && photo && categoryId) {
     if (req.files.image) {
       const uploadResponse = s3Service.upload(req.files.image)
       if (uploadResponse.type == "Error") {
@@ -67,7 +78,20 @@ router.put("/", verifyRole("workshop", 5), async (req, res) => {
         photo = uploadResponse.data.location
       }
     }
-    const response = await workshopService.update(id, name, capacity, description, photo, req.user.id)
+    const response = await workshopService.update(id, name, capacity, description, photo, req.user.id, categoryId)
+    res.status(response.type === "Error" ? 400 : 200).send(response);
+  } else {
+    res.status(400).send({
+      type: "Error",
+      message: "Fields supplied not valid.",
+    });
+  }
+})
+router.put("/changeStatus", verifyRole("workshop", 7), async (req, res) => {
+  const { id, isApproved } = req.body
+  if (id && isApproved) {
+
+    const response = await workshopService.changeStatus(id, isApproved)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
@@ -79,7 +103,7 @@ router.put("/", verifyRole("workshop", 5), async (req, res) => {
 router.delete("/", verifyRole("workshop", 6), async (req, res) => {
   const { id } = req.body
   if (id) {
-    const response = await workshopService.delete(id,req.user.id)
+    const response = await workshopService.delete(id, req.user.id)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({

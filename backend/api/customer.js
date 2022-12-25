@@ -34,8 +34,8 @@ router.get("/", verifyRole("customer", 3), async (req, res) => {
   res.status(response.type === "Error" ? 400 : 200).send(response);
 })
 router.put("/", verifyRole("customer", 4), async (req, res) => {
-  const { id, name, photo } = req.body
-  if (id && name && photo) {
+  const { name, photo } = req.body
+  if (name && photo) {
     if (req.files.image) {
       const uploadResponse = s3Service.upload(req.files.image)
       if (uploadResponse.type == "Error") {

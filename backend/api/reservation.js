@@ -5,8 +5,8 @@ const router = express.Router();
 const reservationService = require("../services/reservation")
 
 router.post("/", verifyRole("reservation", 1), async (req, res) => {
-  const { userId, workshopId, date } = req.body
-  if (date && userId && workshopId) {
+  const { workshopId, date } = req.body
+  if (date && workshopId) {
     const response = await reservationService.create(date, req.user.id, workshopId)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
@@ -28,10 +28,21 @@ router.get("/:id", verifyRole("reservation", 2), async (req, res) => {
     });
   }
 })
-router.get("/:userId", verifyRole("reservation", 3), async (req, res) => {
+router.get("/:userId", verifyRole("reservation",3), async (req, res) => {
   const { userId } = req.query
   if (userId) {
     const response = await reservationService.getByUserId(userId)
+    res.status(response.type === "Error" ? 400 : 200).send(response);
+  } else {
+    res.status(400).send({
+      type: "Error",
+      message: "Fields supplied not valid.",
+    });
+  }
+})
+router.get("/getByToken", verifyRole("reservation", 3), async (req, res) => {
+  if (req.user) {
+    const response = await reservationService.getByUserId(req.user.id)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({

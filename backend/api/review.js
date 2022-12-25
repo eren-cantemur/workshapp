@@ -28,10 +28,21 @@ router.get("/:id", verifyRole("review", 2), async (req, res) => {
     });
   }
 })
-router.get("/:userId", verifyRole("review", 3), async (req, res) => {
-  const { userId } = req.query
-  if (userId) {
-    const response = await reviewService.getByUserId(userId)
+router.get("/:workshopId", verifyRole("review", 3), async (req, res) => {
+  const { workshopId } = req.query
+  if (workshopId) {
+    const response = await reviewService.getByWorkshopId(workshopId)
+    res.status(response.type === "Error" ? 400 : 200).send(response);
+  } else {
+    res.status(400).send({
+      type: "Error",
+      message: "Fields supplied not valid.",
+    });
+  }
+})
+router.get("/getByToken", verifyRole("review", 3), async (req, res) => {
+  if (req.user) {
+    const response = await reviewService.getByUserId(req.user.id)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
