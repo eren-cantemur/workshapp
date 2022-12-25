@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/view/auth_pages/components/search_bar_widget.dart';
 import 'package:mobile/view/auth_pages/pages/home/featured_card.dart';
 import 'package:mobile/view/auth_pages/pages/home/home_list_view.dart';
 
@@ -11,14 +12,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "WorkshApp",
           style: TextStyle(
-            color: const Color.fromRGBO(0, 33, 64, 1),
+            color: Color.fromRGBO(0, 33, 64, 1),
           ),
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -30,10 +33,25 @@ class _HomePageState extends State<HomePage> {
             Container(
               height: MediaQuery.of(context).size.height * 0.3,
               color: Colors.transparent,
-              child: FeaturedCard(),
+              child: const FeaturedCard(),
             ),
-            SizedBox(
-              height: 15,
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(15, 10, 10, 10),
+              child: SearchBar(
+                onChanged: (text) {
+                  print(text);
+                },
+                onSubmitted: () {
+                  print("submit text");
+                },
+                controller: _controller,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
             ),
             const HomeList(),
           ],
