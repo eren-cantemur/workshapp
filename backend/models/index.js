@@ -45,7 +45,6 @@ db.Admin = require("./admin.js")(sequelize, Sequelize);
 db.Customer = require("./customer.js")(sequelize, Sequelize);
 db.WorkshopImage = require("./workshopImage.js")(sequelize, Sequelize);
 db.Reservation = require("./reservation.js")(sequelize, Sequelize);
-db.Time = require("./time.js")(sequelize, Sequelize);
 db.Address = require("./address.js")(sequelize, Sequelize);
 db.Category = require("./category.js")(sequelize, Sequelize);
 
