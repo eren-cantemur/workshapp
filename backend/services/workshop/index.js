@@ -5,3 +5,4 @@ exports.getByWorkshopManagerId = require('./getByWorkshopManagerId').getByWorksh
 exports.update = require('./update').update
 exports.delete = require('./delete').delete
 exports.changeStatus = require('./changeStatus').changeStatus
+exports.getApproved = require('./getApproved').getApproved

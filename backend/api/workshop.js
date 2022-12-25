@@ -38,6 +38,10 @@ router.get("/:id", verifyRole("workshop", 2), async (req, res) => {
     });
   }
 })
+router.get("/approved", verifyRole("workshop", 3), async (req, res) => {
+  const response = await workshopService.getApproved()
+  res.status(response.type === "Error" ? 400 : 200).send(response);
+})
 router.get("/:workshopManagerId", verifyRole("workshop", 3), async (req, res) => {
   const { workshopManagerId } = req.query
   if (workshopManagerId) {
@@ -61,7 +65,7 @@ router.get("/getByToken", verifyRole("workshop", 3), async (req, res) => {
     });
   }
 })
-router.get("/", verifyRole("workshop", 4), async (req, res) => {
+router.get("/", verifyRole("workshop", 7), async (req, res) => {
   const response = await workshopService.getAll()
   res.status(response.type === "Error" ? 400 : 200).send(response);
 })
