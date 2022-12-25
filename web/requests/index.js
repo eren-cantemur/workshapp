@@ -18,3 +18,21 @@ async function postRequest(url, body) {
 module.exports = {
   postRequest,
 };
+
+async function putRequest(url, body) {
+  const response = await fetch(APIURL + url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + Cookie.get(COOKIENAME),
+    },
+    body: JSON.stringify(body),
+  });
+
+  return response;
+}
+
+module.exports = {
+  postRequest,
+  putRequest
+};
