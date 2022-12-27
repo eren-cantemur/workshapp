@@ -38,7 +38,7 @@ router.get("/", verifyRole("user", 3), async (req, res) => {
 router.put("/", verifyRole("user", 4), async (req, res) => {
   const { email, password } = req.body
   if (email && password) {
-    const response = await userService.update(req.user.id, email, password )
+    const response = await userService.update(req.user.userID, email, password )
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
@@ -62,7 +62,7 @@ router.put("/changeStatus", verifyRole("user", 5), async (req, res) => {
 
 router.delete("/", verifyRole("user", 5), async (req, res) => {
   if (req.user) {
-    const response = await userService.delete(req.user.id)
+    const response = await userService.delete(req.user.userID)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({

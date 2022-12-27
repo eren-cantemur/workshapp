@@ -9,7 +9,7 @@ exports.update = async (id,name,photo) => {
 
     const findOptions = {
         where : {
-            id : id
+            userId : id
         }
     }
 

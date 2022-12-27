@@ -36,7 +36,7 @@ router.get("/", verifyRole("customer", 3), async (req, res) => {
 router.put("/", verifyRole("customer", 4), async (req, res) => {
   const { name, photo } = req.body
   if (name && photo) {
-    if (req.files.image) {
+    if (req.files) {
       const uploadResponse = s3Service.upload(req.files.image)
       if (uploadResponse.type == "Error") {
         res.status(400).send(uploadResponse.message)
@@ -46,7 +46,7 @@ router.put("/", verifyRole("customer", 4), async (req, res) => {
         photo = uploadResponse.data.location
       }
     }
-    const response = await customerService.update(req.user.id, name, photo)
+    const response = await customerService.update(req.user.userID, name, photo)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
@@ -58,7 +58,7 @@ router.put("/", verifyRole("customer", 4), async (req, res) => {
 router.delete("/", verifyRole("customer", 5), async (req, res) => {
   
   if (req.user) {
-    const response = await customerService.delete(req.user.id)
+    const response = await customerService.delete(req.user.userID)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
