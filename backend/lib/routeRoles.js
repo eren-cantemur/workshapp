@@ -45,21 +45,21 @@ const RouteRoles = {
         2: ["customer", "admin", "workshopManager"],
         3: ["customer", "admin", "workshopManager"],
         4: ["customer", "admin", "workshopManager"],
-        5: ["admin"],
+        5: ["admin","customer","workshopManager"],
     },
     "customer": {
         1: ["customer", "admin", "workshopManager"],
         2: ["customer", "admin", "workshopManager"],
         3: ["customer", "admin", "workshopManager"],
         4: ["customer", "admin"],
-        5: ["admin"],
+        5: ["admin","customer"],
     },
     "workshopManager": {
         1: ["customer", "admin", "workshopManager"],
         2: ["customer", "admin", "workshopManager"],
         3: ["customer", "admin", "workshopManager"],
         4: ["admin", "workshopManager"],
-        5: ["admin"],
+        5: ["admin","workshopmanager"],
     }
 
 
