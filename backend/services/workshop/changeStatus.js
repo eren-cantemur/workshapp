@@ -1,12 +1,9 @@
 const {Workshop} = require('../../models')
 
-exports.update = async (id,name, capacity,content, photo) => {
+exports.changeStatus = async (id, isApproved) => {
 
     const updateBody = {
-        name : name,
-        capacity : capacity,
-        content : content,
-        photo : photo
+        isApproved : isApproved
     }
 
     const findOptions = {

@@ -1,19 +1,17 @@
 const {Review} = require('../../models')
 
-exports.update = async (id, comment, rate, userId) => {
+exports.changeStatus = async (id, isApproved) => {
 
     const updateBody = {
-        comment : comment,
-        rate : rate,
-        isApproved : 0
+        isApproved : isApproved
     }
 
     const findOptions = {
         where : {
-            id :id,
-            userId: userId
+            id : id
         }
     }
+
     const result = await Review.update(
         updateBody,
         findOptions
@@ -22,7 +20,7 @@ exports.update = async (id, comment, rate, userId) => {
     if (result == 0) {
         return {
             type: "Error",
-            message: `Error while updating review.`,
+            message: `Error while updating Review.`,
         };
     }
     else {
@@ -32,3 +30,4 @@ exports.update = async (id, comment, rate, userId) => {
         };
     }
 }
+

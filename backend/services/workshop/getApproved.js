@@ -1,10 +1,10 @@
 const {WorkShop} = require('../../models')
 
-exports.getById = async (id) => {
+exports.getApproved = async () => {
    
     const findOptions = {
         where : {
-            id : id
+            isApproved : 1
         },
         include : [{
             model : Address
@@ -22,7 +22,7 @@ exports.getById = async (id) => {
     if (!workshop) {
         return {
             type: "Error",
-            message: `Can not find workshop with id ${id}.`,
+            message: `Can not find workshop approved.`,
         };
     }
     else{

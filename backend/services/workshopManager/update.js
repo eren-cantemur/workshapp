@@ -1,11 +1,12 @@
 const {WorkshopManager} = require('../../models')
 
-exports.update = async (id,name,logo,photo) => {
+exports.update = async (id,name,logo,photo,description) => {
 
     const updateBody = {
         name : name,
         logo : logo,
-        photo : photo
+        photo : photo,
+        description: description
     }
 
     const findOptions = {
