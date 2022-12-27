@@ -11,7 +11,6 @@ const customerRouter = require("./customer")
 const workShopManagerRouter = require("./workshopManager")
 const addressRouter = require("./address");
 const reservationRouter = require('./reservation');
-const timeRouter = require('./time');
 const  verifyToken  = require('../middleware/jwtVerif')
 router.get("/", (req, res) => {
     res.send("Success!")
