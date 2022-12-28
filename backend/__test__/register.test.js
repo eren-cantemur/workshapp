@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../app");
 const db = require("../models");
-const {Customer, Admin, WorkshopManager, User} = require('../models')
+const {User} = require('../models')
 
 describe("Test the register path", () => {
   const customer_email = "register_customer@example.com"
@@ -42,15 +42,9 @@ describe("Test the register path", () => {
     const customerUserId = await User.findOne({where: {email: customer_email}})
     const adminUserId = await User.findOne({where: {email: admin_email}})
     const workshopManagerUserId = await User.findOne({where: {email: workshopManager_email}})
-    console.log(customerUserId.id)
-    console.log(adminUserId.id)
-    console.log(workshopManagerUserId.id)
     await User.destroy({where: {email: customer_email}})
     await User.destroy({where: {email: admin_email}})
     await User.destroy({where: {email: workshopManager_email}})
-    await Customer.destroy({where: {userId: customerUserId.id}})
-    await Admin.destroy({where: {userId: adminUserId.id}})
-    await WorkshopManager.destroy({where: {userId: workshopManagerUserId.id}})
     await db.sequelize.close()
   })
 });
