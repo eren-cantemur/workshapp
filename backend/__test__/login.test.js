@@ -23,6 +23,33 @@ describe("Test the login path", () => {
       .send(createLoginBody);
     expect(response.body.type).toBe("Success");
   });
+  it("It should error response for empty email", async () => {
+    const createLoginBody = {email: "", password: password}
+    const response = await request(app)
+      .post("/login")
+      .expect(400)
+      .set("Accept", "application/json")
+      .send(createLoginBody);
+    expect(response.body.type).toBe("Error");
+  });
+  it("It should error response the wrong email", async () => {
+    const createLoginBody = {email: "wrong_email@wrong.wrong", password: password}
+    const response = await request(app)
+      .post("/login")
+      .expect(400)
+      .set("Accept", "application/json")
+      .send(createLoginBody);
+    expect(response.body.type).toBe("Error");
+  });
+  it("It should error response the wrong password", async () => {
+    const createLoginBody = {email: email, password: "wrong_pasword"}
+    const response = await request(app)
+      .post("/login")
+      .expect(400)
+      .set("Accept", "application/json")
+      .send(createLoginBody);
+    expect(response.body.type).toBe("Error");
+  });
   afterAll(async () => {
     const result = await User.destroy({where: {email: email}})
     await db.sequelize.close()
