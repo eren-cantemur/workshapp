@@ -9,7 +9,7 @@ describe("Test the login path", () => {
   const email = "login@example.com"
   const password = "12345"
   beforeAll(async () => {
-    await db.sequelize.sync({ force: true, logging: false })
+    await db.sequelize.sync({ force: false, logging: false })
     const hashedPassword = await bcrypt.hash(password, SALTROUNDS);
     const createBody = {email: email, password: hashedPassword}
     await User.create(createBody)

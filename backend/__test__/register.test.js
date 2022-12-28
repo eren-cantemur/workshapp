@@ -9,7 +9,7 @@ describe("Test the register path", () => {
   const workshopManager_email = "register_workshopManager@example.com"
   const password = "12345"
   beforeAll(async () => {
-    await db.sequelize.sync({ force: true, logging: false })
+    await db.sequelize.sync({ force: false, logging: false })
   })
   it("It should create customer", async () => {
     const createRegisterBody = {email: customer_email, password: password, role: "customer"}
@@ -42,6 +42,9 @@ describe("Test the register path", () => {
     const customerUserId = await User.findOne({where: {email: customer_email}})
     const adminUserId = await User.findOne({where: {email: admin_email}})
     const workshopManagerUserId = await User.findOne({where: {email: workshopManager_email}})
+    console.log(customerUserId.id)
+    console.log(adminUserId.id)
+    console.log(workshopManagerUserId.id)
     await User.destroy({where: {email: customer_email}})
     await User.destroy({where: {email: admin_email}})
     await User.destroy({where: {email: workshopManager_email}})

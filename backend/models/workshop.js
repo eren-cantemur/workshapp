@@ -25,7 +25,7 @@ module.exports = (sequelize, Sequelize) => {
         }
 
     })
-    Workshop.belongsTo(WorkshopManagerModel)
+    Workshop.belongsTo(WorkshopManagerModel, {onDelete: 'CASCADE', foreignKey: {allowNull: false}})
     Workshop.belongsTo(CategoryModel)
     return Workshop;
 }

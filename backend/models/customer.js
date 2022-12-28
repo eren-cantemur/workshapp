@@ -10,6 +10,6 @@ module.exports = (sequelize, Sequelize) => {
             type : Sequelize.STRING
         }
     })
-    Customer.User = Customer.belongsTo(UserModel)
+    Customer.User = Customer.belongsTo(UserModel, {onDelete: 'CASCADE', foreignKey: {allowNull: false}})
     return Customer;
 }
