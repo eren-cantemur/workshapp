@@ -7,7 +7,7 @@ exports.update = async (name, id) => {
     }
     const findOptions = {
         where: {
-            id: id
+            userId: id
         }
     }
 
