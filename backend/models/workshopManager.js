@@ -11,8 +11,11 @@ module.exports = (sequelize, Sequelize) => {
         },
         phone : {
             type : Sequelize.STRING
+        },
+        description : {
+            type : Sequelize.STRING
         }
     })
-    WorkshopManager.User = WorkshopManager.belongsTo(UserModel)
+    WorkshopManager.User = WorkshopManager.belongsTo(UserModel, {onDelete: 'CASCADE', foreignKey: {allowNull: false}})
     return WorkshopManager;
 }

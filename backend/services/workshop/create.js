@@ -1,12 +1,14 @@
 const {Workshop} = require('../../models')
 
-exports.create = async (name, capacity, content, photo) => {
+exports.create = async (name, capacity, description, photo, categoryId, managerId) => {
 
     const createBody = {
         name : name,
         capacity : capacity,
-        content : content,
-        photo : photo
+        description : description,
+        photo : photo,
+        categoryId : categoryId,
+        workshopManagerId : managerId
     }
 
     const result = await Workshop.create(

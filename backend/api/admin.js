@@ -33,9 +33,9 @@ router.get("/",async(req,res)=> {
     res.status(response.type === "Error" ? 400 : 200).send(response);
 })
 router.put("/",async(req,res)=>{
-    const {id, name} = req.body
-    if(id&&name){
-        const response = await adminService.update(id,name)
+    const { name} = req.body
+    if(name){
+        const response = await adminService.update(req.user.userID,name)
         res.status(response.type === "Error" ? 400 : 200).send(response);
     } else {
       res.status(400).send({

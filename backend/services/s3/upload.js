@@ -2,8 +2,7 @@ var AWS = require('aws-sdk');
 exports.upload = (file) => {
     AWS.config.update({
         accessKeyId: process.env.AWSAccessKeyId, // Access key ID
-        secretAccessKey: "", // Secret access key
-        region: process.env.AWSRegion //Region
+        secretAccessKey: process.env.AWSSecretKey, // Secret access key
     })
 
     const s3 = new AWS.S3();

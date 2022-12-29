@@ -1,9 +1,10 @@
 const express = require('express');
+const verifyRole = require('../middleware/roleVerif');
 const router = express.Router();
 
 const workshopManagerService = require("../services/workshopManager")
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", verifyRole("workshopManager", 1), async (req, res) => {
   const { id } = req.query
   if (id) {
     const response = await workshopManagerService.getById(id)
@@ -15,7 +16,7 @@ router.get("/:id", async (req, res) => {
     });
   }
 })
-router.get("/:name", async (req, res) => {
+router.get("/:name", verifyRole("workshopManager", 2), async (req, res) => {
   const { name } = req.query
   if (name) {
     const response = await workshopManagerService.getByName(name)
@@ -27,24 +28,24 @@ router.get("/:name", async (req, res) => {
     });
   }
 })
-router.get("/", async (req, res) => {
+router.get("/", verifyRole("workshopManager", 3), async (req, res) => {
   const response = await workshopManagerService.getAll()
   res.status(response.type === "Error" ? 400 : 200).send(response);
 })
-router.put("/", async (req, res) => {
-  const { id, name, logo, photo } = req.body
-  if (id && name && logo && photo) {
-    if (req.files.image) {
+router.put("/", verifyRole("workshopManager", 4), async (req, res) => {
+  const { name, logo, description, phone } = req.body
+  if (name && logo && description && phone) {
+    if (req.files) {
       const uploadResponse = s3Service.upload(req.files.image)
       if (uploadResponse.type == "Error") {
         res.status(400).send(uploadResponse.message)
         return
       }
       else {
-        photo = uploadResponse.data.location
+        logo = uploadResponse.data.location
       }
     }
-    const response = await workshopManagerService.update(id, name, logo, photo)
+    const response = await workshopManagerService.update(req.user.userID, name, logo, phone, description)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
@@ -53,10 +54,10 @@ router.put("/", async (req, res) => {
     });
   }
 })
-router.delete("/", async (req, res) => {
-  const { id } = req.body
-  if (id) {
-    const response = await workshopManagerService.delete(id)
+router.delete("/", verifyRole("workshopManager", 5), async (req, res) => {
+
+  if (req.user) {
+    const response = await workshopManagerService.delete(req.user.userID)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({

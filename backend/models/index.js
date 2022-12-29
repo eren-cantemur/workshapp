@@ -10,28 +10,28 @@ const sequelize = new Sequelize(
     port: dbConfig.DBPORT,
     dialect: "mysql",
     ssl: "Amazon RDS",
-    logging: console.log,
+    logging: false,
     maxConcurrentQueries: 100,
     pool: { maxConnections: 5, maxIdleTime: 30 },
     language: "en",
   }
 );
 
-console.log([
-  dbConfig.DB,
-  dbConfig.DBUSERNAME,
-  dbConfig.DBPASSWORD,
-  {
-    host: dbConfig.DBHOST,
-    port: dbConfig.DBPORT,
-    dialect: "mysql",
-    ssl: "Amazon RDS",
-    logging: console.log,
-    maxConcurrentQueries: 100,
-    pool: { maxConnections: 5, maxIdleTime: 30 },
-    language: "en",
-  },
-]);
+// console.log([
+//   dbConfig.DB,
+//   dbConfig.DBUSERNAME,
+//   dbConfig.DBPASSWORD,
+//   {
+//     host: dbConfig.DBHOST,
+//     port: dbConfig.DBPORT,
+//     dialect: "mysql",
+//     ssl: "Amazon RDS",
+//     logging: console.log,
+//     maxConcurrentQueries: 100,
+//     pool: { maxConnections: 5, maxIdleTime: 30 },
+//     language: "en",
+//   },
+// ]);
 const db = {};
 
 db.Sequelize = Sequelize;
@@ -45,6 +45,7 @@ db.Admin = require("./admin.js")(sequelize, Sequelize);
 db.Customer = require("./customer.js")(sequelize, Sequelize);
 db.WorkshopImage = require("./workshopImage.js")(sequelize, Sequelize);
 db.Reservation = require("./reservation.js")(sequelize, Sequelize);
-db.Time = require("./time.js")(sequelize, Sequelize);
+db.Address = require("./address.js")(sequelize, Sequelize);
+db.Category = require("./category.js")(sequelize, Sequelize);
 
 module.exports = db;

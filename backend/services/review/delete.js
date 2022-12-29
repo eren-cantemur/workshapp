@@ -1,10 +1,11 @@
 const { Review } = require('../../models')
 
-exports.delete = async (id) => {
+exports.delete = async (id, userId) => {
 
     const findOptions = {
         where: {
-            id: id
+            id: id,
+            userId: userId
         }
     }
 

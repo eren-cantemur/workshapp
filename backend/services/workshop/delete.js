@@ -1,10 +1,11 @@
 const { Workshop } = require('../../models')
 
-exports.delete = async (id) => {
+exports.delete = async (id, managerId) => {
 
     const findOptions = {
         where: {
-            id: id
+            id: id,
+            workshopManagerId : managerId
         }
     }
 

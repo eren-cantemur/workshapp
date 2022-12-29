@@ -1,17 +1,17 @@
-const { User } = require('../../models')
+const {User} = require('../../models')
 
-exports.update = async (userId, email, password) => {
+exports.changeStatus = async (id, isApproved) => {
 
     const updateBody = {
-        email : email,
-        password : password
+        isApproved : isApproved
     }
 
     const findOptions = {
         where : {
-            id : userId
+            id : id
         }
     }
+
     const result = await User.update(
         updateBody,
         findOptions
@@ -20,7 +20,7 @@ exports.update = async (userId, email, password) => {
     if (result == 0) {
         return {
             type: "Error",
-            message: `Error while updating user.`,
+            message: `Error while updating User.`,
         };
     }
     else {
@@ -30,3 +30,4 @@ exports.update = async (userId, email, password) => {
         };
     }
 }
+
