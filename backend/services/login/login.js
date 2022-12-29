@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { JWTPRIVATEKEY } = require('../../config/jwt.config')
 
-exports.login = async (email, password) => {
+exports.login = async (email, password, role) => {
   const user = await User.findOne({where : {email: email}});
   if (user === null) {
     return {
@@ -22,31 +22,30 @@ exports.login = async (email, password) => {
         message: "Invalid password.",
       };
     } else {
-      var role = "";
-    
-      const admin = await Admin.findOne({where: { userID: user.id }});
+      var roleId;
+      var admin;
+      var workshopManager;
+      var customer;
 
-      if (admin) {
-        role = "admin";
-      } else {
-        const workshopManager = await WorkshopManager.findOne({where: { userID: user.id }});
-
-        if (workshopManager) {
-          role = "workshopManager";
-          
-        } else {
-          const customer = await Customer.findOne({where: { userID: user.id }});
-
-          if (customer) {
-            role = "customer";
-          }
-        }
+      if(role == "admin") {
+        admin = await Admin.findOne({where: { userId: user.id}});
+        roleId = admin.id;
       }
 
+      else if(role == "workshopManager") {
+        workshopManager = await WorkshopManager.findOne({where: { userId: user.id }});
+        roleId = workshopManager.id;
+      }
+      
+      else if(role == "customer") {
+        customer = await Customer.findOne({where: { userId: user.id }});
+        roleId = customer.id;
+      }
+    
       const privateKey = JWTPRIVATEKEY;
       
       const token = await jwt.sign(
-        { userID: user.id, role: role },
+        { userID: user.id, role: role, roleId: roleId },
         privateKey,
         { algorithm: "RS256",
           expiresIn: "14d" }
