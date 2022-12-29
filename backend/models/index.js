@@ -10,28 +10,28 @@ const sequelize = new Sequelize(
     port: dbConfig.DBPORT,
     dialect: "mysql",
     ssl: "Amazon RDS",
-    logging: console.log,
+    logging: false,
     maxConcurrentQueries: 100,
     pool: { maxConnections: 5, maxIdleTime: 30 },
     language: "en",
   }
 );
 
-console.log([
-  dbConfig.DB,
-  dbConfig.DBUSERNAME,
-  dbConfig.DBPASSWORD,
-  {
-    host: dbConfig.DBHOST,
-    port: dbConfig.DBPORT,
-    dialect: "mysql",
-    ssl: "Amazon RDS",
-    logging: console.log,
-    maxConcurrentQueries: 100,
-    pool: { maxConnections: 5, maxIdleTime: 30 },
-    language: "en",
-  },
-]);
+// console.log([
+//   dbConfig.DB,
+//   dbConfig.DBUSERNAME,
+//   dbConfig.DBPASSWORD,
+//   {
+//     host: dbConfig.DBHOST,
+//     port: dbConfig.DBPORT,
+//     dialect: "mysql",
+//     ssl: "Amazon RDS",
+//     logging: console.log,
+//     maxConcurrentQueries: 100,
+//     pool: { maxConnections: 5, maxIdleTime: 30 },
+//     language: "en",
+//   },
+// ]);
 const db = {};
 
 db.Sequelize = Sequelize;

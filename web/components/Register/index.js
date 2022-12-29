@@ -20,7 +20,7 @@ export default function Register() {
       if (result) {
         Cookie.set(COOKIENAME, result);
         
-        router.push("/profile");
+        window.location.href = "/profile";
       }
     }
   };
@@ -128,7 +128,7 @@ export default function Register() {
               <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                 Already have an account?{" "}
                 <a
-                  href="#"
+                  href="/login"
                   class="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Login here

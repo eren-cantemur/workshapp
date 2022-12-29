@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../app");
 const db = require("../models");
-const {Customer, Admin, WorkshopManager, User} = require('../models')
+const {User} = require('../models')
 
 describe("Test the register path", () => {
   const customer_email = "register_customer@example.com"
@@ -9,8 +9,26 @@ describe("Test the register path", () => {
   const workshopManager_email = "register_workshopManager@example.com"
   const password = "12345"
   beforeAll(async () => {
-    await db.sequelize.sync({ force: true, logging: false })
+    await db.sequelize.sync({ force: false, logging: false })
   })
+  it("It should't create customer with wrong role", async () => {
+    const createRegisterBody = {email: customer_email, password: password, role: "cUst0mEr"}
+    const response = await request(app)
+      .post("/register")
+      .expect(400)
+      .set("Accept", "application/json")
+      .send(createRegisterBody);
+    expect(response.body.type).toBe("Error");
+  });
+  it("It should't create customer with empty email", async () => {
+    const createRegisterBody = {email: "", password: password, role: "cUst0mEr"}
+    const response = await request(app)
+      .post("/register")
+      .expect(400)
+      .set("Accept", "application/json")
+      .send(createRegisterBody);
+    expect(response.body.type).toBe("Error");
+  });
   it("It should create customer", async () => {
     const createRegisterBody = {email: customer_email, password: password, role: "customer"}
     const response = await request(app)
@@ -18,6 +36,24 @@ describe("Test the register path", () => {
       .expect(200)
       .set("Accept", "application/json")
       .send(createRegisterBody);
+    expect(response.body.type).toBe("Success");
+  });
+  it("It should't create customer again", async () => {
+    const createRegisterBody = {email: customer_email, password: password, role: "customer"}
+    const response = await request(app)
+      .post("/register")
+      .expect(400)
+      .set("Accept", "application/json")
+      .send(createRegisterBody);
+    expect(response.body.type).toBe("Error");
+  });
+  it("It should login created customer", async () => {
+    const createLoginBody = {email: customer_email, password: password}
+    const response = await request(app)
+      .post("/login")
+      .expect(200)
+      .set("Accept", "application/json")
+      .send(createLoginBody);
     expect(response.body.type).toBe("Success");
   });
   it("It should create admin", async () => {
@@ -29,6 +65,15 @@ describe("Test the register path", () => {
       .send(createRegisterBody);
     expect(response.body.type).toBe("Success");
   });
+  it("It should login created admin", async () => {
+    const createLoginBody = {email: admin_email, password: password}
+    const response = await request(app)
+      .post("/login")
+      .expect(200)
+      .set("Accept", "application/json")
+      .send(createLoginBody);
+    expect(response.body.type).toBe("Success");
+  });
   it("It should create workshopManager", async () => {
     const createRegisterBody = {email: workshopManager_email, password: password, role: "workshopManager"}
     const response = await request(app)
@@ -38,16 +83,19 @@ describe("Test the register path", () => {
       .send(createRegisterBody);
     expect(response.body.type).toBe("Success");
   });
+  it("It should login created workshopManager", async () => {
+    const createLoginBody = {email: workshopManager_email, password: password}
+    const response = await request(app)
+      .post("/login")
+      .expect(200)
+      .set("Accept", "application/json")
+      .send(createLoginBody);
+    expect(response.body.type).toBe("Success");
+  });
   afterAll(async () => {
-    const customerUserId = await User.findOne({where: {email: customer_email}})
-    const adminUserId = await User.findOne({where: {email: admin_email}})
-    const workshopManagerUserId = await User.findOne({where: {email: workshopManager_email}})
     await User.destroy({where: {email: customer_email}})
     await User.destroy({where: {email: admin_email}})
     await User.destroy({where: {email: workshopManager_email}})
-    await Customer.destroy({where: {userId: customerUserId.id}})
-    await Admin.destroy({where: {userId: adminUserId.id}})
-    await WorkshopManager.destroy({where: {userId: workshopManagerUserId.id}})
     await db.sequelize.close()
   })
 });
