@@ -48,9 +48,9 @@ router.get("/", verifyRole("address", 4), async (req, res) => {
 })
 
 router.put("/", verifyRole("address", 5), async (req, res) => {
-  const { id, lat, long, country, city, county, postalCode, openAddress } = req.body
-  if (lat && long && country && city && county && postalCode && openAddress && id) {
-    const response = await addressService.update(id, lat, long, country, city, county, postalCode, openAddress)
+  const { id, country, city, county, postalCode, openAddress } = req.body
+  if (country && city && county && postalCode && openAddress && id) {
+    const response = await addressService.update(id, country, city, county, postalCode, openAddress)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({

@@ -56,7 +56,7 @@ router.get("/:workshopManagerId", verifyRole("workshop", 3), async (req, res) =>
 })
 router.get("/getByToken", verifyRole("workshop", 3), async (req, res) => {
   if (req.user) {
-    const response = await workshopService.getByWorkshopManagerId(req.user.userID)
+    const response = await workshopService.getByWorkshopManagerId(req.user.userId)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
@@ -107,7 +107,7 @@ router.put("/changeStatus", verifyRole("workshop", 7), async (req, res) => {
 router.delete("/", verifyRole("workshop", 6), async (req, res) => {
   const { id } = req.body
   if (id) {
-    const response = await workshopService.delete(id, req.user.userID)
+    const response = await workshopService.delete(id, req.user.roleId)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({

@@ -3,17 +3,17 @@ const verifyRole = require('../middleware/roleVerif');
 const router = express.Router();
 
 const workshopImageService = require("../services/workshopImage")
-
+const s3Service = require("../services/s3")
 router.post("/", verifyRole("workshopImage", 1), async (req, res) => {
   const { workshopId } = req.body
   if (req.files.image && workshopId) {
-    const uploadResponse = s3Service.upload(req.files.image)
+    const uploadResponse = await s3Service.upload(req.files.image)
     if (uploadResponse.type == "Error") {
       res.status(400).send(uploadResponse.message)
       return
     }
     else {
-      const path = uploadResponse.data.location
+      const path = uploadResponse.data.Location
       const response = await workshopImageService.create(path, workshopId)
       res.status(response.type === "Error" ? 400 : 200).send(response);
     }

@@ -7,7 +7,7 @@ const reviewService = require("../services/review")
 router.post("/", verifyRole("review", 1), async (req, res) => {
   const { comment, rate, workshopId } = req.body
   if (comment && rate  && workshopId) {
-    const response = await reviewService.create(comment, rate, req.user.userID , workshopId)
+    const response = await reviewService.create(comment, rate, req.user.userId , workshopId)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
@@ -42,7 +42,7 @@ router.get("/:workshopId", verifyRole("review", 3), async (req, res) => {
 })
 router.get("/getByToken", verifyRole("review", 3), async (req, res) => {
   if (req.user) {
-    const response = await reviewService.getByUserId(req.user.userID)
+    const response = await reviewService.getByUserId(req.user.userId)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
@@ -58,7 +58,7 @@ router.get("/", verifyRole("review", 4), async (req, res) => {
 router.put("/", verifyRole("review", 5), async (req, res) => {
   const { id, comment, rate } = req.body
   if (id && comment && rate) {
-    const response = await reviewService.update(id, comment, rate, req.user.userID)
+    const response = await reviewService.update(id, comment, rate, req.user.userId)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
@@ -82,7 +82,7 @@ router.put("/changeStatus", verifyRole("review", 7), async (req, res) => {
 router.delete("/", verifyRole("review", 6), async (req, res) => {
   const { id } = req.body
   if (id) {
-    const response = await reviewService.delete(id, req.user.userID)
+    const response = await reviewService.delete(id, req.user.userId)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
