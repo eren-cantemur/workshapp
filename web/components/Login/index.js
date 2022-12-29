@@ -5,19 +5,23 @@ import Cookie from "js-cookie";
 import { COOKIENAME } from "../../config/cookie.config";
 import { useRouter } from "next/router";
 
-export default function Login() {
+export default function Login({ isAdmin }) {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const router = useRouter();
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    const { message, result } = await loginRequest(email, password);
-    
+
+    const { message, result } = await loginRequest(
+      email,
+      password,
+      isAdmin ? isAdmin : false
+    );
+
     if (result) {
       Cookie.set(COOKIENAME, result);
 
-      window.location.href = "/profile"
+      window.location.href = "/profile";
     }
   };
 
