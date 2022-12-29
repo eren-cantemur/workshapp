@@ -47,8 +47,62 @@ describe("Test the register path", () => {
       .send(createRegisterBody);
     expect(response.body.type).toBe("Error");
   });
+  it("It should error response for empty email", async () => {
+    const createLoginBody = {email: "", password: password, role: "customer"}
+    const response = await request(app)
+      .post("/login")
+      .expect(400)
+      .set("Accept", "application/json")
+      .send(createLoginBody);
+    expect(response.body.type).toBe("Error");
+  });
+  it("It should error response the wrong email", async () => {
+    const createLoginBody = {email: "wrong_email@wrong.wrong", password: password, role: "customer"}
+    const response = await request(app)
+      .post("/login")
+      .expect(400)
+      .set("Accept", "application/json")
+      .send(createLoginBody);
+    expect(response.body.type).toBe("Error");
+  });
+  it("It should error response the wrong password", async () => {
+    const createLoginBody = {email: customer_email, password: "wrong_password", role: "customer"}
+    const response = await request(app)
+      .post("/login")
+      .expect(400)
+      .set("Accept", "application/json")
+      .send(createLoginBody);
+    expect(response.body.type).toBe("Error");
+  });
+  it("It should error response the unknown role name", async () => {
+    const createLoginBody = {email: customer_email, password: password, role: "cUst0mEr"}
+    const response = await request(app)
+      .post("/login")
+      .expect(400)
+      .set("Accept", "application/json")
+      .send(createLoginBody);
+    expect(response.body.type).toBe("Error");
+  });
+  it("It should error response for trying login customer auth with admin role ", async () => {
+    const createLoginBody = {email: customer_email, password: password, role: "admin"}
+    const response = await request(app)
+      .post("/login")
+      .expect(400)
+      .set("Accept", "application/json")
+      .send(createLoginBody);
+    expect(response.body.type).toBe("Error");
+  });
+  it("It should error response for trying login customer auth with workshopManager role ", async () => {
+    const createLoginBody = {email: customer_email, password: password, role: "workshopManager"}
+    const response = await request(app)
+      .post("/login")
+      .expect(400)
+      .set("Accept", "application/json")
+      .send(createLoginBody);
+    expect(response.body.type).toBe("Error");
+  });
   it("It should login created customer", async () => {
-    const createLoginBody = {email: customer_email, password: password}
+    const createLoginBody = {email: customer_email, password: password, role: "customer"}
     const response = await request(app)
       .post("/login")
       .expect(200)
@@ -66,7 +120,7 @@ describe("Test the register path", () => {
     expect(response.body.type).toBe("Success");
   });
   it("It should login created admin", async () => {
-    const createLoginBody = {email: admin_email, password: password}
+    const createLoginBody = {email: admin_email, password: password, role: "admin"}
     const response = await request(app)
       .post("/login")
       .expect(200)
@@ -83,8 +137,17 @@ describe("Test the register path", () => {
       .send(createRegisterBody);
     expect(response.body.type).toBe("Success");
   });
+  it("It should error response for trying login workshopManager auth with customer role ", async () => {
+    const createLoginBody = {email: workshopManager_email, password: password, role: "customer"}
+    const response = await request(app)
+      .post("/login")
+      .expect(400)
+      .set("Accept", "application/json")
+      .send(createLoginBody);
+    expect(response.body.type).toBe("Error");
+  });
   it("It should login created workshopManager", async () => {
-    const createLoginBody = {email: workshopManager_email, password: password}
+    const createLoginBody = {email: workshopManager_email, password: password, role: "workshopManager"}
     const response = await request(app)
       .post("/login")
       .expect(200)

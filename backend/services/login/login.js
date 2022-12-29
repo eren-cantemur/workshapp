@@ -22,24 +22,44 @@ exports.login = async (email, password, role) => {
         message: "Invalid password.",
       };
     } else {
-      var roleId;
+      var roleId = null;
       var admin;
       var workshopManager;
       var customer;
 
       if(role == "admin") {
         admin = await Admin.findOne({where: { userId: user.id}});
-        roleId = admin.id;
+        if (admin != null) {
+          roleId = admin.id;
+        }
       }
 
       else if(role == "workshopManager") {
         workshopManager = await WorkshopManager.findOne({where: { userId: user.id }});
-        roleId = workshopManager.id;
+        if (workshopManager != null) {
+          roleId = workshopManager.id;
+        }
       }
       
       else if(role == "customer") {
         customer = await Customer.findOne({where: { userId: user.id }});
-        roleId = customer.id;
+        if (customer != null) {
+          roleId = customer.id;
+        }
+      }
+      
+      else{
+        return {
+          type: "Error",
+          message: "Invalid role.",
+        };
+      }
+
+      if (roleId == null){
+        return {
+          type: "Error",
+          message: "Couldn't find role.",
+        };
       }
     
       const privateKey = JWTPRIVATEKEY;
