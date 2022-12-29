@@ -7,7 +7,12 @@ require('dotenv').config();
 const app = express();
 
 app.use(cors());
-app.use(fileUpload());
+app.use(fileUpload({
+    limits: {
+        fileSize: 10000000 //10mb
+    },
+    abortOnLimit: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
