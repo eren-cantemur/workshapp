@@ -1,10 +1,10 @@
 const {WorkshopManager} = require('../../models')
 
-exports.getById = async (id) => {
+exports.getByUserId = async (id) => {
    
     const findOptions = {
         where : {
-            id : id
+            userId : id
         }
     }
 
