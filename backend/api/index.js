@@ -11,6 +11,7 @@ const customerRouter = require("./customer")
 const workShopManagerRouter = require("./workshopManager")
 const addressRouter = require("./address");
 const reservationRouter = require('./reservation');
+const workshopImageRouter = require('./workshopImage')
 const  verifyToken  = require('../middleware/jwtVerif')
 router.get("/", (req, res) => {
     res.send("Success!")
@@ -21,6 +22,7 @@ router.use("/user", verifyToken, userRouter)
 router.use("/admin", verifyToken, adminRouter)
 router.use("/customer", verifyToken, customerRouter)
 router.use("/workshopManager", verifyToken, workShopManagerRouter)
+router.use("/workshopImage", verifyToken, workshopImageRouter)
 router.use("/workshop", verifyToken, workShopRouter)
 router.use("/review", verifyToken, reviewRouter)
 router.use("/address", verifyToken, addressRouter)

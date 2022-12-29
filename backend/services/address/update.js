@@ -1,10 +1,9 @@
 const {Address} = require('../../models')
 
-exports.update = async (id, lat, long, country, city, county, postalCode, openAddress) => {
+exports.update = async (id, country, city, county, postalCode, openAddress) => {
 
     const updateBody = {
-        lat : lat,
-        long : long, 
+        
         country : country,
         city : city,
         county : county,
