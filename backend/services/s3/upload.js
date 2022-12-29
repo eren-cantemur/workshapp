@@ -1,8 +1,9 @@
 var AWS = require('aws-sdk');
-exports.upload = (file) => {
+exports.upload = async (file) => {
     AWS.config.update({
         accessKeyId: process.env.AWSAccessKeyId, // Access key ID
         secretAccessKey: process.env.AWSSecretKey, // Secret access key
+        region: "eu-central-1"
     })
 
     const s3 = new AWS.S3();
@@ -12,28 +13,19 @@ exports.upload = (file) => {
 
     // Setting up S3 upload parameters
     const params = {
-        Bucket: 'workshapp-bucket',
-        Key: Date.now() + ".jpg", // File name you want to save as in S3
+        Bucket: 'workshapps3',
+        Key:Date.now() + ".jpg", // File name you want to save as in S3
         Body: fileContent
     };
 
-    let resp;
-    let respData;
+    
 
-    s3.upload(params, (err, data) => {
-        if (err) {
-            this.resp = false
-        }
-        else {
-            this.resp = true
-            this.respData = data
-        }
-    });
+    const uploadedImage = await s3.upload(params).promise();
 
-    if (resp){
+    if (uploadedImage){
         return {
             type : "Success",
-            data : respData
+            data : uploadedImage
         }
     }
     else {

@@ -7,7 +7,7 @@ exports.update = async (id,name, capacity,description, photo, managerId, categor
         capacity : capacity,
         description : description,
         photo : photo,
-        categoryId
+        categoryId : categoryId
     }
 
     const findOptions = {
