@@ -26,7 +26,7 @@ exports.update = async (userId, email, password) => {
     else {
         return {
             type: "Success",
-            message: `User with id ${id} is updated.`,
+            message: `User with id ${userId} is updated.`,
         };
     }
 }

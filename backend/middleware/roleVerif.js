@@ -5,7 +5,6 @@ const verifyRole = (path, id) => {
         const user = req.user
         const control = RouteRoles[path][id].includes(user.role)
         if (!control) {
-            console.log("alper")
             return res.status(403).send({ message: "User type not allowed to do this operation." })
         }
         next()

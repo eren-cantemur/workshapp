@@ -35,7 +35,7 @@ router.get("/",async(req,res)=> {
 router.put("/",async(req,res)=>{
     const { name} = req.body
     if(name){
-        const response = await adminService.update(req.user.userID,name)
+        const response = await adminService.update(req.user.userId,name)
         res.status(response.type === "Error" ? 400 : 200).send(response);
     } else {
       res.status(400).send({

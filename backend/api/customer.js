@@ -46,7 +46,7 @@ router.put("/", verifyRole("customer", 4), async (req, res) => {
         photo = uploadResponse.data.location
       }
     }
-    const response = await customerService.update(req.user.userID, name, photo)
+    const response = await customerService.update(req.user.userId, name, photo)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
@@ -58,7 +58,7 @@ router.put("/", verifyRole("customer", 4), async (req, res) => {
 router.delete("/", verifyRole("customer", 5), async (req, res) => {
   
   if (req.user) {
-    const response = await customerService.delete(req.user.userID)
+    const response = await customerService.delete(req.user.userId)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({

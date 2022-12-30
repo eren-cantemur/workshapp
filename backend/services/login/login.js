@@ -65,7 +65,7 @@ exports.login = async (email, password, role) => {
       const privateKey = JWTPRIVATEKEY;
       
       const token = await jwt.sign(
-        { userID: user.id, role: role, roleId: roleId },
+        { userId: user.id, role: role, roleId: roleId },
         privateKey,
         { algorithm: "RS256",
           expiresIn: "14d" }

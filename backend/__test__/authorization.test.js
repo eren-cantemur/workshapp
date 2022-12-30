@@ -3,7 +3,7 @@ const app = require("../app");
 const db = require("../models");
 const {User} = require('../models')
 
-describe("Test the register path", () => {
+describe("Test the authotization paths", () => {
   const customer_email = "register_customer@example.com"
   const admin_email = "register_admin@example.com"
   const workshopManager_email = "register_workshopManager@example.com"

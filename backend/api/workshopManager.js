@@ -45,7 +45,7 @@ router.put("/", verifyRole("workshopManager", 4), async (req, res) => {
         logo = uploadResponse.data.location
       }
     }
-    const response = await workshopManagerService.update(req.user.userID, name, logo, phone, description)
+    const response = await workshopManagerService.update(req.user.userId, name, logo, phone, description)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
@@ -57,7 +57,7 @@ router.put("/", verifyRole("workshopManager", 4), async (req, res) => {
 router.delete("/", verifyRole("workshopManager", 5), async (req, res) => {
 
   if (req.user) {
-    const response = await workshopManagerService.delete(req.user.userID)
+    const response = await workshopManagerService.delete(req.user.userId)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
