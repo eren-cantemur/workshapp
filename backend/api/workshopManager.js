@@ -36,13 +36,13 @@ router.put("/", verifyRole("workshopManager", 4), async (req, res) => {
   const { name, logo, description, phone } = req.body
   if (name && logo && description && phone) {
     if (req.files) {
-      const uploadResponse = s3Service.upload(req.files.image)
+      const uploadResponse = await s3Service.upload(req.files.image)
       if (uploadResponse.type == "Error") {
         res.status(400).send(uploadResponse.message)
         return
       }
       else {
-        logo = uploadResponse.data.location
+        logo = uploadResponse.data.Location
       }
     }
     const response = await workshopManagerService.update(req.user.userId, name, logo, phone, description)

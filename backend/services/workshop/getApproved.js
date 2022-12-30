@@ -1,4 +1,4 @@
-const {WorkShop} = require('../../models')
+const {Workshop} = require('../../models')
 
 exports.getApproved = async () => {
    
@@ -17,7 +17,7 @@ exports.getApproved = async () => {
         }]
     }
 
-    const workshop = await WorkShop.findOne(findOptions)
+    const workshop = await Workshop.findOne(findOptions)
 
     if (!workshop) {
         return {

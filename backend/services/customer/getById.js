@@ -4,7 +4,7 @@ exports.getById = async (id) => {
     
     const findOptions = {
         where : {
-            id : id
+            userId : id
         }
     }
 
