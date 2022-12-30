@@ -8,10 +8,10 @@ const { JWTPRIVATEKEY } = require('../config/jwt.config')
 const SALTROUNDS = require('../config/bcrypt.config').SALTROUNDS
 
 describe("Test the user route", () => {
-  const customer_email1 = "customer1@example.com"
-  const customer_email2 = "customer2@example.com"
-  const customer_email3 = "customer3@example.com"
-  const customer_email4 = "customer4@example.com"
+  const user_email1 = "user1@example.com"
+  const user_email2 = "user2@example.com"
+  const user_email3 = "user3@example.com"
+  const user_email4 = "user4@example.com"
   const password = "12345"
   beforeAll(async () => {
     await db.sequelize.sync({ force: false, logging: false })
@@ -20,11 +20,11 @@ describe("Test the user route", () => {
     admin_token = jwt.sign({ userId: 2, role: "admin", roleId : 1 },privateKey,{ algorithm: "RS256",expiresIn: "14d" });    
     workshopManager_token = jwt.sign({ userId: 3, role: "workshopManager", roleId : 1 },privateKey,{ algorithm: "RS256",expiresIn: "14d" });    
     
-    newCustomer = await Customer.create({name: "",photo: "",user: {email: customer_email1,password: hashedPassword}},{include: [{association: Customer.User,}]});
+    newCustomer = await Customer.create({name: "",photo: "",user: {email: user_email1,password: hashedPassword}},{include: [{association: Customer.User,}]});
     customer_token = jwt.sign({ userId: newCustomer.user.id, role: "customer", roleId : newCustomer.id },privateKey,{ algorithm: "RS256",expiresIn: "14d" });
-    newCustomer3 = await Customer.create({name: "",photo: "",user: {email: customer_email3,password: hashedPassword}},{include: [{association: Customer.User,}]});
+    newCustomer3 = await Customer.create({name: "",photo: "",user: {email: user_email3,password: hashedPassword}},{include: [{association: Customer.User,}]});
     customer3_token = jwt.sign({ userId: newCustomer3.user.id, role: "customer", roleId : newCustomer3.id },privateKey,{ algorithm: "RS256",expiresIn: "14d" });
-    newCustomer4 = await Customer.create({name: "",photo: "",user: {email: customer_email4,password: hashedPassword}},{include: [{association: Customer.User,}]});
+    newCustomer4 = await Customer.create({name: "",photo: "",user: {email: user_email4,password: hashedPassword}},{include: [{association: Customer.User,}]});
   })
   it("It should return user id", async () => {
     const response = await request(app)
@@ -56,7 +56,7 @@ describe("Test the user route", () => {
       .expect(200)
       .set("Accept", "application/json")
       .set("Authorization", "Bearer " + customer_token)
-      .send({email: customer_email2, password: password})
+      .send({email: user_email2, password: password})
     expect(response.body.type).toBe("Success");
   });
   it("It should't update customer mail and password if empty", async () => {
@@ -104,7 +104,10 @@ describe("Test the user route", () => {
   });
   
   afterAll(async () => {
-    await User.destroy({where: {email: customer_email2}})
+    await User.destroy({where: {email: user_email1}})
+    await User.destroy({where: {email: user_email2}})
+    await User.destroy({where: {email: user_email3}})
+    await User.destroy({where: {email: user_email4}})
     await db.sequelize.close()
   })
 });

@@ -16,8 +16,8 @@ router.post("/", verifyRole("address", 1), async (req, res) => {
     });
   }
 })
-router.get("/:id", verifyRole("address", 2), async (req, res) => {
-  const { id } = req.query
+router.get("/id/:id", verifyRole("address", 2), async (req, res) => {	
+  const id  = req.params.id
   if (id) {
     const response = await addressService.getById(id)
     res.status(response.type === "Error" ? 400 : 200).send(response);
@@ -29,8 +29,8 @@ router.get("/:id", verifyRole("address", 2), async (req, res) => {
   }
 })
 
-router.get("/:workshopId", verifyRole("address", 3), async (req, res) => {
-  const { workshopId } = req.query
+router.get("/workshopId/:workshopId", verifyRole("address", 3), async (req, res) => {
+  const workshopId  = req.params.workshopId
   if (workshopId) {
     const response = await addressService.getByWorkshopId(workshopId)
     res.status(response.type === "Error" ? 400 : 200).send(response);
