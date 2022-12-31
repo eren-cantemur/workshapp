@@ -1,13 +1,14 @@
 const {Workshop} = require('../../models')
 
-exports.update = async (id,name, capacity,description, photo, managerId, categoryId) => {
+exports.update = async (id,name, capacity,description, photo, managerId, categoryId, addressId) => {
 
     const updateBody = {
         name : name,
         capacity : capacity,
         description : description,
         photo : photo,
-        categoryId : categoryId
+        categoryId : categoryId,
+        addressId : addressId
     }
 
     const findOptions = {

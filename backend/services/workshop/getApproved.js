@@ -14,6 +14,9 @@ exports.getApproved = async () => {
         },
         {
             model  :Review
+        },
+        {
+            model: Category
         }]
     }
 

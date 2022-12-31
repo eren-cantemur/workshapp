@@ -1,6 +1,4 @@
-const Workshop = require('../models/workshop')
 module.exports = (sequelize, Sequelize) => {
-    WorkshopModel = Workshop(sequelize,Sequelize)
     const Address = sequelize.define("address", {
         lat : {
             type : Sequelize.FLOAT,
@@ -24,6 +22,5 @@ module.exports = (sequelize, Sequelize) => {
             type : Sequelize.STRING
         }
     })
-    Address.belongsTo(WorkshopModel)
     return Address;
 }

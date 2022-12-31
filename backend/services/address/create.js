@@ -1,6 +1,6 @@
 const {Address} = require('../../models')
 
-exports.create = async (country, city, county, postalCode, openAddress, workshopId) => {
+exports.create = async (country, city, county, postalCode, openAddress) => {
 
     const createBody = {
         country : country,
@@ -8,7 +8,6 @@ exports.create = async (country, city, county, postalCode, openAddress, workshop
         county : county,
         openAddress: openAddress,
         postalCode : postalCode,
-        workshopId : workshopId
     }
     const result = await Address.create(
         createBody
