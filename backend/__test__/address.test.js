@@ -40,15 +40,6 @@ describe("Test the address route", () => {
     expect(response.body.type).toBe("Success");
   });
 
-  it("it should return address by workshop id", async () => {
-    const response = await request(app)
-      .get("/address/workshopId/" + workshop.id)
-      .expect(200)
-      .set("Accept", "application/json")
-      .set("Authorization", "Bearer " + workshopManager_token)
-    expect(response.body.type).toBe("Success");
-  });
-
   it("it should return all address to admin", async () => {
     const response = await request(app)
       .get("/address")

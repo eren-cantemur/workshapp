@@ -1,6 +1,6 @@
 const { Admin } = require('../../models')
 
-exports.update = async (name, id) => {
+exports.update = async (id, name) => {
 
     const updateBody = {
         name: name

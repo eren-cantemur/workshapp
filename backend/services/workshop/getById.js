@@ -1,4 +1,4 @@
-const {WorksShop} = require('../../models')
+const {Workshop, Address, WorkshopImage, Review, Category} = require('../../models')
 
 exports.getById = async (id) => {
    
@@ -20,7 +20,7 @@ exports.getById = async (id) => {
         }]
     }
 
-    const workshop = await WorksShop.findOne(findOptions)
+    const workshop = await Workshop.findOne(findOptions)
 
     if (!workshop) {
         return {

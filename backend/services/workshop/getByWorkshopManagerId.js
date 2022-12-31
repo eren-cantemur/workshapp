@@ -1,6 +1,6 @@
-const {WorksShop} = require('../../models')
+const {Workshop} = require('../../models')
 
-exports.getById = async (managerId) => {
+exports.getByWorkshopManagerId = async (managerId) => {
     
     const findOptions = {
         where : {
@@ -8,7 +8,7 @@ exports.getById = async (managerId) => {
         }
     }
 
-    const workshop = await WorksShop.findAll(findOptions)
+    const workshop = await Workshop.findAll(findOptions)
     
     if (!workshop) {
         return {

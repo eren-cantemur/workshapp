@@ -1,10 +1,10 @@
-const {Workshop} = require('../../models')
+const {Workshop, Address, WorkshopImage, Review, Category} = require('../../models')
 
 exports.getApproved = async () => {
    
     const findOptions = {
         where : {
-            isApproved : 1
+            isApproved : true
         },
         include : [{
             model : Address
@@ -20,7 +20,7 @@ exports.getApproved = async () => {
         }]
     }
 
-    const workshop = await Workshop.findOne(findOptions)
+    const workshop = await Workshop.findAll(findOptions)
 
     if (!workshop) {
         return {

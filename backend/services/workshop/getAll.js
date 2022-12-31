@@ -1,4 +1,4 @@
-const { Workshop } = require('../../models')
+const { Workshop , Address, WorkshopImage, Review, Category } = require('../../models')
 
 exports.getAll = async () => {
 

@@ -60,10 +60,10 @@ const RouteRoles = {
         3: ["customer", "admin", "workshopManager"],
         4: ["admin", "workshopManager"],
         5: ["admin","workshopManager"],
-    }
-
-
-
+    },
+    "admin": {
+        1: ["admin"],
+    },
 }
 
 module.exports = RouteRoles

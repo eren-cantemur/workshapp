@@ -1,8 +1,6 @@
 const User = require('./user')
-const Workshop = require('./workshop')
 module.exports = (sequelize, Sequelize) => {
     UserModel = User(sequelize,Sequelize)
-    WorkshopModel = Workshop(sequelize,Sequelize)
     const Review = sequelize.define("review", {
         isApproved  : {
             type : Sequelize.INTEGER,
@@ -16,6 +14,5 @@ module.exports = (sequelize, Sequelize) => {
         }
     })
     Review.belongsTo(UserModel)
-    Review.belongsTo(WorkshopModel)
     return Review;
 }

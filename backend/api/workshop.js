@@ -43,7 +43,7 @@ router.get("/approved", verifyRole("workshop", 3), async (req, res) => {
   res.status(response.type === "Error" ? 400 : 200).send(response);
 })
 router.get("/workshopManagerId/:workshopManagerId", verifyRole("workshop", 3), async (req, res) => {
-  const { workshopManagerId } = req.query
+  const  workshopManagerId  = req.params.workshopManagerId
   if (workshopManagerId) {
     const response = await workshopService.getByWorkshopManagerId(workshopManagerId)
     res.status(response.type === "Error" ? 400 : 200).send(response);
@@ -70,7 +70,7 @@ router.get("/", verifyRole("workshop", 7), async (req, res) => {
   res.status(response.type === "Error" ? 400 : 200).send(response);
 })
 router.put("/", verifyRole("workshop", 5), async (req, res) => {
-  const { id, name, capacity, description, photo, categoryId } = req.body
+  var { id, name, capacity, description, photo, categoryId } = req.body
   if (id && name && capacity && description && photo && categoryId) {
     if (req.files) {
       const uploadResponse = await s3Service.upload(req.files.image)

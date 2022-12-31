@@ -24,6 +24,7 @@ describe("Test the workshop route", () => {
     categoryId = category[0]
     workshop = await Workshop.create({ name: "Yoga Class2", capacity: 20, description: "Yoga Class with Alperen", categoryId: categoryId, workshopManagerId: newWorkshopManager.id, photo: "https://workshapps3.s3.eu-central-1.amazonaws.com/1672427194124.jpg" })
     workshop2 = await Workshop.create({ name: "Yoga Class2", capacity: 20, description: "Yoga Class with Alperen", categoryId: categoryId, workshopManagerId: newWorkshopManager.id, photo: "https://workshapps3.s3.eu-central-1.amazonaws.com/1672427194124.jpg" })
+    workshop3 = await Workshop.create({ name: "Yoga Class3", capacity: 20, description: "Yoga Class with Alperen", categoryId: categoryId, workshopManagerId: newWorkshopManager.id, photo: "https://workshapps3.s3.eu-central-1.amazonaws.com/1672427194124.jpg" })
     address = await Address.create({ city: "Istanbul", country: "Turkey", street: "Istanbul Street", zipCode: "34000", workshopId: workshop.id })
   })
 
@@ -41,6 +42,19 @@ describe("Test the workshop route", () => {
   //     .attach('image', '__test__/example.jpg')
   //   expect(response.body.type).toBe("Success");
   // });
+
+  it("It should't create workshop for empty name", async () => {
+    const response = await request(app)
+      .post("/workshop")
+      .expect(400)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + workshopManager_token)
+  		.field('capacity', '10')
+  		.field('description', 'Yoga Class with Alper')
+  		.field('categoryId', categoryId)
+      .attach('image', '__test__/example.jpg')
+    expect(response.body.type).toBe("Error");
+  });
 
   it("It should get workshop by id", async () => {
     const response = await request(app)
@@ -83,7 +97,7 @@ describe("Test the workshop route", () => {
       .get("/workshop")
       .expect(200)
       .set("Accept", "application/json")
-      .set("Authorization", "Bearer " + workshopManager_token)
+      .set("Authorization", "Bearer " + admin_token)
     expect(response.body.type).toBe("Success");
   });
 
@@ -102,6 +116,23 @@ describe("Test the workshop route", () => {
     expect(response.body.type).toBe("Success");
   });
 
+  // It is working, it is commented because no need to unnecessarily upload image to s3
+  // it("it should update workshop", async () => {
+  //   const response = await request(app)
+  //     .put("/workshop")
+  //     .expect(200)
+  //     .set("Accept", "application/json")
+  //     .set("Authorization", "Bearer " + workshopManager_token)
+  //     .field('id', workshop3.id)
+  //     .field('name', 'Yoga Class2 updated')
+  //     .field('capacity', '20')
+  //     .field('description', 'Yoga Class with Alperen')
+  //     .field('categoryId', categoryId)
+  //     .field('photo', "https://workshapps3.s3.eu-central-1.amazonaws.com/1672427194124.jpg")
+  //     .attach('image', '__test__/example.jpg')
+  //   expect(response.body.type).toBe("Success");
+  // });
+
   it("it should change status of workshop", async () => {
     const response = await request(app)
       .put("/workshop/changeStatus")
@@ -110,6 +141,15 @@ describe("Test the workshop route", () => {
       .set("Authorization", "Bearer " + admin_token)
       .send({ id: workshop.id, isApproved: true })
     expect(response.body.type).toBe("Success");
+  });
+
+  it("it should't change status of workshop by workshopManager", async () => {
+    const response = await request(app)
+      .put("/workshop/changeStatus")
+      .expect(403)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + workshopManager_token)
+      .send({ id: workshop.id, isApproved: true })
   });
 
   it("it should delete workshop", async () => {
@@ -125,7 +165,6 @@ describe("Test the workshop route", () => {
   afterAll(async () => {
     await User.destroy({ where: { email: workshopManager_email } })
     await Workshop.destroy({ where: { categoryId: categoryId } })
-    await Address.destroy({ where: { workshopId: workshop.id } })
     await sequelize.query("DELETE FROM `Categories` WHERE `id` = " + categoryId)
     await db.sequelize.close()
   })
