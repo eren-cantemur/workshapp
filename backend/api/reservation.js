@@ -16,8 +16,8 @@ router.post("/", verifyRole("reservation", 1), async (req, res) => {
     });
   }
 })
-router.get("/:id", verifyRole("reservation", 2), async (req, res) => {
-  const { id } = req.query
+router.get("/id/:id", verifyRole("reservation", 2), async (req, res) => {
+  const id = req.params.id
   if (id) {
     const response = await reservationService.getById(id)
     res.status(response.type === "Error" ? 400 : 200).send(response);
@@ -28,10 +28,10 @@ router.get("/:id", verifyRole("reservation", 2), async (req, res) => {
     });
   }
 })
-router.get("/:workshopId", verifyRole("reservation",3), async (req, res) => {
-  const { workshopId } = req.query
+router.get("/workshopId/:workshopId", verifyRole("reservation",3), async (req, res) => {
+  const workshopId = req.params.workshopId
   if (workshopId) {
-    const response = await reservationService.getByUserId(workshopId)
+    const response = await reservationService.getByWorkshopId(workshopId)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
