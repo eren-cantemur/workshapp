@@ -39,7 +39,6 @@ router.put("/", verifyRole("customer", 4), async (req, res) => {
   if (name && photo) {
     if (req.files) {
       const uploadResponse = await s3Service.upload(req.files.image)
-      console.log(uploadResponse)
       if (uploadResponse.type == "Error") {
         res.status(400).send(uploadResponse.message)
         return

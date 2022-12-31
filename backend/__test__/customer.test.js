@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../app");
 const db = require("../models");
-const {Customer, User} = require('../models')
+const { Customer, User } = require('../models')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { JWTPRIVATEKEY } = require('../config/jwt.config')
@@ -12,18 +12,18 @@ describe("Test the customer route", () => {
   const customer_email2 = "customer2@example.com"
   const customer_email3 = "customer3@example.com"
   const password = "12345"
-  
+
   beforeAll(async () => {
     await db.sequelize.sync({ force: false, logging: false })
     const privateKey = JWTPRIVATEKEY;
     const hashedPassword = await bcrypt.hash(password, SALTROUNDS);
-    admin_token = jwt.sign({ userId: 2, role: "admin", roleId : 1 },privateKey,{ algorithm: "RS256",expiresIn: "14d" });    
-    workshopManager_token = jwt.sign({ userId: 3, role: "workshopManager", roleId : 1 },privateKey,{ algorithm: "RS256",expiresIn: "14d" });    
-    
-    newCustomer = await Customer.create({name: "ali",photo: "",user: {email: customer_email1,password: hashedPassword}},{include: [{association: Customer.User,}]});
-    customer_token = jwt.sign({ userId: newCustomer.user.id, role: "customer", roleId : newCustomer.id },privateKey,{ algorithm: "RS256",expiresIn: "14d" });
-    newCustomer3 = await Customer.create({name: "",photo: "",user: {email: customer_email3,password: hashedPassword}},{include: [{association: Customer.User,}]});
-    customer3_token = jwt.sign({ userId: newCustomer3.user.id, role: "customer", roleId : newCustomer3.id },privateKey,{ algorithm: "RS256",expiresIn: "14d" });
+    admin_token = jwt.sign({ userId: 2, role: "admin", roleId: 1 }, privateKey, { algorithm: "RS256", expiresIn: "14d" });
+    workshopManager_token = jwt.sign({ userId: 3, role: "workshopManager", roleId: 1 }, privateKey, { algorithm: "RS256", expiresIn: "14d" });
+
+    newCustomer = await Customer.create({ name: "ali", photo: "", user: { email: customer_email1, password: hashedPassword } }, { include: [{ association: Customer.User, }] });
+    customer_token = jwt.sign({ userId: newCustomer.user.id, role: "customer", roleId: newCustomer.id }, privateKey, { algorithm: "RS256", expiresIn: "14d" });
+    newCustomer3 = await Customer.create({ name: "", photo: "", user: { email: customer_email3, password: hashedPassword } }, { include: [{ association: Customer.User, }] });
+    customer3_token = jwt.sign({ userId: newCustomer3.user.id, role: "customer", roleId: newCustomer3.id }, privateKey, { algorithm: "RS256", expiresIn: "14d" });
   })
 
   it("It should return customer id", async () => {
@@ -41,7 +41,7 @@ describe("Test the customer route", () => {
       .expect(200)
       .set("Accept", "application/json")
       .set("Authorization", "Bearer " + customer_token)
-      .send({name: newCustomer.name})
+      .send({ name: newCustomer.name })
     expect(response.body.type).toBe("Success");
   });
 
@@ -86,7 +86,7 @@ describe("Test the customer route", () => {
   });
 
   afterAll(async () => {
-    await User.destroy({where: {email: customer_email2}})
+    await User.destroy({ where: { email: customer_email2 } })
     await db.sequelize.close()
   })
 });

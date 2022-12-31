@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../app");
 const db = require("../models");
-const {WorkshopManager, User, Workshop, Address} = require('../models')
+const { WorkshopManager, User, Workshop, Address } = require('../models')
 const jwt = require('jsonwebtoken')
 const { JWTPRIVATEKEY } = require('../config/jwt.config')
 const bcrypt = require('bcrypt')
@@ -9,22 +9,22 @@ const SALTROUNDS = require('../config/bcrypt.config').SALTROUNDS
 const sequelize = require('../models').sequelize
 
 describe("Test the workshop route", () => {
-	const workshopManager_email = "workshopManager75@worhsapp.manager";
-	const password = "12345";
+  const workshopManager_email = "workshopManager75@worhsapp.manager";
+  const password = "12345";
   var workshopManager_token;
 
   beforeAll(async () => {
     await db.sequelize.sync({ force: false, logging: false })
     const privateKey = JWTPRIVATEKEY;
-		const hashedPassword = await bcrypt.hash(password, SALTROUNDS);
-		newWorkshopManager = await WorkshopManager.create({name: "",photo: "",user: {email: workshopManager_email,password: hashedPassword}},{include: [{association: WorkshopManager.User,}]});
-		workshopManager_token = jwt.sign({ userId: newWorkshopManager.user.id, role: "workshopManager", roleId : newWorkshopManager.id },privateKey,{ algorithm: "RS256",expiresIn: "14d" });
-    admin_token = jwt.sign({ userId: 1, role: "admin", roleId : 1 },privateKey,{ algorithm: "RS256",expiresIn: "14d" });
-		category = await sequelize.query("INSERT INTO `Categories` (`name`, `createdAt`, `updatedAt`) VALUES ('Yoga', '2020-12-01 00:00:00', '2020-12-01 00:00:00');")
-		categoryId = category[0]
-		workshop = await Workshop.create({name: "Yoga Class2",capacity: 20,description: "Yoga Class with Alperen",categoryId: categoryId, workshopManagerId: newWorkshopManager.id, photo: "https://workshapps3.s3.eu-central-1.amazonaws.com/1672427194124.jpg"})
-    workshop2 = await Workshop.create({name: "Yoga Class2",capacity: 20,description: "Yoga Class with Alperen",categoryId: categoryId, workshopManagerId: newWorkshopManager.id, photo: "https://workshapps3.s3.eu-central-1.amazonaws.com/1672427194124.jpg"})
-    address = await Address.create({city: "Istanbul",country: "Turkey",street: "Istanbul Street",zipCode: "34000",workshopId: workshop.id})
+    const hashedPassword = await bcrypt.hash(password, SALTROUNDS);
+    newWorkshopManager = await WorkshopManager.create({ name: "", photo: "", user: { email: workshopManager_email, password: hashedPassword } }, { include: [{ association: WorkshopManager.User, }] });
+    workshopManager_token = jwt.sign({ userId: newWorkshopManager.user.id, role: "workshopManager", roleId: newWorkshopManager.id }, privateKey, { algorithm: "RS256", expiresIn: "14d" });
+    admin_token = jwt.sign({ userId: 1, role: "admin", roleId: 1 }, privateKey, { algorithm: "RS256", expiresIn: "14d" });
+    category = await sequelize.query("INSERT INTO `Categories` (`name`, `createdAt`, `updatedAt`) VALUES ('Yoga', '2020-12-01 00:00:00', '2020-12-01 00:00:00');")
+    categoryId = category[0]
+    workshop = await Workshop.create({ name: "Yoga Class2", capacity: 20, description: "Yoga Class with Alperen", categoryId: categoryId, workshopManagerId: newWorkshopManager.id, photo: "https://workshapps3.s3.eu-central-1.amazonaws.com/1672427194124.jpg" })
+    workshop2 = await Workshop.create({ name: "Yoga Class2", capacity: 20, description: "Yoga Class with Alperen", categoryId: categoryId, workshopManagerId: newWorkshopManager.id, photo: "https://workshapps3.s3.eu-central-1.amazonaws.com/1672427194124.jpg" })
+    address = await Address.create({ city: "Istanbul", country: "Turkey", street: "Istanbul Street", zipCode: "34000", workshopId: workshop.id })
   })
 
   // It is working, it is commented because no need to unnecessarily upload image to s3
@@ -35,9 +35,9 @@ describe("Test the workshop route", () => {
   //     .set("Accept", "application/json")
   //     .set("Authorization", "Bearer " + workshopManager_token)
   //     .field('name', 'Yoga Class')
-	// 		.field('capacity', '10')
-	// 		.field('description', 'Yoga Class with Alper')
-	// 		.field('categoryId', categoryId)
+  // 		.field('capacity', '10')
+  // 		.field('description', 'Yoga Class with Alper')
+  // 		.field('categoryId', categoryId)
   //     .attach('image', '__test__/example.jpg')
   //   expect(response.body.type).toBe("Success");
   // });
@@ -108,7 +108,7 @@ describe("Test the workshop route", () => {
       .expect(200)
       .set("Accept", "application/json")
       .set("Authorization", "Bearer " + admin_token)
-      .send({id : workshop.id, isApproved: true})
+      .send({ id: workshop.id, isApproved: true })
     expect(response.body.type).toBe("Success");
   });
 
@@ -118,15 +118,15 @@ describe("Test the workshop route", () => {
       .expect(200)
       .set("Accept", "application/json")
       .set("Authorization", "Bearer " + workshopManager_token)
-      .send({id : workshop2.id})
+      .send({ id: workshop2.id })
     expect(response.body.type).toBe("Success");
   });
-  
+
   afterAll(async () => {
-		await User.destroy({where: {email: workshopManager_email}})
-		await Workshop.destroy({where: {categoryId: categoryId}})
-    await Address.destroy({where: {workshopId: workshop.id}})
-		await sequelize.query("DELETE FROM `Categories` WHERE `id` = " + categoryId)
+    await User.destroy({ where: { email: workshopManager_email } })
+    await Workshop.destroy({ where: { categoryId: categoryId } })
+    await Address.destroy({ where: { workshopId: workshop.id } })
+    await sequelize.query("DELETE FROM `Categories` WHERE `id` = " + categoryId)
     await db.sequelize.close()
   })
 });
