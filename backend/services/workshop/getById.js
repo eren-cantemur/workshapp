@@ -14,6 +14,9 @@ exports.getById = async (id) => {
         },
         {
             model  :Review
+        },
+        {
+            model: Category
         }]
     }
 
