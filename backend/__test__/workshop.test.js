@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken')
 const { JWTPRIVATEKEY } = require('../config/jwt.config')
 const bcrypt = require('bcrypt')
 const SALTROUNDS = require('../config/bcrypt.config').SALTROUNDS
-const fs = require('fs')
 const sequelize = require('../models').sequelize
 
 describe("Test the workshop route", () => {

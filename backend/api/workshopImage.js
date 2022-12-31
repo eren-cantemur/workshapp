@@ -25,20 +25,9 @@ router.post("/", verifyRole("workshopImage", 1), async (req, res) => {
     });
   }
 })
-router.get("/:id", verifyRole("workshopImage", 2), async (req, res) => {
-  const { id } = req.query
-  if (id) {
-    const response = await workshopImageService.getById(id)
-    res.status(response.type === "Error" ? 400 : 200).send(response);
-  } else {
-    res.status(400).send({
-      type: "Error",
-      message: "Fields supplied not valid.",
-    });
-  }
-})
-router.get("/:workshopId", verifyRole("workshopImage", 3), async (req, res) => {
-  const { workshopId } = req.query
+
+router.get("/workshopId/:workshopId", verifyRole("workshopImage", 3), async (req, res) => {
+  const workshopId = req.params.workshopId
   if (workshopId) {
     const response = await workshopImageService.getByWorkshopId(workshopId)
     res.status(response.type === "Error" ? 400 : 200).send(response);
