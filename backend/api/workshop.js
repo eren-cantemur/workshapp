@@ -6,8 +6,8 @@ const s3Service = require("../services/s3")
 const workshopService = require("../services/workshop")
 
 router.post("/", verifyRole("workshop", 1), async (req, res) => {
-  const { name, capacity, description, categoryId } = req.body
-  if (name && capacity && description && req.files.image && categoryId) {
+  const { name, capacity, description, categoryId, addressId } = req.body
+  if (name && capacity && description && req.files.image && categoryId && addressId) {
     const uploadResponse = await s3Service.upload(req.files.image)
     if (uploadResponse.type == "Error") {
       res.status(400).send(uploadResponse.message)
@@ -15,7 +15,7 @@ router.post("/", verifyRole("workshop", 1), async (req, res) => {
     }
     else {
       const photo = uploadResponse.data.Location;
-      const response = await workshopService.create(name, capacity, description, photo, categoryId, req.user.roleId)
+      const response = await workshopService.create(name, capacity, description, photo, categoryId, req.user.roleId, addressId)
       res.status(response.type === "Error" ? 400 : 200).send(response);
     }
 
@@ -56,7 +56,7 @@ router.get("/workshopManagerId/:workshopManagerId", verifyRole("workshop", 3), a
 })
 router.get("/getByToken", verifyRole("workshop", 3), async (req, res) => {
   if (req.user) {
-    const response = await workshopService.getByWorkshopManagerId(req.user.userId)
+    const response = await workshopService.getByWorkshopManagerId(req.user.roleId)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
@@ -70,8 +70,8 @@ router.get("/", verifyRole("workshop", 7), async (req, res) => {
   res.status(response.type === "Error" ? 400 : 200).send(response);
 })
 router.put("/", verifyRole("workshop", 5), async (req, res) => {
-  var { id, name, capacity, description, photo, categoryId } = req.body
-  if (id && name && capacity && description && photo && categoryId) {
+  var { id, name, capacity, description, photo, categoryId, addressId} = req.body
+  if (id && name && capacity && description && photo && categoryId && addressId) {
     if (req.files) {
       const uploadResponse = await s3Service.upload(req.files.image)
       if (uploadResponse.type == "Error") {
@@ -82,7 +82,8 @@ router.put("/", verifyRole("workshop", 5), async (req, res) => {
         photo = uploadResponse.data.Location
       }
     }
-    const response = await workshopService.update(id, name, capacity, description, photo, req.user.roleId, categoryId)
+    const response = await workshopService.update(id, name, capacity, description, photo, req.user.roleId, categoryId, addressId)
+
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({

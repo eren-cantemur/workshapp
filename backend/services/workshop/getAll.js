@@ -3,18 +3,19 @@ const { Workshop , Address, WorkshopImage, Review, Category } = require('../../m
 exports.getAll = async () => {
 
     const findOptions = {
-        include : [{
-            model : Address
-        },
-        {
-            model : WorkshopImage
-        },
-        {
-            model  :Review
-        },
-        {
-            model: Category
-        }]
+        // include : [{
+        //     model : Address
+        // },
+        // {
+        //     model : WorkshopImage
+        // },
+        // {
+        //     model  :Review
+        // },
+        // {
+        //     model: Category
+        // }]
+        include: { all: true, nested: true }
     }
     const workshops = await Workshop.findAll(findOptions)
 

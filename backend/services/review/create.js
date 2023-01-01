@@ -1,4 +1,4 @@
-const {Review} = require('../../models')
+const {Review, Workshop} = require('../../models')
 
 exports.create = async (comment, rate,userId,workshopId) => {
 
@@ -9,7 +9,10 @@ exports.create = async (comment, rate,userId,workshopId) => {
         workshopId : workshopId
     }
     const result = await Review.create(
-        createBody
+        createBody,
+        {
+            include : [Workshop]
+        }
     )
     if (!result) {
         return {

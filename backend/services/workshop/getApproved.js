@@ -6,18 +6,19 @@ exports.getApproved = async () => {
         where : {
             isApproved : true
         },
-        include : [{
-            model : Address
-        },
-        {
-            model : WorkshopImage
-        },
-        {
-            model  :Review
-        },
-        {
-            model: Category
-        }]
+        include: { all: true, nested: true }
+        // include : [{
+        //     model : Address
+        // },
+        // {
+        //     model : WorkshopImage
+        // },
+        // {
+        //     model  :Review
+        // },
+        // {
+        //     model: Category
+        // }]
     }
 
     const workshop = await Workshop.findAll(findOptions)
