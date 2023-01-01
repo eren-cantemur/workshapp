@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/controller/app_bottom_controller.dart';
 import 'package:mobile/model/jwt_provider.dart';
-import 'package:mobile/view/auth_pages/pages/auth/login_page.dart';
-import 'package:mobile/view/auth_pages/pages/auth/profile_info_page.dart';
-import 'package:mobile/view/auth_pages/pages/auth/profile_info_photo.dart';
-import 'package:mobile/view/auth_pages/pages/auth/register_page.dart';
-import 'package:mobile/view/auth_pages/pages/home/home_page.dart';
+import 'package:mobile/view/auth/pages/login_page.dart';
+import 'package:mobile/view/auth/pages/profile_info_page.dart';
+import 'package:mobile/view/auth/pages/profile_info_photo.dart';
+import 'package:mobile/view/auth/pages/register_page.dart';
+import 'package:mobile/view/home/pages/home_page.dart';
 import 'package:provider/provider.dart';
-import 'controller/auth_controller.dart';
-import 'view/auth_pages/pages/auth/welcome_page.dart';
+import 'view/auth/pages/welcome_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<AuthController>(create: (_) => AuthController()),
         ListenableProvider(create: (context) => JWTProvider()),
       ],
       child: MaterialApp(
@@ -29,7 +28,7 @@ class MyApp extends StatelessWidget {
           primaryColor: const Color.fromARGB(253, 13, 152, 106),
           scaffoldBackgroundColor: const Color.fromARGB(253, 246, 246, 246),
         ),
-        initialRoute: HomePage.id,
+        initialRoute: WelcomePage.id,
         routes: {
           WelcomePage.id: (context) => const WelcomePage(),
           LoginPage.id: (context) => const LoginPage(),
@@ -37,6 +36,7 @@ class MyApp extends StatelessWidget {
           ProfileInfoPage.id: (context) => const ProfileInfoPage(),
           ProfilePhotoNamePage.id: (context) => const ProfilePhotoNamePage(),
           HomePage.id: (context) => const HomePage(),
+          AppBottomController.id: (context) => const AppBottomController(),
         },
         home: const WelcomePage(),
       ),

@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/model/workshop_model.dart';
-import 'package:mobile/view/auth_pages/pages/home/home_page.dart';
+import 'package:mobile/view/home/pages/home_page.dart';
+import 'package:mobile/view/home/pages/workshop_detail_page.dart';
 
 class WorkshopCell extends StatelessWidget {
   const WorkshopCell({super.key, required this.workshop, required this.index});
@@ -24,7 +25,12 @@ class WorkshopCell extends StatelessWidget {
             borderRadius: BorderRadius.circular(30),
             child: InkWell(
               onTap: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(HomePage.id, (Route<dynamic> route) => false);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WorkshopDetailPage(workshop: workshop),
+                  ),
+                );
               },
               child: Card(
                 color: index % 2 == 0 ? backgroundcolor1 : backgroundcolor2,
@@ -40,7 +46,7 @@ class WorkshopCell extends StatelessWidget {
                             height: height / 7,
                             fit: BoxFit.cover,
                             image: NetworkImage(
-                              workshop.imageURL,
+                              workshop.photo,
                             ),
                           ),
                         ),
@@ -101,7 +107,7 @@ class WorkshopCell extends StatelessWidget {
                               children: [
                                 const Icon(Icons.location_on_outlined),
                                 Text(
-                                  workshop.location,
+                                  workshop.city,
                                   style: TextStyle(
                                     fontSize: height / 55,
                                     color: const Color.fromRGBO(0, 33, 64, 1),
@@ -112,9 +118,8 @@ class WorkshopCell extends StatelessWidget {
                                 const SizedBox(
                                   width: 20,
                                 ),
-                                const Icon(Icons.currency_lira),
                                 Text(
-                                  workshop.price,
+                                  workshop.town,
                                   style: TextStyle(
                                     fontSize: height / 55,
                                     color: const Color.fromRGBO(0, 33, 64, 1),

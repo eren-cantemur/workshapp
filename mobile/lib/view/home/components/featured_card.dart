@@ -47,7 +47,7 @@ class _FeaturedCardState extends State<FeaturedCard> {
                       width: width,
                       fit: BoxFit.cover,
                       image: NetworkImage(
-                        snapshot.data!.imageURL,
+                        snapshot.data!.photo,
                       ),
                     ),
                   ),

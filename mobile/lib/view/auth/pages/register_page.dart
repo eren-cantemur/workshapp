@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/controller/auth_controller.dart';
-import 'package:mobile/view/auth_pages/pages/auth/login_page.dart';
-import '../../components/action_button.dart';
-import '../../components/auth_input_field.dart';
+import 'package:mobile/view/auth/pages/login_page.dart';
+import '../components/action_button.dart';
+import '../components/auth_input_field.dart';
 import 'package:mobile/model/paths.dart';
 
 class RegisterPage extends StatefulWidget {
