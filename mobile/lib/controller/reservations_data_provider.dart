@@ -2,17 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobile/model/workshop_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
-
 import '../model/jwt_provider.dart';
 import 'auth_controller.dart';
 import 'local_data_controller.dart';
 import 'networking_controller.dart';
 
-class FeedDataProvider with ChangeNotifier {
+class ReservationsDataProvider extends ChangeNotifier {
   List<Workshop> _data = [];
   List<Workshop> get data => _data;
 
-  FeedDataProvider(BuildContext context) {
+  ReservationsDataProvider(BuildContext context) {
     _fetchData(context);
   }
 
@@ -27,7 +26,7 @@ class FeedDataProvider with ChangeNotifier {
 
   Future<List<Workshop>> getWorkshops(BuildContext context) {
     if (Provider.of<JWTProvider>(context, listen: false).jwt != null) {
-      return NetworkController.getWorkshops(Provider.of<JWTProvider>(context, listen: false).jwt!, context)
+      return NetworkController.getReservations(Provider.of<JWTProvider>(context, listen: false).jwt!, context)
           .then((value) => value);
     } else {
       return LocalDataController.readJWT().then((key) {
@@ -36,7 +35,7 @@ class FeedDataProvider with ChangeNotifier {
           return [];
         }
         Provider.of<JWTProvider>(context, listen: false).getToken();
-        return NetworkController.getWorkshops(key, context);
+        return NetworkController.getReservations(key, context);
       });
     }
   }

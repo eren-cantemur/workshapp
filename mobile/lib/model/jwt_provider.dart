@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:mobile/controller/auth_controller.dart';
 import 'package:mobile/controller/local_data_controller.dart';
 
 class JWTProvider extends ChangeNotifier {
@@ -21,7 +22,8 @@ class JWTProvider extends ChangeNotifier {
     if (readedJWT != null) {
       jwt = readedJWT;
     } else {
-      //todo logout
+      //todo logout instead of save again
+
       await LocalDataController.saveJwt("jwt");
     }
   }

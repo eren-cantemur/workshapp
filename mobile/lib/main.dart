@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/controller/app_bottom_controller.dart';
 import 'package:mobile/model/jwt_provider.dart';
 import 'package:mobile/view/auth/pages/login_page.dart';
 import 'package:mobile/view/auth/pages/profile_info_page.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           primaryColor: const Color.fromARGB(253, 13, 152, 106),
           scaffoldBackgroundColor: const Color.fromARGB(253, 246, 246, 246),
         ),
-        initialRoute: HomePage.id,
+        initialRoute: AppBottomController.id,
         routes: {
           WelcomePage.id: (context) => const WelcomePage(),
           LoginPage.id: (context) => const LoginPage(),
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
           ProfileInfoPage.id: (context) => const ProfileInfoPage(),
           ProfilePhotoNamePage.id: (context) => const ProfilePhotoNamePage(),
           HomePage.id: (context) => const HomePage(),
+          AppBottomController.id: (context) => const AppBottomController(),
         },
         home: const WelcomePage(),
       ),

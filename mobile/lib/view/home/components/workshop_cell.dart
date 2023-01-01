@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/model/workshop_model.dart';
 import 'package:mobile/view/home/pages/home_page.dart';
+import 'package:mobile/view/home/pages/workshop_detail_page.dart';
 
 class WorkshopCell extends StatelessWidget {
   const WorkshopCell({super.key, required this.workshop, required this.index});
@@ -24,7 +25,13 @@ class WorkshopCell extends StatelessWidget {
             borderRadius: BorderRadius.circular(30),
             child: InkWell(
               onTap: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(HomePage.id, (Route<dynamic> route) => false);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WorkshopDetailPage(workshop: workshop),
+                  ),
+                );
+                print(workshop.name);
               },
               child: Card(
                 color: index % 2 == 0 ? backgroundcolor1 : backgroundcolor2,
