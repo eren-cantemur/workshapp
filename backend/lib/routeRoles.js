@@ -3,7 +3,7 @@ const RouteRoles = {
         1: ["admin", "workshopManager"],
         2: ["customer", "admin", "workshopManager"],
         3: ["customer", "admin", "workshopManager"],
-        4: ["customer", "admin", "workshopManager"],
+        4: ["admin"],
         5: ["admin", "workshopManager"],
         6: ["admin", "workshopManager"],
     },

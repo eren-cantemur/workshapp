@@ -37,6 +37,16 @@ describe("Test the workshopImage route", () => {
   //   expect(response.body.type).toBe("Success");
   // });
 
+  it("It should't create workshopImage if empty field", async () => {
+    const response = await request(app)
+      .post("/workshopImage")
+      .expect(400)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + workshopManager_token)
+      .attach('image', '__test__/example.jpg')
+    expect(response.body.type).toBe("Error");
+  });
+
   it("It should get workshopImage by workshopId", async () => {
     const response = await request(app)
       .get("/workshopImage/workshopId/" + newWorkshop.id)
@@ -63,6 +73,16 @@ describe("Test the workshopImage route", () => {
       .set("Authorization", "Bearer " + admin_token)
       .send({ id: newWorkshopImage.id })
     expect(response.body.type).toBe("Success");
+  });
+
+  it("It should't delete workshopImage by admin if empty field", async () => {
+    const response = await request(app)
+      .delete("/workshopImage")
+      .expect(400)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + admin_token)
+      .send({ id: null })
+    expect(response.body.type).toBe("Error");
   });
 
 

@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "jest --watch",
+    "test-verbose": "jest --verbose",
     "test-coverage": "jest --coverage",
     "dev": "nodemon server.js"
   },

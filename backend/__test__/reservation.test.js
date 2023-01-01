@@ -34,13 +34,13 @@ describe("Test the reservation route", () => {
     expect(response.body.type).toBe("Success");
   });
 
-  it("It should not create a reservation", async () => {
+  it("It should't create a reservation if empty field", async () => {
     const response = await request(app)
       .post("/reservation")
       .expect(400)
       .set("Accept", "application/json")
       .set("Authorization", "Bearer " + customer_token)
-      .send({ workshopId: newWorkshop.id });
+      .send({ date: "", workshopId: newWorkshop.id });
     expect(response.body.type).toBe("Error");
   });
 
@@ -55,7 +55,7 @@ describe("Test the reservation route", () => {
 
   it("it should return reservation by workshop id", async () => {
     const response = await request(app)
-      .get("/reservation/workshopId/1")
+      .get("/reservation/workshopId/" + newWorkshop.id)
       .expect(200)
       .set("Accept", "application/json")
       .set("Authorization", "Bearer " + customer_token);
@@ -90,7 +90,7 @@ describe("Test the reservation route", () => {
     expect(response.body.type).toBe("Success");
   });
 
-  it("it should not update reservation", async () => {
+  it("it should not update reservation if empty field", async () => {
     const response = await request(app)
       .put("/reservation")
       .expect(400)
@@ -110,6 +110,14 @@ describe("Test the reservation route", () => {
     expect(response.body.type).toBe("Success");
   });
 
+  it("it should't delete reservation if empty field", async () => {
+    const response = await request(app)
+      .delete("/reservation")
+      .expect(400)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + customer_token)
+    expect(response.body.type).toBe("Error");
+  });
 
   afterAll(async () => {
     await Customer.destroy({ where: { userId: newCustomer.userId } })

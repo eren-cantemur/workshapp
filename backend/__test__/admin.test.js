@@ -75,6 +75,15 @@ describe("Test the admin route", () => {
     expect(response.body.type).toBe("Success");
   });
 
+  it("it should't update admin if empty field", async () => {
+    const response = await request(app)
+      .put("/admin")
+      .expect(200)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + admin4_token)
+    expect(response.body.type).toBe("Success");
+  });
+
   it("it should delete admin", async () => {
     const response = await request(app)
       .delete("/admin")

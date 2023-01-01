@@ -35,6 +35,16 @@ describe("Test the customer route", () => {
     expect(response.body.type).toBe("Success");
   });
 
+  it("It should't return customer id if empty field", async () => {
+    const response = await request(app)
+      .get("/customer/id/wrongId")
+      .expect(400)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + customer_token)
+    expect(response.body.type).toBe("Error");
+  });
+
+
   it("it should return customer by name", async () => {
     const response = await request(app)
       .get("/customer/name/" + newCustomer.name)
@@ -75,6 +85,17 @@ describe("Test the customer route", () => {
   //     .attach('image', '__test__/example.jpg')
   //   expect(response.body.type).toBe("Success");
   // });
+
+  it("it should't update customer if empty field", async () => {
+    const response = await request(app)
+      .put("/customer")
+      .expect(400)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + customer_token)
+      .field("name", "")
+      .field("photo", "https://example.com")
+    expect(response.body.type).toBe("Error");
+  });
 
   it("it should delete customer", async () => {
     const response = await request(app)

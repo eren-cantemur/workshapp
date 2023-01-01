@@ -31,6 +31,16 @@ describe("Test the address route", () => {
     expect(response.body.type).toBe("Success");
   });
 
+  it("It should't create new address to workshop if empty field", async () => {
+    const response = await request(app)
+      .post("/address")
+      .expect(400)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + workshopManager_token)
+      .send({ country: "", city: "London", county: "London", postalCode: "54321", openAddress: "London", workshopId: workshop.id })
+    expect(response.body.type).toBe("Error");
+  });
+
   it("it should return address by id", async () => {
     const response = await request(app)
       .get("/address/id/" + address.id)
@@ -38,6 +48,14 @@ describe("Test the address route", () => {
       .set("Accept", "application/json")
       .set("Authorization", "Bearer " + workshopManager_token)
     expect(response.body.type).toBe("Success");
+  });
+
+  it("it should't return address by id if empty field", async () => {
+    const response = await request(app)
+      .get("/address/id/wrongId")
+      .expect(400)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + workshopManager_token)
   });
 
   it("it should return all address to admin", async () => {
@@ -59,6 +77,16 @@ describe("Test the address route", () => {
     expect(response.body.type).toBe("Success");
   });
 
+  it("it should't update address if empty field", async () => {
+    const response = await request(app)
+      .put("/address")
+      .expect(400)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + workshopManager_token)
+      .send({ country: "", city: "London", county: "London", postalCode: "34732", openAddress: "London", id: address.id })
+    expect(response.body.type).toBe("Error");
+  });
+
   it("it should delete address", async () => {
     const response = await request(app)
       .delete("/address")
@@ -67,6 +95,16 @@ describe("Test the address route", () => {
       .set("Authorization", "Bearer " + workshopManager_token)
       .send({ id: address2.id })
     expect(response.body.type).toBe("Success");
+  });
+
+  it("it should't delete address if empty field", async () => {
+    const response = await request(app)
+      .delete("/address")
+      .expect(400)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + workshopManager_token)
+      .send({ id: "" }) //empty field
+    expect(response.body.type).toBe("Error");
   });
 
   afterAll(async () => {

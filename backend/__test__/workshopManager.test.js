@@ -77,6 +77,20 @@ describe("Test the workshopManager route", () => {
   //   expect(response.body.type).toBe("Success");
   // });
 
+  it("it should't update workshopManager if empty field", async () => {
+      const response = await request(app)
+        .put("/workshopManager")
+        .expect(400)
+        .set("Accept", "application/json")
+        .set("Authorization", "Bearer " + workshopManager_token)
+        .field("name", "")
+        .field("logo", "https://example.com")
+        .field("description", "")
+        .field("phone", "5555555555")
+        .attach('image', '__test__/example.jpg')
+      expect(response.body.type).toBe("Error");
+    });
+
   it("it should delete workshopManager", async () => {
     const response = await request(app)
       .delete("/workshopManager")
@@ -84,6 +98,15 @@ describe("Test the workshopManager route", () => {
       .set("Accept", "application/json")
       .set("Authorization", "Bearer " + workshopManager3_token)
     expect(response.body.type).toBe("Success");
+  });
+
+  it("it should't delete workshopManager if empty field", async () => {
+    const response = await request(app)
+      .delete("/workshopManager")
+      .expect(400)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + workshopManager3_token)
+    expect(response.body.type).toBe("Error");
   });
 
   afterAll(async () => {

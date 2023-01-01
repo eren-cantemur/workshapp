@@ -34,6 +34,16 @@ describe("Test the review route", () => {
     expect(response.body.type).toBe("Success");
   });
 
+  it("It should't create a review if empty field", async () => {
+    const response = await request(app)
+      .post("/review")
+      .expect(400)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + customer_token)
+      .send({ comment: "", rate: 5, workshopId: newWorkshop.id });
+    expect(response.body.type).toBe("Error");
+  });
+
   it("It should return review by id", async () => {
     const response = await request(app)
       .get("/review/id/" + newReview.id)
@@ -80,6 +90,16 @@ describe("Test the review route", () => {
     expect(response.body.type).toBe("Success");
   });
 
+  it("It should't update a review if empty field", async () => {
+    const response = await request(app)
+      .put("/review")
+      .expect(400)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + customer_token)
+      .send({ comment: "", rate: 3, id: newReview.id });
+    expect(response.body.type).toBe("Error");
+  });
+
   it("It should change status of a review by admin", async () => {
     const response = await request(app)
       .put("/review/changeStatus")
@@ -88,6 +108,16 @@ describe("Test the review route", () => {
       .set("Authorization", "Bearer " + admin_token)
       .send({ id: newReview.id, isApproved: true });
     expect(response.body.type).toBe("Success");
+  });
+
+  it("It should't change status of a review by admin if empty field", async () => {
+    const response = await request(app)
+      .put("/review/changeStatus")
+      .expect(400)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + admin_token)
+      .send({ isApproved: true });
+    expect(response.body.type).toBe("Error");
   });
 
   it("It should delete a review", async () => {
@@ -100,6 +130,15 @@ describe("Test the review route", () => {
     expect(response.body.type).toBe("Success");
   });
 
+  it("It should't delete a review if empty field", async () => {
+    const response = await request(app)
+      .delete("/review")
+      .expect(400)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + customer_token)
+      .send({ id: newReview2.id });
+    expect(response.body.type).toBe("Error");
+  });
 
   afterAll(async () => {
     await Customer.destroy({ where: { userId: newCustomer.userId } })

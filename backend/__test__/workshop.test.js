@@ -117,7 +117,7 @@ describe("Test the workshop route", () => {
   });
 
   // It is working, it is commented because no need to unnecessarily upload image to s3
-  // it("it should update workshop", async () => {
+  // it("it should update workshop by uploading photo", async () => {
   //   const response = await request(app)
   //     .put("/workshop")
   //     .expect(200)
@@ -133,6 +133,21 @@ describe("Test the workshop route", () => {
   //   expect(response.body.type).toBe("Success");
   // });
 
+  it("it should't update workshop if empty field", async () => {
+      const response = await request(app)
+        .put("/workshop")
+        .expect(400)
+        .set("Accept", "application/json")
+        .set("Authorization", "Bearer " + workshopManager_token)
+        .field('id', workshop3.id)
+        .field('name', '')
+        .field('capacity', '20')
+        .field('description', 'Yoga Class with Alperen')
+        .field('categoryId', categoryId)
+        .field('photo', "https://workshapps3.s3.eu-central-1.amazonaws.com/1672427194124.jpg")
+      expect(response.body.type).toBe("Error");
+    });
+
   it("it should change status of workshop", async () => {
     const response = await request(app)
       .put("/workshop/changeStatus")
@@ -141,6 +156,16 @@ describe("Test the workshop route", () => {
       .set("Authorization", "Bearer " + admin_token)
       .send({ id: workshop.id, isApproved: true })
     expect(response.body.type).toBe("Success");
+  });
+
+  it("it should't change status of workshop if empty field", async () => {
+    const response = await request(app)
+      .put("/workshop/changeStatus")
+      .expect(400)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + admin_token)
+      .send({ id: workshop.id, isApproved: true })
+    expect(response.body.type).toBe("Error");
   });
 
   it("it should't change status of workshop by workshopManager", async () => {
@@ -160,6 +185,15 @@ describe("Test the workshop route", () => {
       .set("Authorization", "Bearer " + workshopManager_token)
       .send({ id: workshop2.id })
     expect(response.body.type).toBe("Success");
+  });
+
+  it("it should't delete workshop if empty field", async () => {
+    const response = await request(app)
+      .delete("/workshop")
+      .expect(400)
+      .set("Accept", "application/json")
+      .set("Authorization", "Bearer " + workshopManager_token)
+    expect(response.body.type).toBe("Error");
   });
 
   afterAll(async () => {
