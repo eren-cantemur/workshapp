@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/controller/feed_access_layer_provider.dart';
 import 'package:mobile/controller/feed_data_provider.dart';
 import 'package:mobile/controller/home_list_controller.dart';
 import 'package:mobile/model/workshop_model.dart';
@@ -19,7 +20,7 @@ class _HomeListState extends State<HomeList> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FeedDataProvider>(builder: (context, dataProvider, child) {
+    return Consumer<FeedAccessLayerProvider>(builder: (context, dataProvider, child) {
       return ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,

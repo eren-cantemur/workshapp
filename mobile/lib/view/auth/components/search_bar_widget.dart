@@ -28,13 +28,7 @@ class SearchBar extends StatelessWidget {
               ),
             ),
           ),
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              Provider.of<FeedDataProvider>(context, listen: false).updateData(context);
-              // Send HTTP request and update list view
-            },
-          ),
+          const Icon(Icons.search)
         ],
       ),
     );

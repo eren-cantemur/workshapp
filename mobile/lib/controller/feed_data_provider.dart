@@ -40,4 +40,8 @@ class FeedDataProvider with ChangeNotifier {
       });
     }
   }
+
+  List<Workshop> getFilteredWorkshops(List<Workshop> data, String name) {
+    return data.where((workshop) => workshop.name.contains(name)).toList();
+  }
 }

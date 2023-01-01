@@ -7,6 +7,7 @@ import 'package:mobile/view/home/components/home_list_view.dart';
 import 'package:provider/provider.dart';
 import '../../../../../controller/feed_data_provider.dart';
 import '../../../../../model/workshop_model.dart';
+import '../../../controller/feed_access_layer_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => FeedDataProvider(context))],
+      providers: [ChangeNotifierProvider(create: (_) => FeedAccessLayerProvider(context))],
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -50,19 +51,41 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(15, 10, 10, 10),
-              child: SearchBar(
-                onChanged: (text) {},
-                controller: _textEditingController,
-              ),
-            ),
+            SearchBarWidget(textEditingController: _textEditingController),
             const SizedBox(
               height: 10,
             ),
             const HomeList(),
           ]),
         ),
+      ),
+    );
+  }
+}
+
+class SearchBarWidget extends StatefulWidget {
+  const SearchBarWidget({
+    Key? key,
+    required TextEditingController textEditingController,
+  })  : _textEditingController = textEditingController,
+        super(key: key);
+
+  final TextEditingController _textEditingController;
+
+  @override
+  State<SearchBarWidget> createState() => _SearchBarWidgetState();
+}
+
+class _SearchBarWidgetState extends State<SearchBarWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(15, 10, 10, 10),
+      child: SearchBar(
+        onChanged: (text) {
+          Provider.of<FeedAccessLayerProvider>(context, listen: false).filterData(text, context);
+        },
+        controller: widget._textEditingController,
       ),
     );
   }

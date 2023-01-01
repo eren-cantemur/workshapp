@@ -31,7 +31,6 @@ class WorkshopCell extends StatelessWidget {
                     builder: (context) => WorkshopDetailPage(workshop: workshop),
                   ),
                 );
-                print(workshop.name);
               },
               child: Card(
                 color: index % 2 == 0 ? backgroundcolor1 : backgroundcolor2,

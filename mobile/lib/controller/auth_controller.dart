@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:mobile/controller/app_bottom_controller.dart';
 import 'package:mobile/controller/networking_controller.dart';
 import 'package:mobile/view/auth/components/custom_dialogue.dart';
 import 'package:mobile/view/auth/pages/profile_info_photo.dart';
@@ -41,7 +42,7 @@ class AuthController extends ChangeNotifier {
     try {
       final response = await NetworkController.login(email, password);
       if (response == "done") {
-        navigateToNextPage(HomePage.id, context);
+        navigateToNextPage(AppBottomController.id, context);
       } else {
         showDialog<String>(
           context: context,
@@ -84,7 +85,7 @@ class AuthController extends ChangeNotifier {
   }
 
   Future<void> saveNameAndPhoto(String name, File? photo, context) async {
-    Navigator.of(context).pushNamedAndRemoveUntil(HomePage.id, (Route<dynamic> route) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil(AppBottomController.id, (Route<dynamic> route) => false);
     //todo send photo and name
     //todo navigate to feed page if success.
     //todo show pop up if fail.

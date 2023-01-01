@@ -35,7 +35,7 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              height: 200,
+              height: 300,
               child: Image.network(
                 widget.workshop.photo,
                 fit: BoxFit.cover,
@@ -46,38 +46,55 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
-                    widget.workshop.name,
-                    style: theme.textTheme.headline5,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        widget.workshop.name,
+                        style: theme.textTheme.headline5,
+                      ),
+                      Text(
+                        widget.workshop.owner,
+                        style: theme.textTheme.headline5,
+                      ),
+                    ],
                   ),
                   SizedBox(height: 8),
-                  Text(
-                    widget.workshop.description,
-                    style: theme.textTheme.bodyText1,
+                  Divider(
+                    thickness: 1,
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'Capacity: ${widget.workshop.capacity} person',
-                        style: theme.textTheme.bodyText1,
+                        style: theme.textTheme.bodyText1?.copyWith(fontSize: 17),
                       ),
                       Row(
                         children: [
                           Text(
-                            'Price: ',
-                            style: theme.textTheme.bodyText1,
+                            'City: ',
+                            style: theme.textTheme.bodyText1?.copyWith(fontSize: 17),
                           ),
                           Text(
-                            widget.workshop.town,
-                            style: theme.textTheme.bodyText1?.copyWith(fontSize: 20),
+                            "${widget.workshop.city} / ${widget.workshop.town}",
+                            style: theme.textTheme.bodyText1?.copyWith(fontSize: 17),
                           ),
                         ],
                       ),
                     ],
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 8),
+                  Divider(
+                    thickness: 1,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    widget.workshop.description,
+                    style: theme.textTheme.bodyText1,
+                  ),
+                  const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
                       // Add code to handle button press

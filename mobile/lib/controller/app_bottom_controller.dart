@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/controller/feed_access_layer_provider.dart';
 import 'package:mobile/view/profile/profile_page.dart';
 import 'package:mobile/view/home/pages/home_page.dart';
+import 'package:provider/provider.dart';
+
+import 'feed_data_provider.dart';
 
 class AppBottomController extends StatefulWidget {
   const AppBottomController({Key? key}) : super(key: key);
@@ -26,30 +30,35 @@ class _AppBottomControllerState extends State<AppBottomController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        selectedItemColor: Colors.green,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              size: 30,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => FeedDataProvider(context)),
+      ],
+      child: Scaffold(
+        body: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.white,
+          selectedItemColor: Colors.green,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+                size: 30,
+              ),
+              label: 'Home',
             ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Business',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Business',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }
