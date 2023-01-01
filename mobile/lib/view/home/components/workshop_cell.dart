@@ -47,7 +47,7 @@ class WorkshopCell extends StatelessWidget {
                             height: height / 7,
                             fit: BoxFit.cover,
                             image: NetworkImage(
-                              workshop.imageURL,
+                              workshop.photo,
                             ),
                           ),
                         ),
@@ -108,7 +108,7 @@ class WorkshopCell extends StatelessWidget {
                               children: [
                                 const Icon(Icons.location_on_outlined),
                                 Text(
-                                  workshop.location,
+                                  workshop.city,
                                   style: TextStyle(
                                     fontSize: height / 55,
                                     color: const Color.fromRGBO(0, 33, 64, 1),
@@ -119,9 +119,8 @@ class WorkshopCell extends StatelessWidget {
                                 const SizedBox(
                                   width: 20,
                                 ),
-                                const Icon(Icons.currency_lira),
                                 Text(
-                                  workshop.price,
+                                  workshop.town,
                                   style: TextStyle(
                                     fontSize: height / 55,
                                     color: const Color.fromRGBO(0, 33, 64, 1),

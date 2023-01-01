@@ -2,19 +2,34 @@ import 'dart:ffi';
 
 class Workshop {
   Workshop({
+    required this.id,
     required this.name,
-    required this.location,
-    required this.price,
-    required this.owner,
-    required this.imageURL,
-    required this.description,
+    required this.photo,
     required this.capacity,
+    required this.city,
+    required this.town,
+    required this.workshopManagerId,
+    required this.workshopImages,
+    required this.reviews,
+    required this.owner,
+    required this.category,
+    required this.description,
   });
+  final int id;
   final String name;
-  final String location;
-  final String price;
-  final String owner;
-  final String imageURL;
-  final String description;
+  final String photo;
   final int capacity;
+  final String city;
+  final String town;
+  final String workshopManagerId;
+  final List<String> workshopImages;
+  final List<String> reviews;
+  final String owner;
+  final String category;
+  final String description;
 }
+// {id: 1, name: test, isApproved: 1, description: test, photo: https://workshapps3.s3.eu-central-1.amazonaws.com/1672579833295.jpg,
+// capacity: 10, createdAt: 2023-01-01T13:30:35.000Z, updatedAt: 2023-01-01T13:30:35.000Z, workshopManagerId: 8, categoryId: 1,
+// addressId: 3, address: {id: 3, lat: null, long: null, country: turkey, city: Istanbul, county: Kadıköy, postalCode: 34080,
+// openAddress: 2.sokak, createdAt: 2023-01-01T13:30:22.000Z, updatedAt: 2023-01-01T13:30:22.000Z}, workshopImages: [], reviews: [],
+// category: {id: 1, name: Müzik, createdAt: 2023-01-01T12:15:54.000Z, updatedAt: 2023-01-01T12:15:54.000Z}}

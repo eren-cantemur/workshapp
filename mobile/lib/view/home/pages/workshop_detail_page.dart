@@ -37,7 +37,7 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage> {
             Container(
               height: 200,
               child: Image.network(
-                widget.workshop.imageURL,
+                widget.workshop.photo,
                 fit: BoxFit.cover,
               ),
             ),
@@ -69,12 +69,8 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage> {
                             'Price: ',
                             style: theme.textTheme.bodyText1,
                           ),
-                          const Icon(
-                            Icons.currency_lira,
-                            size: 18,
-                          ),
                           Text(
-                            widget.workshop.price,
+                            widget.workshop.town,
                             style: theme.textTheme.bodyText1?.copyWith(fontSize: 20),
                           ),
                         ],
