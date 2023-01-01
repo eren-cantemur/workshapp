@@ -5,7 +5,9 @@ exports.getByWorkshopManagerId = async (managerId) => {
     const findOptions = {
         where : {
             workshopManagerId : managerId
-        }
+        },
+        include: { all: true, nested: true }
+
     }
 
     const workshop = await Workshop.findAll(findOptions)

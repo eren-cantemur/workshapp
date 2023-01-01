@@ -6,18 +6,20 @@ exports.getById = async (id) => {
         where : {
             id : id
         },
-        include : [{
-            model : Address
-        },
-        {
-            model : WorkshopImage
-        },
-        {
-            model  :Review
-        },
-        {
-            model: Category
-        }]
+        include: { all: true, nested: true }
+
+        // include : [{
+        //     model : Address
+        // },
+        // {
+        //     model : WorkshopImage
+        // },
+        // {
+        //     model  :Review
+        // },
+        // {
+        //     model: Category
+        // }]
     }
 
     const workshop = await Workshop.findOne(findOptions)
