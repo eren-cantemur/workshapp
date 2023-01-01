@@ -28,22 +28,12 @@ describe("Test the customer route", () => {
 
   it("It should return customer id", async () => {
     const response = await request(app)
-      .get("/customer/id/" + newCustomer.user.id)
+      .get("/customer/id")
       .expect(200)
       .set("Accept", "application/json")
       .set("Authorization", "Bearer " + customer_token)
     expect(response.body.type).toBe("Success");
   });
-
-  it("It should't return customer id if empty field", async () => {
-    const response = await request(app)
-      .get("/customer/id/wrongId")
-      .expect(400)
-      .set("Accept", "application/json")
-      .set("Authorization", "Bearer " + customer_token)
-    expect(response.body.type).toBe("Error");
-  });
-
 
   it("it should return customer by name", async () => {
     const response = await request(app)

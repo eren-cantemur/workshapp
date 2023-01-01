@@ -6,10 +6,10 @@ const s3Service = require("../services/s3")
 const customerService = require("../services/customer")
 
 
-router.get("/id/:id", verifyRole("customer", 1), async (req, res) => {
-  const id  = req.params.id
-  if (id) {
-    const response = await customerService.getById(id)
+router.get("/id", verifyRole("customer", 1), async (req, res) => {
+  const {userId} = req.user
+  if (userId) {
+    const response = await customerService.getById(userId)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
     res.status(400).send({
