@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           primaryColor: const Color.fromARGB(253, 13, 152, 106),
           scaffoldBackgroundColor: const Color.fromARGB(253, 246, 246, 246),
         ),
-        initialRoute: WelcomePage.id,
+        initialRoute: AppBottomController.id,
         routes: {
           WelcomePage.id: (context) => const WelcomePage(),
           LoginPage.id: (context) => const LoginPage(),

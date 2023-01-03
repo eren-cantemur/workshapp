@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/view/auth/components/action_button.dart';
+import 'package:mobile/view/home/components/review_list.dart';
+import 'package:mobile/view/home/pages/home_page.dart';
 
 import '../../../model/workshop_model.dart';
 
@@ -59,8 +62,8 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 8),
-                  Divider(
+                  const SizedBox(height: 8),
+                  const Divider(
                     thickness: 1,
                   ),
                   SizedBox(height: 8),
@@ -68,25 +71,25 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Capacity: ${widget.workshop.capacity} person',
+                        'Capacity: ${widget.workshop.capacity}',
                         style: theme.textTheme.bodyText1?.copyWith(fontSize: 17),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'City: ',
-                            style: theme.textTheme.bodyText1?.copyWith(fontSize: 17),
-                          ),
-                          Text(
-                            "${widget.workshop.city} / ${widget.workshop.town}",
-                            style: theme.textTheme.bodyText1?.copyWith(fontSize: 17),
-                          ),
-                        ],
                       ),
                     ],
                   ),
-                  const SizedBox(height: 8),
-                  Divider(
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Text(
+                        'Locaiton: ',
+                        style: theme.textTheme.bodyText1?.copyWith(fontSize: 17),
+                      ),
+                      Text(
+                        "${widget.workshop.city} / ${widget.workshop.town}",
+                        style: theme.textTheme.bodyText1?.copyWith(fontSize: 17),
+                      ),
+                    ],
+                  ),
+                  const Divider(
                     thickness: 1,
                   ),
                   const SizedBox(height: 8),
@@ -95,15 +98,28 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage> {
                     style: theme.textTheme.bodyText1,
                   ),
                   const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Add code to handle button press
-                    },
-                    child: Text('Sign up'),
+                  Container(
+                    height: 40,
+                    child: AuthButton(title: "Sign Up", nextPageId: "empty", function: () {}),
                   ),
                 ],
               ),
             ),
+            Row(
+              children: const [
+                Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Text(
+                    'Reviews',
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            ReviewList(workshopId: widget.workshop.id.toString()),
           ],
         ),
       ),
