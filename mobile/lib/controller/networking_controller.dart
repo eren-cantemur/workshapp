@@ -172,6 +172,42 @@ class NetworkController {
     }
   }
 
+  static void sendReview(String comment, int rate, int workshopId, BuildContext context) async {
+    return LocalDataController.readJWT().then((value) async {
+      if (value == null) {
+        AuthController.logout(context);
+      } else {
+        Map data = {"comment": comment, "rate": rate, "workshopId": workshopId};
+        var body = jsonEncode(data);
+        try {
+          var response = await http.post(Uri.parse('$mainURL/review'),
+              headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', 'Authorization': value},
+              body: body);
+          var decodedData = jsonDecode(response.body);
+          if (response.statusCode == 200) {
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => const CustomDialog(
+                title: "Success",
+                text: "We got your review, thanks!",
+              ),
+            );
+          } else {
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => CustomDialog(
+                title: "Error",
+                text: decodedData['message'] ?? "error",
+              ),
+            );
+          }
+        } catch (e) {
+          throw e.toString();
+        }
+      }
+    });
+  }
+
   static Future<String> sendReservationRequest() async {
     return "x";
   }

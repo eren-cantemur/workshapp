@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/controller/networking_controller.dart';
 import 'package:mobile/view/home/components/star_rating.dart';
 import 'package:provider/provider.dart';
 
 import '../../../controller/providers/add_review_provider.dart';
 
 class AddReviewWidget extends StatefulWidget {
+  const AddReviewWidget({super.key, required this.widgetId});
+  final int widgetId;
   @override
   _AddReviewWidgetState createState() => _AddReviewWidgetState();
 }
@@ -61,7 +64,6 @@ class _AddReviewWidgetState extends State<AddReviewWidget> {
   void submitReview(String comment) {
     // Validate the input and submit the review to your backend API
     int rating = Provider.of<AddRatingRatingProvider>(context, listen: false).rating;
-    print(comment);
-    print(rating);
+    NetworkController.sendReview(comment, rating, widget.widgetId, context);
   }
 }

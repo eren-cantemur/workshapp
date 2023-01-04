@@ -139,7 +139,9 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage> {
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(8, 2, 8, 0),
-                child: AddReviewWidget(),
+                child: AddReviewWidget(
+                  widgetId: widget.workshop.id,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(8, 2, 8, 0),
