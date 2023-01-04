@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobile/controller/auth_controller.dart';
 import 'package:mobile/controller/local_data_controller.dart';
 import 'package:mobile/controller/networking_controller.dart';
-import 'package:mobile/model/jwt_provider.dart';
+import 'package:mobile/controller/providers/jwt_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../model/workshop_model.dart';

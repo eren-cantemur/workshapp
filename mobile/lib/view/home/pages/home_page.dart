@@ -5,9 +5,9 @@ import 'package:mobile/view/auth/components/search_bar_widget.dart';
 import 'package:mobile/view/home/components/featured_card.dart';
 import 'package:mobile/view/home/components/home_list_view.dart';
 import 'package:provider/provider.dart';
-import '../../../../../controller/feed_data_provider.dart';
+import '../../../controller/providers/feed_data_provider.dart';
 import '../../../../../model/workshop_model.dart';
-import '../../../controller/feed_access_layer_provider.dart';
+import '../../../controller/providers/feed_access_layer_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

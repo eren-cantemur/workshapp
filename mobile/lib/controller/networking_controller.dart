@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:mobile/controller/auth_controller.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
-import '../model/jwt_provider.dart';
+import 'providers/jwt_provider.dart';
 import '../model/review.dart';
 import '../model/workshop_model.dart';
 import '../view/auth/components/custom_dialogue.dart';
@@ -170,5 +170,9 @@ class NetworkController {
         return reviews;
       });
     }
+  }
+
+  static Future<String> sendReservationRequest() async {
+    return "x";
   }
 }

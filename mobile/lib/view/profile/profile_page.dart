@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/controller/reservations_data_provider.dart';
+import 'package:mobile/controller/providers/reservations_data_provider.dart';
 import 'package:mobile/view/profile/reservations_list.dart';
 import 'package:provider/provider.dart';
 

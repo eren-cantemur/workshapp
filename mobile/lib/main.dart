@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/controller/app_bottom_controller.dart';
-import 'package:mobile/model/jwt_provider.dart';
+import 'package:mobile/controller/providers/jwt_provider.dart';
 import 'package:mobile/view/auth/pages/login_page.dart';
 import 'package:mobile/view/auth/pages/profile_info_page.dart';
 import 'package:mobile/view/auth/pages/profile_info_photo.dart';

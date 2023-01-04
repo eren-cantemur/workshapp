@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/controller/networking_controller.dart';
+import 'package:mobile/view/home/components/review_cell.dart';
+import 'package:mobile/view/home/components/star_rating.dart';
+import 'package:provider/provider.dart';
 import 'dart:convert';
 
+import '../../../controller/providers/add_review_provider.dart';
 import '../../../model/review.dart';
+import '../../auth/components/action_button.dart';
 
 class ReviewList extends StatefulWidget {
   const ReviewList({super.key, required this.workshopId});
@@ -29,11 +35,12 @@ class _ReviewListState extends State<ReviewList> {
       future: reviews,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data!.isEmpty)
-            return Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: const Text("No reviews yet :("),
+          if (snapshot.data!.isEmpty) {
+            return const Padding(
+              padding: EdgeInsets.all(15.0),
+              child: Text("No reviews yet :("),
             );
+          }
           return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -49,47 +56,6 @@ class _ReviewListState extends State<ReviewList> {
         // Show a loading indicator while the data is being fetched
         return const CircularProgressIndicator();
       },
-    );
-  }
-}
-
-class ReviewTile extends StatelessWidget {
-  const ReviewTile({super.key, required this.review});
-  final Review review;
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        title: Text(review.comment),
-        // Use a StarRating widget to display the rating
-        subtitle: StarRating(rating: review.rate),
-      ),
-    );
-  }
-}
-
-class StarRating extends StatelessWidget {
-  final int rating;
-  const StarRating({super.key, required this.rating});
-  List<Icon> getStars() {
-    List<Icon> stars = [];
-    for (int i = 1; i <= 5; i++) {
-      if (i <= rating) {
-        stars.add(Icon(Icons.star, color: Colors.yellow));
-      } else {
-        stars.add(Icon(Icons.star_border, color: Colors.yellow));
-      }
-    }
-    return stars;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-      child: Row(
-        children: getStars(),
-      ),
     );
   }
 }
