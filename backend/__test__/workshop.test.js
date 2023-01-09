@@ -20,7 +20,11 @@ describe("Test the workshop route", () => {
     newWorkshopManager = await WorkshopManager.create({ name: "", photo: "", user: { email: workshopManager_email, password: hashedPassword } }, { include: [{ association: WorkshopManager.User, }] });
     workshopManager_token = jwt.sign({ userId: newWorkshopManager.user.id, role: "workshopManager", roleId: newWorkshopManager.id }, privateKey, { algorithm: "RS256", expiresIn: "14d" });
     admin_token = jwt.sign({ userId: 1, role: "admin", roleId: 1 }, privateKey, { algorithm: "RS256", expiresIn: "14d" });
-    category = await sequelize.query("INSERT INTO `Categories` (`name`, `createdAt`, `updatedAt`) VALUES ('Yoga', '2020-12-01 00:00:00', '2020-12-01 00:00:00');")
+    try{
+      category = await sequelize.query("INSERT INTO `categories` (`name`, `createdAt`, `updatedAt`) VALUES ('Yoga', '2020-12-01 00:00:00', '2020-12-01 00:00:00');")
+    }catch(err){
+      category = await sequelize.query("INSERT INTO `Categories` (`name`, `createdAt`, `updatedAt`) VALUES ('Yoga', '2020-12-01 00:00:00', '2020-12-01 00:00:00');")
+    }
     categoryId = category[0]
     workshop = await Workshop.create({ name: "Yoga Class2", capacity: 20, description: "Yoga Class with Alperen", categoryId: categoryId, workshopManagerId: newWorkshopManager.id, photo: "https://workshapps3.s3.eu-central-1.amazonaws.com/1672427194124.jpg" })
     workshop2 = await Workshop.create({ name: "Yoga Class2", capacity: 20, description: "Yoga Class with Alperen", categoryId: categoryId, workshopManagerId: newWorkshopManager.id, photo: "https://workshapps3.s3.eu-central-1.amazonaws.com/1672427194124.jpg" })
@@ -112,6 +116,7 @@ describe("Test the workshop route", () => {
       .field('capacity', '20')
       .field('description', 'Yoga Class with Alperen')
       .field('categoryId', categoryId)
+      .field('addressId', address.id)
       .field('photo', "https://workshapps3.s3.eu-central-1.amazonaws.com/1672427194124.jpg")
     expect(response.body.type).toBe("Success");
   });
@@ -199,7 +204,11 @@ describe("Test the workshop route", () => {
   afterAll(async () => {
     await User.destroy({ where: { email: workshopManager_email } })
     await Workshop.destroy({ where: { categoryId: categoryId } })
-    await sequelize.query("DELETE FROM `Categories` WHERE `id` = " + categoryId)
+    try{
+      await sequelize.query("DELETE FROM `categories` WHERE `id` = " + categoryId)
+    }catch(err){
+      await sequelize.query("DELETE FROM `Categories` WHERE `id` = " + categoryId)
+    }
     await db.sequelize.close()
   })
 });

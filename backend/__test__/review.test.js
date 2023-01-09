@@ -136,7 +136,6 @@ describe("Test the review route", () => {
       .expect(400)
       .set("Accept", "application/json")
       .set("Authorization", "Bearer " + customer_token)
-      .send({ id: newReview2.id });
     expect(response.body.type).toBe("Error");
   });
 

@@ -11,7 +11,11 @@ describe("Test the address route", () => {
   beforeAll(async () => {
     await db.sequelize.sync({ force: false, logging: false })
     const privateKey = JWTPRIVATEKEY
-    category = await sequelize.query("INSERT INTO `Categories` (`name`, `createdAt`, `updatedAt`) VALUES ('Java', '2020-12-01 00:00:00', '2020-12-01 00:00:00');")
+    try{
+      category = await sequelize.query("INSERT INTO `categories` (`name`, `createdAt`, `updatedAt`) VALUES ('Java', '2020-12-01 00:00:00', '2020-12-01 00:00:00');")
+    }catch(err){
+      category = await sequelize.query("INSERT INTO `Categories` (`name`, `createdAt`, `updatedAt`) VALUES ('Java', '2020-12-01 00:00:00', '2020-12-01 00:00:00');")
+    }
     categoryId = category[0]
     newWorkshopManager = await WorkshopManager.create({ name: "", photo: "", user: { email: "workshopManager77@worhsapp.manager", password: "123123" } }, { include: [{ association: WorkshopManager.User, }] });
     workshopManager_token = jwt.sign({ userId: newWorkshopManager.user.id, role: "workshopManager", roleId: newWorkshopManager.id }, privateKey, { algorithm: "RS256", expiresIn: "14d" });
@@ -113,7 +117,11 @@ describe("Test the address route", () => {
     await Address.destroy({ where: { id: address.id } })
     await Address.destroy({ where: { id: address2.id } })
     await Address.destroy({ where: { postalCode: "54321" } })
-    await sequelize.query("DELETE FROM `Categories` WHERE `id` = " + categoryId)
+    try{
+      await sequelize.query("DELETE FROM `categories` WHERE `id` = " + categoryId)
+    }catch(err){
+      await sequelize.query("DELETE FROM `Categories` WHERE `id` = " + categoryId)
+    }
     await db.sequelize.close()
   })
 });
