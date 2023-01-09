@@ -3,7 +3,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class LocalDataController {
   static saveJwt(String jwt) async {
     const storage = FlutterSecureStorage();
-    await storage.write(key: "jwt", value: jwt);
+    String withBear = "Bearer $jwt";
+    await storage.write(key: "jwt", value: withBear);
   }
 
   static Future<String?> readJWT() async {
