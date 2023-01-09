@@ -17,7 +17,7 @@ async function postRequest(url, body) {
   const response = await fetch(APIURL + url, {
     method: "POST",
     headers: {
-      "Content-Type": "multipart/form-data",
+      "Content-Type": "application/json",
       "Authorization": "Bearer " + Cookies.get(COOKIENAME),
     },
     body: JSON.stringify(body),
