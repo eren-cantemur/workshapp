@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile/model/workshop_model.dart';
+import 'package:mobile/view/home/pages/detail_page_parent.dart';
 import 'package:mobile/view/home/pages/home_page.dart';
 import 'package:mobile/view/home/pages/workshop_detail_page.dart';
 
@@ -28,7 +29,7 @@ class WorkshopCell extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => WorkshopDetailPage(workshop: workshop),
+                    builder: (context) => DetailParent(workshop: workshop),
                   ),
                 );
               },
