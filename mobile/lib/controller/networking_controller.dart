@@ -1,6 +1,6 @@
 import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+import 'package:path/path.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/controller/auth_controller.dart';
@@ -205,6 +205,35 @@ class NetworkController {
         }
       }
     });
+  }
+
+  static Future<http.StreamedResponse> upload(File imageFile, String token) async {
+    // open a bytestream
+    // get file length
+    var length = await imageFile.length();
+
+    // string to uri
+    var uri = Uri.parse("$mainURL/protected/savephoto");
+
+    // create multipart request
+    var request = http.MultipartRequest("POST", uri);
+
+    // multipart that takes file
+    var multipartFile = http.MultipartFile('file', imageFile.readAsBytes().asStream(), imageFile.lengthSync(),
+        filename: basename(imageFile.path)); //try image instead of file
+
+    // add file to multipart
+    request.files.add(multipartFile);
+    request.headers['Authorization'] = token;
+
+    // send
+    var response = await request.send();
+
+    // listen for response
+    response.stream.transform(utf8.decoder).listen((value) {
+      print(value);
+    });
+    return response;
   }
 
   static Future<String> sendReservationRequest() async {
