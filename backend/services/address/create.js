@@ -1,15 +1,13 @@
 const {Address} = require('../../models')
 
-exports.create = async (lat, long, country, city, county, postalCode, openAddress) => {
+exports.create = async (country, city, county, postalCode, openAddress) => {
 
     const createBody = {
-        lat : lat,
-        long : long, 
         country : country,
         city : city,
         county : county,
         openAddress: openAddress,
-        postalCode : postalCode
+        postalCode : postalCode,
     }
     const result = await Address.create(
         createBody
@@ -24,6 +22,7 @@ exports.create = async (lat, long, country, city, county, postalCode, openAddres
         return {
             type: "Success",
             message: `Address with id ${result.id} is created.`,
+            id: result.id,
         };
     }
 }

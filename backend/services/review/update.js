@@ -1,16 +1,17 @@
 const {Review} = require('../../models')
 
-exports.update = async (id, comment, rate) => {
+exports.update = async (id, comment, rate, userId) => {
 
-    
     const updateBody = {
         comment : comment,
-        rate : rate
+        rate : rate,
+        isApproved : 0
     }
 
     const findOptions = {
         where : {
-            id :id
+            id :id,
+            userId: userId
         }
     }
     const result = await Review.update(

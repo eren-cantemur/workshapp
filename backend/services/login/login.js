@@ -1,15 +1,10 @@
-import { User } from "../../models/user";
-import { Customer } from "../../models/customer";
-import { WorkshopManager } from "../../models/workshopManager";
-import { Admin } from "../../models/admin";
+const { User, WorkshopManager, Admin, Customer } = require('../../models')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const { JWTPRIVATEKEY } = require('../../config/jwt.config')
 
-import * as bcrypt from "bcrypt";
-import * as jwt from "jsonwebtoken";
-import { JWTPRIVATEKEY } from "../../config/jwt.config";
-
-login = async (email, password) => {
-  const user = await User.findOne({ email: email });
-
+exports.login = async (email, password, role) => {
+  const user = await User.findOne({where : {email: email}});
   if (user === null) {
     return {
       type: "Error",
@@ -27,34 +22,53 @@ login = async (email, password) => {
         message: "Invalid password.",
       };
     } else {
-      var role = "";
-      
-      const admin = Admin.findOne({ userID: user.id });
+      var roleId = null;
+      var admin;
+      var workshopManager;
+      var customer;
 
-      if (admin) {
-        role = "admin";
-      } else {
-        const workshopManager = WorkshopManager.findOne({ userId: user.id });
-
-        if (workshopManager) {
-          role = "workshopManager";
-          
-        } else {
-          const customer = Customer.findOne({ userId: user.id });
-
-          if (customer) {
-            role = "customer";
-          }
+      if(role == "admin") {
+        admin = await Admin.findOne({where: { userId: user.id}});
+        if (admin != null) {
+          roleId = admin.id;
         }
       }
 
-      const privateKey = JWTPRIVATEKEY;
+      else if(role == "workshopManager") {
+        workshopManager = await WorkshopManager.findOne({where: { userId: user.id }});
+        if (workshopManager != null) {
+          roleId = workshopManager.id;
+        }
+      }
+      
+      else if(role == "customer") {
+        customer = await Customer.findOne({where: { userId: user.id }});
+        if (customer != null) {
+          roleId = customer.id;
+        }
+      }
+      
+      else{
+        return {
+          type: "Error",
+          message: "Invalid role.",
+        };
+      }
 
+      if (roleId == null){
+        return {
+          type: "Error",
+          message: "Couldn't find role.",
+        };
+      }
+    
+      const privateKey = JWTPRIVATEKEY;
+      
       const token = await jwt.sign(
-        { userID: user.id, role: role },
+        { userId: user.id, role: role, roleId: roleId },
         privateKey,
-        { algorithm: "RS256" },
-        { expiresIn: "14d" }
+        { algorithm: "RS256",
+          expiresIn: "14d" }
       );
 
       return {
@@ -66,4 +80,3 @@ login = async (email, password) => {
   }
 };
 
-module.exports = { login };

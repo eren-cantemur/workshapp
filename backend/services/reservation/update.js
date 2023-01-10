@@ -1,14 +1,15 @@
-const {Reservation} = require('../../models')
+const { Reservation } = require('../../models')
 
-exports.update = async (id,date) => {
+exports.update = async (id, date, userId) => {
 
     const updateBody = {
-        date : date
+        date: date
     }
 
     const findOptions = {
-        where : {
-            id : id
+        where: {
+            id: id,
+            userId: userId
         }
     }
 

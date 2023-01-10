@@ -1,3 +1,3 @@
-moodule.exports = {
-  JWTPRIVATEKEY: "secret", // TODO: Store it in .env
-};
+module.exports = {
+  JWTPRIVATEKEY : process.env.JWTPRIVATEKEY,
+}

@@ -3,21 +3,26 @@ import { useState } from "react";
 import loginRequest from "../../requests/login";
 import Cookie from "js-cookie";
 import { COOKIENAME } from "../../config/cookie.config";
+import { useRouter } from "next/router";
 
-export default function Login() {
+export default function Login({ isAdmin }) {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
-
-  const handleSubmit = async () => {
+  const router = useRouter();
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    const { message, result } = await loginRequest(email, password);
-    
-    if (result?.token) {
-      Cookie.set(COOKIENAME, token);
+
+    const { message, result } = await loginRequest(
+      email,
+      password,
+      isAdmin ? isAdmin : false
+    );
+
+    if (result) {
+      Cookie.set(COOKIENAME, result);
+
+      window.location.href = "/profile";
     }
-    
-    console.log(message);
   };
 
   return (
@@ -34,7 +39,7 @@ export default function Login() {
             height={32}
             alt="logo"
           />
-          Flowbite
+          WorkshApp
         </a>
         <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -122,7 +127,7 @@ export default function Login() {
               <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
                 <a
-                  href="#"
+                  href="/register"
                   class="font-medium text-primary-600 hover:underline dark:text-primary-500"
                   data-testid="sign-up"
                 >

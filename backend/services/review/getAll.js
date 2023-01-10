@@ -1,7 +1,7 @@
 const { Review } = require('../../models')
 
 exports.getAll = async () => {
-    const reviews = await Review.findAll()
+    const reviews = await Review.findAll({include: { all: true, nested: true }})
 
     if (!reviews) {
         return {

@@ -7,7 +7,7 @@ exports.delete = async (id) => {
             id: id
         }
     }
-
+    
     const result = await User.destroy(findOptions)
 
     if (result == 0) {
