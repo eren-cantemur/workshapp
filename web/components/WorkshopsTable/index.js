@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function WorkshopsTable() {
+export default function WorkshopsTable({ workshopList }) {
   return (
     <section class="bg-white dark:bg-gray-900">
       <div class="py-4 px-4 mx-auto max-w-2xl lg:py-8">
@@ -84,7 +84,7 @@ export default function WorkshopsTable() {
                   Name
                 </th>
                 <th scope="col" class="py-3 px-6">
-                  Position
+                  Description
                 </th>
                 <th scope="col" class="py-3 px-6">
                   Status
@@ -95,30 +95,32 @@ export default function WorkshopsTable() {
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              
+              {workshopList.map((workshop) => (
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <th
                   scope="row"
                   class="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white"
                 >
-                  <Image
+                  {/* <Image
                     width={600}
                     height={600}
                     class="w-10 h-10 rounded-full"
-                    src="https://flowbite.com/docs/images/people/profile-picture-1.jpg"
-                    alt="Jese image"
-                  />
+                    src={workshop.photo}
+                    alt="Workshop Photo"
+                  /> */}
                   <div class="pl-3">
-                    <div class="text-base font-semibold">Neil Sims</div>
+                    <div class="text-base font-semibold">{workshop.name}</div>
                     <div class="font-normal text-gray-500">
-                      neil.sims@flowbite.com
+                      {workshop.email}
                     </div>
                   </div>
                 </th>
-                <td class="py-4 px-6">React Developer</td>
+                <td class="py-4 px-6">{workshop.description}</td>
                 <td class="py-4 px-6">
                   <div class="flex items-center">
-                    <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{" "}
-                    Online
+                    <div class={"h-2.5 w-2.5 rounded-full bg-" + (workshop.isApproved == 1  ? "green-400" : "red-500") + " mr-2 "}></div>
+                    {workshop.isApproved == 1  ? "Approved" : "Not Approved"}
                   </div>
                 </td>
                 <td class="py-4 px-6">
@@ -132,154 +134,7 @@ export default function WorkshopsTable() {
                   </a>
                 </td>
               </tr>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th
-                  scope="row"
-                  class="flex items-center py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  <Image
-                    width={600}
-                    height={600}
-                    class="w-10 h-10 rounded-full"
-                    src="https://flowbite.com/docs/images/people/profile-picture-3.jpg"
-                    alt="Jese image"
-                  />
-                  <div class="pl-3">
-                    <div class="text-base font-semibold">Bonnie Green</div>
-                    <div class="font-normal text-gray-500">
-                      bonnie@flowbite.com
-                    </div>
-                  </div>
-                </th>
-                <td class="py-4 px-6">Designer</td>
-                <td class="py-4 px-6">
-                  <div class="flex items-center">
-                    <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{" "}
-                    Online
-                  </div>
-                </td>
-                <td class="py-4 px-6">
-                  <a
-                    href="#"
-                    type="button"
-                    data-modal-toggle="editWorkshopModal"
-                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit workshop
-                  </a>
-                </td>
-              </tr>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th
-                  scope="row"
-                  class="flex items-center py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  <Image
-                    width={600}
-                    height={600}
-                    class="w-10 h-10 rounded-full"
-                    src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-                    alt="Jese image"
-                  />
-                  <div class="pl-3">
-                    <div class="text-base font-semibold">Jese Leos</div>
-                    <div class="font-normal text-gray-500">
-                      jese@flowbite.com
-                    </div>
-                  </div>
-                </th>
-                <td class="py-4 px-6">Vue JS Developer</td>
-                <td class="py-4 px-6">
-                  <div class="flex items-center">
-                    <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{" "}
-                    Online
-                  </div>
-                </td>
-                <td class="py-4 px-6">
-                  <a
-                    href="#"
-                    type="button"
-                    data-modal-toggle="editWorkshopModal"
-                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit workshop
-                  </a>
-                </td>
-              </tr>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th
-                  scope="row"
-                  class="flex items-center py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  <Image
-                    width={600}
-                    height={600}
-                    class="w-10 h-10 rounded-full"
-                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                    alt="Jese image"
-                  />
-                  <div class="pl-3">
-                    <div class="text-base font-semibold">Thomas Lean</div>
-                    <div class="font-normal text-gray-500">
-                      thomes@flowbite.com
-                    </div>
-                  </div>
-                </th>
-                <td class="py-4 px-6">UI/UX Engineer</td>
-                <td class="py-4 px-6">
-                  <div class="flex items-center">
-                    <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>{" "}
-                    Online
-                  </div>
-                </td>
-                <td class="py-4 px-6">
-                  <a
-                    href="#"
-                    type="button"
-                    data-modal-toggle="editWorkshopModal"
-                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit workshop
-                  </a>
-                </td>
-              </tr>
-              <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th
-                  scope="row"
-                  class="flex items-center py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  <Image
-                    width={600}
-                    height={600}
-                    class="w-10 h-10 rounded-full"
-                    src="https://flowbite.com/docs/images/people/profile-picture-4.jpg"
-                    alt="Jese image"
-                  />
-                  <div class="pl-3">
-                    <div class="text-base font-semibold">Leslie Livingston</div>
-                    <div class="font-normal text-gray-500">
-                      leslie@flowbite.com
-                    </div>
-                  </div>
-                </th>
-                <td class="py-4 px-6">SEO Specialist</td>
-                <td class="py-4 px-6">
-                  <div class="flex items-center">
-                    <div class="h-2.5 w-2.5 rounded-full bg-red-500 mr-2"></div>{" "}
-                    Offline
-                  </div>
-                </td>
-                <td class="py-4 px-6">
-                  <a
-                    href="#"
-                    type="button"
-                    data-modal-toggle="editWorkshopModal"
-                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    Edit workshop
-                  </a>
-                </td>
-              </tr>
+              ))}
             </tbody>
           </table>
 
