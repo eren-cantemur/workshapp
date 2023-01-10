@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Expanded(
                   flex: 37,
-                  child: Center(child: Image.asset("logo.png")),
+                  child: Center(child: Image.asset("assets/logo.png")),
                 ),
                 const Expanded(
                   flex: 7,

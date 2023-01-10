@@ -12,8 +12,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  TextEditingController _mailTextFieldController = TextEditingController();
-  TextEditingController _passwordTextFieldController = TextEditingController();
+  final TextEditingController _mailTextFieldController = TextEditingController();
+  final TextEditingController _passwordTextFieldController = TextEditingController();
   AuthController authController = AuthController();
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 Expanded(
                   flex: 37,
-                  child: Center(child: Image.asset("logo.png")),
+                  child: Center(child: Image.asset("assets/logo.png")),
                 ),
                 const Expanded(
                   flex: 7,
