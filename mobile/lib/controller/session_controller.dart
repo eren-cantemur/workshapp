@@ -8,9 +8,9 @@ class SessionController {
     await LocalDataController.readJWT().then((value) {
       if (value != null) {
         //GOOD
-        Navigator.pushNamed(context, AppBottomController.id);
+        Navigator.popAndPushNamed(context, AppBottomController.id);
       } else {
-        Navigator.pushNamed(context, WelcomePage.id);
+        Navigator.popAndPushNamed(context, WelcomePage.id);
       }
     });
   }

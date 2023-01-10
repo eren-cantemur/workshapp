@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/controller/providers/feed_data_provider.dart';
+import 'package:mobile/controller/providers/reservations_data_provider.dart';
 import 'package:mobile/view/auth/components/action_button.dart';
 import 'package:mobile/view/home/components/custom_dialogue_2.dart';
 import 'package:mobile/view/home/components/review_list.dart';
@@ -8,7 +10,7 @@ import '../../../model/workshop_model.dart';
 import '../components/add_review_widget.dart';
 
 class WorkshopDetailPage extends StatefulWidget {
-  const WorkshopDetailPage({required this.workshop});
+  const WorkshopDetailPage({super.key, required this.workshop});
   static String id = "detail_page";
   final Workshop workshop;
 
@@ -17,6 +19,20 @@ class WorkshopDetailPage extends StatefulWidget {
 }
 
 class _WorkshopDetailPageState extends State<WorkshopDetailPage> {
+  bool signed = false;
+
+  void checkSigned() {
+    List<Workshop> reservations = Provider.of<ReservationsDataProvider>(context, listen: false).data;
+    for (Workshop workshop in reservations) {}
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkSigned();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -100,26 +116,20 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage> {
                       style: theme.textTheme.bodyText1?.copyWith(fontSize: 17),
                     ),
                     const SizedBox(height: 16),
-                    SizedBox(
-                      height: 40,
-                      child: AuthButton(
-                        title: "Sign Up",
-                        nextPageId: "empty",
-                        function: () {
-                          showDialog<String>(
-                            context: context,
-                            builder: (BuildContext context) => CustomDialogWithOptions(
-                              title: "Confirmation",
-                              text:
-                                  "You request will send to workshop owner. When it is accepted, you will be added for this workshop by owner.",
-                              function: () {
-                                print("confirmed");
-                              },
+                    signed
+                        ? const Center(
+                            child: Text(
+                              "You have signed up to this workshop!",
+                              style: TextStyle(color: Colors.blue),
                             ),
-                          );
-                        },
-                      ),
-                    ),
+                          )
+                        : SignUpButton(
+                            toDo: () {
+                              setState(() {
+                                signed = true;
+                              });
+                            },
+                          ),
                   ],
                 ),
               ),
@@ -150,6 +160,39 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class SignUpButton extends StatelessWidget {
+  const SignUpButton({
+    Key? key,
+    required this.toDo,
+  }) : super(key: key);
+
+  final Function toDo;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 40,
+      child: AuthButton(
+        title: "Sign Up",
+        nextPageId: "empty",
+        function: () {
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => CustomDialogWithOptions(
+              title: "Confirmation",
+              text:
+                  "You request will send to workshop owner. When it is accepted, you will be added for this workshop by owner.",
+              function: () {
+                toDo.call();
+              },
+            ),
+          );
+        },
       ),
     );
   }

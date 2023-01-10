@@ -127,7 +127,6 @@ class NetworkController {
         ),
       );
       return [];
-      //todo fix this for error handling
     }
     return workshopsToServe;
   }
