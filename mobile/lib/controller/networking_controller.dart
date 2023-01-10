@@ -13,7 +13,7 @@ import '../view/auth/components/custom_dialogue.dart';
 import 'local_data_controller.dart';
 
 class NetworkController {
-  static String mainURL = "http://54.93.227.240:8080";
+  static String mainURL = "http://18.192.210.29:8080";
 
   static Future<String> login(String email, String password) async {
     Map data = {"email": email, "password": password, "role": "customer"};
@@ -76,7 +76,6 @@ class NetworkController {
     if (response.statusCode == 200) {
       workshopsToServe = parseWorkshops(response.body);
     } else {
-      print(response.statusCode);
       showDialog<String>(
         context: context,
         builder: (BuildContext context) => const CustomDialog(
@@ -115,9 +114,7 @@ class NetworkController {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
       workshopsToServe = parseWorkshops(response.body);
-      print(workshopsToServe);
     } else {
       showDialog<String>(
         context: context,
@@ -132,10 +129,8 @@ class NetworkController {
   }
 
   static List<Workshop> parseWorkshops(String responseBody) {
-    print(responseBody);
     final decodedData = jsonDecode(responseBody);
     final workshops = decodedData['result'];
-    print(workshops);
     List<Workshop> workshopList = [];
     for (var workshop in workshops) {
       workshopList.add(Workshop.fromJson(workshop));
@@ -223,7 +218,6 @@ class NetworkController {
             'Content-Type': 'application/json; charset=UTF-8',
             'Authorization': key
           }).then((response) {
-            print(response.body);
             data = [json.decode(response.body)['result']['name'], json.decode(response.body)['result']['photo']];
             return data;
           });
@@ -234,7 +228,6 @@ class NetworkController {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': jwt
       }).then((response) {
-        print(response.body);
         data = [json.decode(response.body)['result']['name'], json.decode(response.body)['result']['photo']];
         return data;
       });
@@ -268,9 +261,7 @@ class NetworkController {
     var response = await request.send();
 
     // listen for response
-    response.stream.transform(utf8.decoder).listen((value) {
-      print(value);
-    });
+    response.stream.transform(utf8.decoder).listen((value) {});
     return response;
   }
 
@@ -295,7 +286,6 @@ class NetworkController {
                   body: body)
               .then(
             (response) {
-              print(json.decode(response.body));
               if (json.decode(response.body)["type"] == "Success") {
                 return "y";
               } else {
@@ -317,7 +307,6 @@ class NetworkController {
               body: body)
           .then(
         (response) {
-          print(json.decode(response.body));
           if (json.decode(response.body)["type"] == "Success") {
             return "y";
           } else {
