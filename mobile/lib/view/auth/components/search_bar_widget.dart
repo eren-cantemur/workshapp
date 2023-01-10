@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../controller/feed_data_provider.dart';
+import '../../../controller/providers/feed_data_provider.dart';
 
 class SearchBar extends StatelessWidget {
   final ValueChanged<String> onChanged;

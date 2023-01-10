@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/controller/feed_access_layer_provider.dart';
+import 'package:mobile/controller/providers/feed_access_layer_provider.dart';
+import 'package:mobile/controller/providers/reservations_data_provider.dart';
 import 'package:mobile/view/profile/profile_page.dart';
 import 'package:mobile/view/home/pages/home_page.dart';
 import 'package:provider/provider.dart';
 
-import 'feed_data_provider.dart';
+import 'providers/feed_data_provider.dart';
 
 class AppBottomController extends StatefulWidget {
   const AppBottomController({Key? key}) : super(key: key);

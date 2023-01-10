@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/controller/app_bottom_controller.dart';
-import 'package:mobile/model/jwt_provider.dart';
+import 'package:mobile/controller/providers/jwt_provider.dart';
+import 'package:mobile/controller/session_controller.dart';
 import 'package:mobile/view/auth/pages/login_page.dart';
 import 'package:mobile/view/auth/pages/profile_info_page.dart';
 import 'package:mobile/view/auth/pages/profile_info_photo.dart';
 import 'package:mobile/view/auth/pages/register_page.dart';
+import 'package:mobile/view/auth/session_control_page.dart';
 import 'package:mobile/view/home/pages/home_page.dart';
 import 'package:provider/provider.dart';
 import 'view/auth/pages/welcome_page.dart';
@@ -28,8 +30,9 @@ class MyApp extends StatelessWidget {
           primaryColor: const Color.fromARGB(253, 13, 152, 106),
           scaffoldBackgroundColor: const Color.fromARGB(253, 246, 246, 246),
         ),
-        initialRoute: WelcomePage.id,
+        initialRoute: SessionControlPage.id,
         routes: {
+          SessionControlPage.id: (context) => const SessionControlPage(),
           WelcomePage.id: (context) => const WelcomePage(),
           LoginPage.id: (context) => const LoginPage(),
           RegisterPage.id: (context) => const RegisterPage(),

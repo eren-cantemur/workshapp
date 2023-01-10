@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/controller/reservations_data_provider.dart';
+import 'package:mobile/controller/providers/reservations_data_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../home/components/workshop_cell.dart';
@@ -13,9 +13,16 @@ class ReservationList extends StatefulWidget {
 
 class _ReservationListState extends State<ReservationList> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<ReservationsDataProvider>(context, listen: false).updateData(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<ReservationsDataProvider>(builder: (context, dataProvider, child) {
-      return dataProvider.data.length != 0
+      return dataProvider.data.isNotEmpty
           ? ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -27,30 +34,15 @@ class _ReservationListState extends State<ReservationList> {
                 );
               },
             )
-          : Column(
-              children: [
-                Row(
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Text(
-                        "No reservation yet :(",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(15, 5, 0, 0),
-                      child: Text(
-                        "You can find suitable workshops\nfor you in home page!",
-                        maxLines: 2,
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                  ],
+          : Row(
+              children: const [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(15, 5, 0, 0),
+                  child: Text(
+                    "No reservation yet :(\nYou can find suitable workshops for\nyou in home page!",
+                    maxLines: 3,
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ),
               ],
             );

@@ -1,9 +1,13 @@
 import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+import 'package:path/path.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobile/controller/auth_controller.dart';
+import 'package:provider/provider.dart';
 import 'dart:convert';
+import 'providers/jwt_provider.dart';
+import '../model/review.dart';
 import '../model/workshop_model.dart';
 import '../view/auth/components/custom_dialogue.dart';
 import 'local_data_controller.dart';
@@ -14,7 +18,7 @@ class NetworkController {
       "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwNzQsInJvbGUiOiJ3b3Jrc2hvcE1hbmFnZXIiLCJyb2xlSWQiOjQzNCwiaWF0IjoxNjcyNTczNzg4LCJleHAiOjE2NzM3ODMzODh9.xReZ7nLzuMb0H_0vwTo8MbeUyr0cWVY5uzTAaWYcjPmnrj8pY2kSZsElfljKbvVbcavFqXNQ-_VW7se9nuX16K5RdsFdgDNbsZ4gw5b69bdvtLl4QbpZqc2DYgKmgGsFhfeOZxh_I_eIHqnksacDrmRl4Nzm_oCALMLzqTOy0bXWqOC1f90DMeqDgME0b6jbEaMRE7cWuL2ZkcVxiQD5w37dD6_Owqgl6Nr1GASr3RZqloQyvktx-uzswXLGOGJNtdLvQBlEr-BYcagVMZXFwMu5D-K0-HdohK5pBmZhwn2dZUe-r4H45QCrbZyePS_zUxcI1BJBaVeIVM8Xd56sbEkU48nkmI86eOvq1eW01LiSAXnqn7jxfcr7iYHTnvuU5UxAmTfi5XjiT4eS0hvB7wy7Gm_KRu_8r84HnDWNEP3ZwbCsCCO5bN6MBO5NuaofQRNOzf2D86iCApdVHIPKp4PjxEAWizKbmFg2PTXSJTC4dcPQs5tx1nkuM9RRP1ivXnvwhl-DwyyBV18g4WWH794dJa2a_Q_wJ9lvURGA-tKVHRHpf0b_OjlmRNgLhrCRvu1Qts8b9C-yrjleetY4JvrCY7ycBK3XGKw3y_KV552nxi0csjsEAZWNGBeCArHU6vTVrMYnpyEumDyLYJ2h1DTndXmLbBu2E8hdqFW-R5k";
 
   static Future<String> login(String email, String password) async {
-    Map data = {"email": email, "password": password};
+    Map data = {"email": email, "password": password, "role": "customer"};
     var body = jsonEncode(data);
     try {
       var response = await http.post(Uri.parse('$mainURL/login'),
@@ -109,11 +113,13 @@ class NetworkController {
     List<Workshop> workshopsToServe = [];
     final response = await http.get(
       Uri.parse('$mainURL/reservation/getByToken'),
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', 'Authorization': tempToken},
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', 'Authorization': jwt},
     );
 
     if (response.statusCode == 200) {
+      print(response.body);
       workshopsToServe = parseWorkshops(response.body);
+      print(workshopsToServe);
     } else {
       showDialog<String>(
         context: context,
@@ -123,7 +129,6 @@ class NetworkController {
         ),
       );
       return [];
-      //todo fix this for error handling
     }
     return workshopsToServe;
   }
@@ -136,5 +141,188 @@ class NetworkController {
       workshopList.add(Workshop.fromJson(workshop));
     }
     return workshopList;
+  }
+
+  static Future<List<Review>> getReviews(String workshopId, BuildContext context) async {
+    String? jwt = Provider.of<JWTProvider>(context, listen: false).jwt;
+    List<Review> reviews = [];
+    if (jwt == null) {
+      return LocalDataController.readJWT().then((key) async {
+        if (key == null) {
+          AuthController.logout(context);
+          return [];
+        } else {
+          jwt = key;
+          return http.get(Uri.parse('$mainURL/review/workshopId/$workshopId'), headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': key
+          }).then((response) {
+            reviews = (json.decode(response.body)['result'] as List).map((review) => Review.fromJson(review)).toList();
+            return reviews;
+          });
+        }
+      });
+    } else {
+      return http.get(Uri.parse('$mainURL/review/workshopId/$workshopId'), headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': jwt
+      }).then((response) {
+        reviews = (json.decode(response.body)['result'] as List).map((review) => Review.fromJson(review)).toList();
+        return reviews;
+      });
+    }
+  }
+
+  static void sendReview(String comment, int rate, int workshopId, BuildContext context) async {
+    return LocalDataController.readJWT().then((value) async {
+      if (value == null) {
+        AuthController.logout(context);
+      } else {
+        Map data = {"comment": comment, "rate": rate, "workshopId": workshopId};
+        var body = jsonEncode(data);
+        try {
+          var response = await http.post(Uri.parse('$mainURL/review'),
+              headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', 'Authorization': value},
+              body: body);
+          var decodedData = jsonDecode(response.body);
+          if (response.statusCode == 200) {
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => const CustomDialog(
+                title: "Success",
+                text: "We got your review, thanks!",
+              ),
+            );
+          } else {
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => CustomDialog(
+                title: "Error",
+                text: decodedData['message'] ?? "error",
+              ),
+            );
+          }
+        } catch (e) {
+          throw e.toString();
+        }
+      }
+    });
+  }
+
+  static Future<List<String>> getProfileData(BuildContext context) async {
+    String? jwt = Provider.of<JWTProvider>(context, listen: false).jwt;
+    List<String> data = [];
+    if (jwt == null) {
+      return LocalDataController.readJWT().then((key) async {
+        if (key == null) {
+          AuthController.logout(context);
+          return [];
+        } else {
+          jwt = key;
+          return http.get(Uri.parse('$mainURL/customer/id'), headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': key
+          }).then((response) {
+            data = [json.decode(response.body)['result']['name'], json.decode(response.body)['result']['photo']];
+            return data;
+          });
+        }
+      });
+    } else {
+      return http.get(Uri.parse('$mainURL/customer/id'), headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': jwt
+      }).then((response) {
+        data = [json.decode(response.body)['result']['name'], json.decode(response.body)['result']['photo']];
+        return data;
+      });
+    }
+  }
+
+  static Future<http.StreamedResponse> upload(String name, File imageFile, String token) async {
+    // open a bytestream
+    // get file length
+    var length = await imageFile.length();
+
+    // string to uri
+    var uri = Uri.parse("$mainURL/customer");
+
+    // create multipart request
+    var request = http.MultipartRequest("PUT", uri)
+      ..fields["name"] = name
+      ..fields["photo"] = "photo";
+
+    // multipart that takes file
+    var multipartFile = http.MultipartFile('image', imageFile.readAsBytes().asStream(), imageFile.lengthSync(),
+        filename: basename(imageFile.path)); //try image instead of file
+
+    // add file to multipart
+
+    request.files.add(multipartFile);
+
+    request.headers['Authorization'] = token;
+
+    // send
+    var response = await request.send();
+
+    // listen for response
+    response.stream.transform(utf8.decoder).listen((value) {
+      print(value);
+    });
+    return response;
+  }
+
+  static Future<String> sendReservationRequest(BuildContext context, int id) async {
+    String? jwt = Provider.of<JWTProvider>(context, listen: false).jwt;
+    List<String> data = [];
+    if (jwt == null) {
+      return LocalDataController.readJWT().then((key) async {
+        if (key == null) {
+          AuthController.logout(context);
+          return "x";
+        } else {
+          jwt = key;
+          Map data = {"date": "12-12-2024", "workshopId": id};
+          final body = jsonEncode(data);
+          return http
+              .post(Uri.parse('$mainURL/reservation'),
+                  headers: <String, String>{
+                    'Content-Type': 'application/json; charset=UTF-8',
+                    'Authorization': key,
+                  },
+                  body: body)
+              .then(
+            (response) {
+              print(json.decode(response.body));
+              if (json.decode(response.body)["type"] == "Success") {
+                return "y";
+              } else {
+                return "x";
+              }
+            },
+          );
+        }
+      });
+    } else {
+      Map data = {"date": "12-12-2024", "workshopId": id};
+      final body = jsonEncode(data);
+      return http
+          .post(Uri.parse('$mainURL/reservation'),
+              headers: <String, String>{
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Authorization': jwt,
+              },
+              body: body)
+          .then(
+        (response) {
+          print(json.decode(response.body));
+          if (json.decode(response.body)["type"] == "Success") {
+            return "y";
+          } else {
+            return "x";
+          }
+        },
+      );
+    }
   }
 }

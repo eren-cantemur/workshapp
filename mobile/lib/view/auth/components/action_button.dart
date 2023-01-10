@@ -5,7 +5,7 @@ class AuthButton extends StatelessWidget {
   AuthButton({Key? key, required this.title, required this.nextPageId, this.givenColor, this.function})
       : super(key: key);
   final String title;
-  final String nextPageId;
+  String nextPageId;
   Color? givenColor;
   Function? function;
 
