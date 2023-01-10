@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/controller/auth_controller.dart';
+import 'package:mobile/controller/local_data_controller.dart';
 import 'package:mobile/controller/networking_controller.dart';
 import 'package:mobile/controller/providers/reservations_data_provider.dart';
 import 'package:mobile/view/profile/reservations_list.dart';
@@ -70,7 +72,7 @@ class _ProfileState extends State<Profile> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Divider(
+                    const Divider(
                       thickness: 1,
                     ),
                     const SizedBox(
@@ -90,7 +92,24 @@ class _ProfileState extends State<Profile> {
                         ),
                       ],
                     ),
-                    ReservationList(),
+                    const ReservationList(),
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            LocalDataController.deleteJWT();
+                            AuthController.logout(context);
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.all(15.0),
+                            child: Text(
+                              "Logout",
+                              style: TextStyle(color: Colors.red, fontSize: 20),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
                   ]),
                 ),
               );

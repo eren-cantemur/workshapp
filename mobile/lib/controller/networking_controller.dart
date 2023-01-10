@@ -244,10 +244,10 @@ class NetworkController {
     var length = await imageFile.length();
 
     // string to uri
-    var uri = Uri.parse("$mainURL/protected/savephoto");
+    var uri = Uri.parse("$mainURL/customer");
 
     // create multipart request
-    var request = http.MultipartRequest("POST", uri)
+    var request = http.MultipartRequest("PUT", uri)
       ..fields["name"] = name
       ..fields["photo"] = "photo";
 
