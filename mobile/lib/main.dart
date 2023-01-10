@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           primaryColor: const Color.fromARGB(253, 13, 152, 106),
           scaffoldBackgroundColor: const Color.fromARGB(253, 246, 246, 246),
         ),
-        initialRoute: SessionControlPage.id,
+        initialRoute: WelcomePage.id,
         routes: {
           SessionControlPage.id: (context) => const SessionControlPage(),
           WelcomePage.id: (context) => const WelcomePage(),

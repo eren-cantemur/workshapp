@@ -13,9 +13,7 @@ import '../view/auth/components/custom_dialogue.dart';
 import 'local_data_controller.dart';
 
 class NetworkController {
-  static String mainURL = "http://3.71.185.59:8080";
-  static String tempToken =
-      "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwNzQsInJvbGUiOiJ3b3Jrc2hvcE1hbmFnZXIiLCJyb2xlSWQiOjQzNCwiaWF0IjoxNjcyNTczNzg4LCJleHAiOjE2NzM3ODMzODh9.xReZ7nLzuMb0H_0vwTo8MbeUyr0cWVY5uzTAaWYcjPmnrj8pY2kSZsElfljKbvVbcavFqXNQ-_VW7se9nuX16K5RdsFdgDNbsZ4gw5b69bdvtLl4QbpZqc2DYgKmgGsFhfeOZxh_I_eIHqnksacDrmRl4Nzm_oCALMLzqTOy0bXWqOC1f90DMeqDgME0b6jbEaMRE7cWuL2ZkcVxiQD5w37dD6_Owqgl6Nr1GASr3RZqloQyvktx-uzswXLGOGJNtdLvQBlEr-BYcagVMZXFwMu5D-K0-HdohK5pBmZhwn2dZUe-r4H45QCrbZyePS_zUxcI1BJBaVeIVM8Xd56sbEkU48nkmI86eOvq1eW01LiSAXnqn7jxfcr7iYHTnvuU5UxAmTfi5XjiT4eS0hvB7wy7Gm_KRu_8r84HnDWNEP3ZwbCsCCO5bN6MBO5NuaofQRNOzf2D86iCApdVHIPKp4PjxEAWizKbmFg2PTXSJTC4dcPQs5tx1nkuM9RRP1ivXnvwhl-DwyyBV18g4WWH794dJa2a_Q_wJ9lvURGA-tKVHRHpf0b_OjlmRNgLhrCRvu1Qts8b9C-yrjleetY4JvrCY7ycBK3XGKw3y_KV552nxi0csjsEAZWNGBeCArHU6vTVrMYnpyEumDyLYJ2h1DTndXmLbBu2E8hdqFW-R5k";
+  static String mainURL = "http://54.93.227.240:8080";
 
   static Future<String> login(String email, String password) async {
     Map data = {"email": email, "password": password, "role": "customer"};
@@ -134,8 +132,10 @@ class NetworkController {
   }
 
   static List<Workshop> parseWorkshops(String responseBody) {
+    print(responseBody);
     final decodedData = jsonDecode(responseBody);
     final workshops = decodedData['result'];
+    print(workshops);
     List<Workshop> workshopList = [];
     for (var workshop in workshops) {
       workshopList.add(Workshop.fromJson(workshop));
@@ -223,6 +223,7 @@ class NetworkController {
             'Content-Type': 'application/json; charset=UTF-8',
             'Authorization': key
           }).then((response) {
+            print(response.body);
             data = [json.decode(response.body)['result']['name'], json.decode(response.body)['result']['photo']];
             return data;
           });
@@ -233,6 +234,7 @@ class NetworkController {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': jwt
       }).then((response) {
+        print(response.body);
         data = [json.decode(response.body)['result']['name'], json.decode(response.body)['result']['photo']];
         return data;
       });

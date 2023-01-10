@@ -78,8 +78,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     title: "Register",
                     nextPageId: "notyet",
                     function: () {
-                      authController.register(
-                          _mailTextFieldController.value.text, _mailTextFieldController.value.text, context);
+                      final bool emailValid =
+                          RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              .hasMatch(_mailTextFieldController.value.text);
+                      if (emailValid) {
+                      } else {
+                        authController.register(
+                            _mailTextFieldController.value.text, _mailTextFieldController.value.text, context);
+                      }
                     },
                   ),
                 ),

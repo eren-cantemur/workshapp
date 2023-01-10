@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/controller/auth_controller.dart';
 import 'package:mobile/controller/local_data_controller.dart';
 import 'package:mobile/controller/networking_controller.dart';
+import 'package:mobile/controller/providers/jwt_provider.dart';
 import 'package:mobile/controller/providers/reservations_data_provider.dart';
 import 'package:mobile/view/profile/reservations_list.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,13 @@ class _ProfileState extends State<Profile> {
     // TODO: implement initState
     super.initState();
     profileData = NetworkController.getProfileData(context);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    print("disposed");
   }
 
   @override
@@ -98,6 +106,7 @@ class _ProfileState extends State<Profile> {
                         InkWell(
                           onTap: () {
                             LocalDataController.deleteJWT();
+                            Provider.of<JWTProvider>(context, listen: false).jwt = null;
                             AuthController.logout(context);
                           },
                           child: const Padding(
