@@ -13,6 +13,13 @@ class ReservationList extends StatefulWidget {
 
 class _ReservationListState extends State<ReservationList> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<ReservationsDataProvider>(context, listen: false).updateData(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<ReservationsDataProvider>(builder: (context, dataProvider, child) {
       return dataProvider.data.isNotEmpty

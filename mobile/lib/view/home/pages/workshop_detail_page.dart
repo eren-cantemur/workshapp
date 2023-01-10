@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/controller/networking_controller.dart';
 import 'package:mobile/controller/providers/feed_data_provider.dart';
 import 'package:mobile/controller/providers/reservations_data_provider.dart';
 import 'package:mobile/view/auth/components/action_button.dart';
@@ -141,6 +142,7 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage> {
                                 signed = true;
                               });
                             },
+                            id: widget.workshop.id,
                           ),
                   ],
                 ),
@@ -178,12 +180,10 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage> {
 }
 
 class SignUpButton extends StatelessWidget {
-  const SignUpButton({
-    Key? key,
-    required this.toDo,
-  }) : super(key: key);
+  const SignUpButton({Key? key, required this.toDo, required this.id}) : super(key: key);
 
   final Function toDo;
+  final int id;
 
   @override
   Widget build(BuildContext context) {
@@ -201,6 +201,7 @@ class SignUpButton extends StatelessWidget {
                   "You request will send to workshop owner. When it is accepted, you will be added for this workshop by owner.",
               function: () {
                 toDo.call();
+                NetworkController.sendReservationRequest(context, id);
               },
             ),
           );

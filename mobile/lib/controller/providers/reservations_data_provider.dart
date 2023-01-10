@@ -26,6 +26,7 @@ class ReservationsDataProvider extends ChangeNotifier {
 
   Future<List<Workshop>> getWorkshops(BuildContext context) {
     if (Provider.of<JWTProvider>(context, listen: false).jwt != null) {
+      print("test");
       return NetworkController.getReservations(Provider.of<JWTProvider>(context, listen: false).jwt!, context)
           .then((value) => value);
     } else {
