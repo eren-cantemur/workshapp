@@ -25,7 +25,7 @@ class _WelcomePageState extends State<WelcomePage> {
           ),
           Expanded(
             flex: 38,
-            child: Center(child: Image.asset("logo.png")),
+            child: Center(child: Image.asset("assets/logo.png")),
           ),
           const Expanded(
             flex: 10,
