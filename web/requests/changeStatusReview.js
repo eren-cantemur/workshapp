@@ -1,4 +1,4 @@
-import { getRequest } from ".";
+import { putRequest } from ".";
 export default async function changeStatusReview(id, isApproved) {
 
   const response = await putRequest("/review/changeStatus", {id, isApproved});

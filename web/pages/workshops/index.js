@@ -8,7 +8,6 @@ export async function getServerSideProps(context) {
   const cookies = context.req.cookies;
 
   const { result } = await getAllWorkshops(cookies[COOKIENAME]);
-  console.log("adsad", result);
   return {
     props: {
       workshopList: result,

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import changeStatusWorkshop from "../../requests/changeStatusWorkshop";
 
 export default function WorkshopsTable({ workshopList }) {
   return (
@@ -90,7 +91,7 @@ export default function WorkshopsTable({ workshopList }) {
                   Status
                 </th>
                 <th scope="col" class="py-3 px-6">
-                  Action
+                  Actions
                 </th>
               </tr>
             </thead>
@@ -124,14 +125,21 @@ export default function WorkshopsTable({ workshopList }) {
                   </div>
                 </td>
                 <td class="py-4 px-6">
-                  <a
+                  {/* <a
                     href="#"
                     type="button"
                     data-modal-toggle="editWorkshopModal"
                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
-                    Edit workshop
-                  </a>
+                    Edit
+                  </a> */}
+                  <button
+                    type="button"
+                    class={(workshop.isApproved == 1  ? "font-medium text-red-600 dark:text-blue-500 hover:underline" : "font-medium text-green-600 dark:text-blue-500 hover:underline")}
+                    onClick={() => {changeStatusWorkshop(workshop.id, 1 - workshop.isApproved), window.location.href = "/workshops"}}
+                  >
+                    {workshop.isApproved == 1  ? "Deactivate" : "Activate"}
+                  </button>
                 </td>
               </tr>
               ))}

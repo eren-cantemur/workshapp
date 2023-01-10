@@ -26,10 +26,6 @@ async function postRequest(url, body) {
   return response;
 }
 
-module.exports = {
-  postRequest,
-};
-
 async function putRequest(url, body) {
   const response = await fetch(APIURL + url, {
     method: "PUT",
@@ -37,9 +33,9 @@ async function putRequest(url, body) {
       "Content-Type": "application/json",
       "Authorization": "Bearer " + Cookies.get(COOKIENAME),
     },
-    body: body,
+    body: JSON.stringify(body),
   });
-
+  console.log("\n\n\n\nasdasdasd\n" , response, body)
   return response;
 }
 

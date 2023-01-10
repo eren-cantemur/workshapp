@@ -69,7 +69,7 @@ router.put("/", verifyRole("review", 5), async (req, res) => {
 })
 router.put("/changeStatus", verifyRole("review", 7), async (req, res) => {
   const { id, isApproved} = req.body
-  if (id && isApproved) {
+  if (id && (isApproved == 1 || isApproved == 0)) {
     const response = await reviewService.changeStatus(id, isApproved)
     res.status(response.type === "Error" ? 400 : 200).send(response);
   } else {
