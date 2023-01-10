@@ -81,23 +81,11 @@ class AuthController extends ChangeNotifier {
 
   static void navigateToNextPage(String nextPageId, BuildContext context) {
     Navigator.pushNamed(context, nextPageId);
-    //todo pop old page
   }
 
   Future<void> saveNameAndPhoto(String name, File? photo, context) async {
     String? jwt = await LocalDataController.readJWT();
     final response = await NetworkController.upload(name, photo!, jwt!);
     Navigator.of(context).pushNamedAndRemoveUntil(AppBottomController.id, (Route<dynamic> route) => false);
-
-    //todo send photo and name
-    //todo navigate to feed page if success.
-    //todo show pop up if fail.
   }
-
-  // static Future<void> saveLocationData(String city, String district) async {
-  //   String jwt = "123"; //get from provider
-  //   //todo send location data
-  //   //todo navigate if success
-  //   //todo pop up if fail
-  // }
 }
