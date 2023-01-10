@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/controller/networking_controller.dart';
 import 'package:mobile/controller/providers/reservations_data_provider.dart';
 import 'package:mobile/view/profile/reservations_list.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,7 @@ class _ProfileState extends State<Profile> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    profileData = [];
+    profileData = NetworkController.getProfileData(context);
   }
 
   @override
@@ -42,24 +43,26 @@ class _ProfileState extends State<Profile> {
                 body: SingleChildScrollView(
                   child: Column(children: [
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: EdgeInsets.all(10.0),
                       child: Container(
                         width: 150.0,
                         height: 150.0,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
                             fit: BoxFit.fill,
-                            image: NetworkImage(
-                              'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Robert_Downey%2C_Jr._2012.jpg/220px-Robert_Downey%2C_Jr._2012.jpg',
-                            ),
+                            image: snapshot.data![1] == ""
+                                ? const AssetImage("assets/logo.png") as ImageProvider
+                                : NetworkImage(
+                                    snapshot.data![1],
+                                  ),
                           ),
                         ),
                       ),
                     ),
-                    const Text(
-                      'Tony Stark',
-                      style: TextStyle(
+                    Text(
+                      snapshot.data![0],
+                      style: const TextStyle(
                         fontSize: 24.0,
                         fontWeight: FontWeight.bold,
                       ),

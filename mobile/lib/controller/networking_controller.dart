@@ -207,7 +207,38 @@ class NetworkController {
     });
   }
 
-  static Future<http.StreamedResponse> upload(File imageFile, String token) async {
+  static Future<List<String>> getProfileData(BuildContext context) async {
+    String? jwt = Provider.of<JWTProvider>(context, listen: false).jwt;
+    List<String> data = [];
+    if (jwt == null) {
+      return LocalDataController.readJWT().then((key) async {
+        if (key == null) {
+          AuthController.logout(context);
+          return [];
+        } else {
+          jwt = key;
+          return http.get(Uri.parse('$mainURL/customer/id'), headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': key
+          }).then((response) {
+            data = [json.decode(response.body)['result']['name'], json.decode(response.body)['result']['photo']];
+            // data = (json.decode(response.body)['result'] as List).map((review) => Review.fromJson(review)).toList();
+            return data;
+          });
+        }
+      });
+    } else {
+      return http.get(Uri.parse('$mainURL/customer/id'), headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': jwt
+      }).then((response) {
+        data = [json.decode(response.body)['result']['name'], json.decode(response.body)['result']['photo']];
+        return data;
+      });
+    }
+  }
+
+  static Future<http.StreamedResponse> upload(String name, File imageFile, String token) async {
     // open a bytestream
     // get file length
     var length = await imageFile.length();
@@ -216,14 +247,18 @@ class NetworkController {
     var uri = Uri.parse("$mainURL/protected/savephoto");
 
     // create multipart request
-    var request = http.MultipartRequest("POST", uri);
+    var request = http.MultipartRequest("POST", uri)
+      ..fields["name"] = name
+      ..fields["photo"] = "photo";
 
     // multipart that takes file
-    var multipartFile = http.MultipartFile('file', imageFile.readAsBytes().asStream(), imageFile.lengthSync(),
+    var multipartFile = http.MultipartFile('image', imageFile.readAsBytes().asStream(), imageFile.lengthSync(),
         filename: basename(imageFile.path)); //try image instead of file
 
     // add file to multipart
+
     request.files.add(multipartFile);
+
     request.headers['Authorization'] = token;
 
     // send

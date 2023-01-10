@@ -85,7 +85,10 @@ class AuthController extends ChangeNotifier {
   }
 
   Future<void> saveNameAndPhoto(String name, File? photo, context) async {
+    String? jwt = await LocalDataController.readJWT();
+    final response = NetworkController.upload(name, photo!, jwt!);
     Navigator.of(context).pushNamedAndRemoveUntil(AppBottomController.id, (Route<dynamic> route) => false);
+
     //todo send photo and name
     //todo navigate to feed page if success.
     //todo show pop up if fail.

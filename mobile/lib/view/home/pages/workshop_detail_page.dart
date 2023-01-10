@@ -48,7 +48,7 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage> {
           backgroundColor: scaffoldColor,
           title: Text(
             widget.workshop.name,
-            style: TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.black),
           ),
           iconTheme: const IconThemeData(
             color: Colors.black, //change your color here
@@ -72,15 +72,27 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          widget.workshop.name,
-                          style: theme.textTheme.headline5,
+                        Expanded(
+                          child: Text(
+                            widget.workshop.name,
+                            style: theme.textTheme.headline5,
+                            overflow: TextOverflow.clip,
+                            maxLines: 2,
+                          ),
                         ),
-                        Text(
-                          widget.workshop.owner,
-                          style: theme.textTheme.headline5,
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                widget.workshop.owner,
+                                style: theme.textTheme.headline5,
+                                overflow: TextOverflow.clip,
+                                maxLines: 1,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
