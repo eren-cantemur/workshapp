@@ -127,6 +127,7 @@ class _WorkshopDetailPageState extends State<WorkshopDetailPage> {
                     Text(
                       widget.workshop.description,
                       style: theme.textTheme.bodyText1?.copyWith(fontSize: 17),
+                      maxLines: 2,
                     ),
                     const SizedBox(height: 16),
                     signed

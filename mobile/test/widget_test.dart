@@ -1,20 +1,13 @@
-import 'dart:math';
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart';
 import 'package:mobile/controller/local_data_controller.dart';
-import 'package:mobile/model/app_text_data.dart';
 import 'package:mobile/view/auth/components/action_button.dart';
 import 'package:mobile/view/auth/components/custom_dialogue.dart';
 import 'package:mobile/view/auth/components/custom_positioned_text.dart';
-
 import 'package:flutter/material.dart';
 import 'package:mobile/view/auth/components/search_bar_widget.dart';
 import 'package:mobile/view/auth/pages/register_page.dart';
-import 'package:mobile/view/auth/pages/welcome_page.dart';
 import 'package:mobile/view/home/components/featured_card.dart';
-import 'package:mobile/view/home/pages/home_page.dart';
 
 void main() {
   group('COMPONENT WIDGET UNIT TESTS', () {

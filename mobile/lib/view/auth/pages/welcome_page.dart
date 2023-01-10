@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile/view/auth/pages/login_page.dart';
 import 'package:mobile/view/auth/pages/register_page.dart';
 import '../components/action_button.dart';
-import 'package:mobile/model/paths.dart';
-import 'package:mobile/model/app_text_data.dart';
 import 'package:mobile/controller/auth_controller.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -27,7 +25,7 @@ class _WelcomePageState extends State<WelcomePage> {
           ),
           Expanded(
             flex: 38,
-            child: Center(child: Image.asset(Paths.logoPath)),
+            child: Center(child: Image.asset("logo.png")),
           ),
           const Expanded(
             flex: 10,
@@ -38,21 +36,21 @@ class _WelcomePageState extends State<WelcomePage> {
           Expanded(
             flex: 12,
             child: Column(
-              children: [
+              children: const [
                 Center(
                   child: Text(
-                    TextData.appName,
-                    style: const TextStyle(
+                    "WorkshApp",
+                    style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
                       color: Color.fromRGBO(0, 33, 64, 1),
                     ),
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 10,
                 ),
-                const Center(
+                Center(
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(70, 0, 70, 0),
                     child: Text(
