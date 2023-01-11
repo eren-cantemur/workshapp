@@ -103,13 +103,13 @@ export default function WorkshopsTable({ workshopList }) {
                   scope="row"
                   class="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap dark:text-white"
                 >
-                  {/* <Image
+                  <Image
                     width={600}
                     height={600}
                     class="w-10 h-10 rounded-full"
                     src={workshop.photo}
                     alt="Workshop Photo"
-                  /> */}
+                  />
                   <div class="pl-3">
                     <div class="text-base font-semibold">{workshop.name}</div>
                     <div class="font-normal text-gray-500">

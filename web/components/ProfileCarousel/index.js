@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function ProfileCarousel() {
+export default function ProfileCarousel({logo}) {
   return (
     <section class="bg-white dark:bg-gray-900">
       <div class="py-4 px-4 mx-auto max-w-2xl lg:py-8">
@@ -8,7 +8,7 @@ export default function ProfileCarousel() {
           <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
             <div class="hidden duration-700 ease-in-out" data-carousel-item>
               <Image
-                src="https://flowbite.com/docs/images/carousel/carousel-1.svg"
+                src={logo}
                 class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                 width={800}
                 height={800}
@@ -20,7 +20,7 @@ export default function ProfileCarousel() {
               data-carousel-item="active"
             >
               <Image
-                src="https://flowbite.com/docs/images/carousel/carousel-2.svg"
+                src={logo}
                 class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                 width={800}
                 height={800}
@@ -29,7 +29,7 @@ export default function ProfileCarousel() {
             </div>
             <div class="hidden duration-700 ease-in-out" data-carousel-item>
               <Image
-                src="https://flowbite.com/docs/images/carousel/carousel-3.svg"
+                src={logo}
                 class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                 width={800}
                 height={800}
@@ -38,7 +38,7 @@ export default function ProfileCarousel() {
             </div>
             <div class="hidden duration-700 ease-in-out" data-carousel-item>
               <Image
-                src="https://flowbite.com/docs/images/carousel/carousel-4.svg"
+                src={logo}
                 class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                 width={800}
                 height={800}
@@ -47,7 +47,7 @@ export default function ProfileCarousel() {
             </div>
             <div class="hidden duration-700 ease-in-out" data-carousel-item>
               <Image
-                src="https://flowbite.com/docs/images/carousel/carousel-5.svg"
+                src={logo}
                 class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                 width={800}
                 height={800}

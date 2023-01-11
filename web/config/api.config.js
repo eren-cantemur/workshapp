@@ -1,3 +1,3 @@
 module.exports = {
-    APIURL: "http://3.71.185.59:8080"
+    APIURL: "http://18.192.210.29:8080"
 }
