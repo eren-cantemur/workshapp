@@ -20,7 +20,9 @@ export default function Login({ isAdmin }) {
 
     if (result) {
       Cookie.set(COOKIENAME, result);
-
+      if (isAdmin) {
+        window.location.href = "/workshops";
+      }
       window.location.href = "/profile";
     }
   };
