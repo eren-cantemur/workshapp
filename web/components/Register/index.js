@@ -86,7 +86,7 @@ export default function Register() {
                   Confirm password
                 </label>
                 <input
-                  type="confirmPassword"
+                  type="Password"
                   name="confirmPassword"
                   id="confirmPassword"
                   placeholder="••••••••"

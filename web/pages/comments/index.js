@@ -7,6 +7,7 @@ import getAllReviews from "../../requests/getAllReviews";
 
 export async function getServerSideProps(context) {
   const cookies = context.req.cookies;
+  await new Promise((resolve) => setTimeout(resolve, 200));
 
   const { result } = await getAllReviews(cookies[COOKIENAME]);
   return {

@@ -11,12 +11,16 @@ export async function getServerSideProps(context) {
   const cookies = context.req.cookies;
 
   const { result } = await getProfileData(cookies[COOKIENAME]);
-  console.log(result[0]);
   var workshopList = await getAllWorkshops(cookies[COOKIENAME]);
-  for (let i = 0; i < workshopList.result.length; i++) {
-    if (workshopList.result[i].workshopManagerId != result[0].id) {
-      workshopList.result.splice(i, 1);
-      i--;
+  if (workshopList.result == null) {
+    workshopList.result = [];
+  }
+  else{
+    for (let i = 0; i < workshopList.result.length; i++) {
+      if (workshopList.result[i].workshopManagerId != result[0].id) {
+        workshopList.result.splice(i, 1);
+        i--;
+      }
     }
   }
   result[0].workshopList = workshopList.result;
