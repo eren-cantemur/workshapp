@@ -3,7 +3,6 @@ import 'package:mobile/controller/auth_controller.dart';
 import 'package:mobile/view/auth/pages/login_page.dart';
 import '../components/action_button.dart';
 import '../components/auth_input_field.dart';
-import 'package:mobile/model/paths.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -13,8 +12,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  TextEditingController _mailTextFieldController = TextEditingController();
-  TextEditingController _passwordTextFieldController = TextEditingController();
+  final TextEditingController _mailTextFieldController = TextEditingController();
+  final TextEditingController _passwordTextFieldController = TextEditingController();
   AuthController authController = AuthController();
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 Expanded(
                   flex: 37,
-                  child: Center(child: Image.asset(Paths.logoPath)),
+                  child: Center(child: Image.asset("assets/logo.png")),
                 ),
                 const Expanded(
                   flex: 7,
@@ -78,8 +77,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     title: "Register",
                     nextPageId: "notyet",
                     function: () {
-                      authController.register(
-                          _mailTextFieldController.value.text, _mailTextFieldController.value.text, context);
+                      final bool emailValid =
+                          RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              .hasMatch(_mailTextFieldController.value.text);
+                      if (emailValid) {
+                      } else {
+                        authController.register(
+                            _mailTextFieldController.value.text, _mailTextFieldController.value.text, context);
+                      }
                     },
                   ),
                 ),

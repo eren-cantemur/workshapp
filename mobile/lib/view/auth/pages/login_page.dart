@@ -3,7 +3,6 @@ import 'package:mobile/controller/auth_controller.dart';
 import 'package:mobile/view/auth/pages/register_page.dart';
 import '../components/auth_input_field.dart';
 import '../components/action_button.dart';
-import 'package:mobile/model/paths.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -35,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Expanded(
                   flex: 37,
-                  child: Center(child: Image.asset(Paths.logoPath)),
+                  child: Center(child: Image.asset("assets/logo.png")),
                 ),
                 const Expanded(
                   flex: 7,
