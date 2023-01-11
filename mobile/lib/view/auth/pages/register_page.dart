@@ -3,6 +3,7 @@ import 'package:mobile/controller/auth_controller.dart';
 import 'package:mobile/view/auth/pages/login_page.dart';
 import '../components/action_button.dart';
 import '../components/auth_input_field.dart';
+import '../components/custom_dialogue.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -81,9 +82,16 @@ class _RegisterPageState extends State<RegisterPage> {
                           RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                               .hasMatch(_mailTextFieldController.value.text);
                       if (emailValid) {
-                      } else {
                         authController.register(
                             _mailTextFieldController.value.text, _mailTextFieldController.value.text, context);
+                      } else {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => const CustomDialog(
+                            title: "Try again",
+                            text: "Please enter a valid e-mail.",
+                          ),
+                        );
                       }
                     },
                   ),
